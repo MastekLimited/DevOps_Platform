@@ -1,0 +1,1 @@
+docker run -p 8092:8092 --name project-assignment -h project-assignment -v /vshare/docker/config:/home/devops/config -v /vshare/Build/project-assignment-service/:/usr/share/ project-assignment
