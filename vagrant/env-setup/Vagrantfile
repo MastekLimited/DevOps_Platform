@@ -1,0 +1,61 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure(2) do |config|
+
+  config.vm.box = "vStone/centos-7.x-puppet.3.x"
+  config.vm.hostname = "elk-box"
+  config.vm.box_check_update = false
+  config.vm.network "private_network", ip: "192.168.50.4"
+  config.vm.synced_folder "../../", "/vshare/", create: true
+
+  config.vm.provision :shell, path: "/vshare/scripts/vm-initial-setup/basicInstallations.sh", privileged: true
+  config.vm.provision :shell, path: "/vshare/scripts/vm-initial-setup/createSharedDirectories.sh", privileged: true
+  
+  #OMD Files // copy
+  config.vm.provision "file", source: "/vshare/scripts/omd_seup/check_mk", destination:"/mnt/gluster/repo/check_mk"
+  config.vm.provision "file", source: "/vshare/scripts/omd_seup/dpkginstall.sh", destination:"/mnt/gluster/repo/dpkginstall.sh"
+  config.vm.provision "file", source: "/vshare/scripts/omd_seup/omdserversetuponcentos.sh", destination:"/mnt/gluster/repo/omdserversetuponcentos.sh"
+  config.vm.provision "file", source: "/vshare/scripts/omd_seup/omdserversetup.sh", destination:"/mnt/gluster/repo/omdserversetup.sh"
+  config.vm.provision "file", source: "/vshare/scripts/omd_seup/omdagentsetup.sh", destination:"/mnt/gluster/repo/omdagentsetup.sh"
+  
+  #OMD Files // execute
+  config.vm.provision :shell, path: "/vshare/scripts/omd_seup/omdserversetuponcentos.sh", privileged: true
+ 
+  #Database Files // copy
+  config.vm.provision "file", source: "/vshare/scripts/database-setup/changePassword.sh", destination:"/mnt/gluster/repo/changePassword.sh"
+  config.vm.provision "file", source: "/vshare/scripts/database-setup/databaseInstallation.sh", destination:"/mnt/gluster/repo/databaseInstallation.sh"
+  config.vm.provision "file", source: "/vshare/scripts/database-setup/pg_hba.conf", destination:"/mnt/gluster/repo/pg_hba.conf"
+  config.vm.provision "file", source: "/vshare/scripts/database-setup/postgresql.conf", destination:"/mnt/gluster/repo/postgresql.conf"
+  
+ #Database Files // execute
+  config.vm.provision :shell, path: "/vshare/scripts/database-setup/databaseInstallation.sh", privileged: false
+ 
+ 
+  #ELK-Setup
+  config.vm.provision "file", source: "/vshare/scripts/elk_setup/centos/01-lumberjack-input.conf", destination:"/mnt/gluster/repo/01-lumberjack-input.conf"
+  config.vm.provision "file", source: "/vshare/scripts/elk_setup/centos/10-syslog.conf", destination:"/mnt/gluster/repo/10-syslog.conf"
+  config.vm.provision "file", source: "/vshare/scripts/elk_setup/centos/30-lumberjack-output.conf", destination:"/mnt/gluster/repo/30-lumberjack-output.conf"
+  config.vm.provision "file", source: "/vshare/scripts/elk_setup/centos/dpkginstall.sh", destination:"/mnt/gluster/repo/dpkginstall.sh"
+  config.vm.provision "file", source: "/vshare/scripts/elk_setup/centos/elasticsearch.repo", destination:"/mnt/gluster/repo/elasticsearch.repo"
+  config.vm.provision "file", source: "/vshare/scripts/elk_setup/centos/elasticsearch.yml", destination:"/mnt/gluster/repo/elasticsearch.yml"
+  config.vm.provision "file", source: "/vshare/scripts/elk_setup/centos/elksetup.sh", destination:"/mnt/gluster/repo/elksetup.sh"
+  config.vm.provision "file", source: "/vshare/scripts/elk_setup/centos/elksetupupdate.sh", destination:"/mnt/gluster/repo/elksetupupdate.sh"
+  config.vm.provision "file", source: "/vshare/scripts/elk_setup/centos/kibana4.service", destination:"/mnt/gluster/repo/kibana4.service"
+  config.vm.provision "file", source: "/vshare/scripts/elk_setup/centos/logstash.repo", destination:"/mnt/gluster/repo/logstash.repo"
+  config.vm.provision "file", source: "/vshare/scripts/elk_setup/centos/logstash.sh", destination:"/mnt/gluster/repo/logstash.sh"
+  config.vm.provision "file", source: "/vshare/scripts/elk_setup/centos/logstash-forwarder.conf", destination:"/mnt/gluster/repo/logstash-forwarder.conf"
+  config.vm.provision "file", source: "/vshare/scripts/elk_setup/centos/logstash-forwarder.crt", destination:"/mnt/gluster/repo/logstash-forwarder.crt"
+  config.vm.provision "file", source: "/vshare/scripts/elk_setup/centos/logstash-forwarder.repo", destination:"/mnt/gluster/repo/logstash-forwarder.repo"
+  config.vm.provision "file", source: "/vshare/scripts/elk_setup/centos/logstash-forwarder.sh", destination:"/mnt/gluster/repo/logstash-forwarder.sh"
+  config.vm.provision "file", source: "/vshare/scripts/elk_setup/centos/logstash-forwarder-ubuntu.sh", destination:"/mnt/gluster/repo/logstash-forwarder-ubuntu.sh"
+  config.vm.provision "file", source: "/vshare/scripts/elk_setup/centos/openssl.cnf", destination:"/mnt/gluster/repo/openssl.cnf"
+  
+  #Database Files // execute
+  config.vm.provision :shell, path: "/vshare/scripts/elk_setup/centos/elksetup.sh", privileged: false
+  
+   #Docker Installation
+   config.vm.provision "shell", inline: "systemctl stop firewalld", privileged: true
+   config.vm.provision "shell", inline: "yum install -y docker", privileged: true
+  
+end
