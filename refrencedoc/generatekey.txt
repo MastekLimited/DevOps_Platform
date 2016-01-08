@@ -1,0 +1,11 @@
+[server-1]
+ssh-keygen -t rsa -b 4096 -C "parashar_govind"
+You just press Enter
+
+
+[server-2]
+Remote server
+sudo cp id_rsa.pub  /home/parashar_govind/.ssh/authorized_keys
+
+[server-1]
+ssh parashar_govind@[server-2]

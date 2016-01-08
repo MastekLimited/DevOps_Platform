@@ -1,0 +1,64 @@
+# Written by WATO
+# encoding: utf-8
+all_hosts += [
+  "ELK-VM|wan|cmk-agent|monitoring|tcp|wato|/" + FOLDER_PATH + "/",
+  "monitoring|cmk-agent|monitoring|lan|tcp|wato|/" + FOLDER_PATH + "/",
+  
+]
+# Explicit IP addresses
+ipaddresses.update({'ELK-VM': u'104.197.70.64', 'monitoring': u'127.0.0.1'})
+# Host attributes (needed for WATO)
+host_attributes.update({'ELK-VM': {'ipaddress': u'104.197.70.64', 'tag_networking': 'wan'}, 'monitoring': {'ipaddress': u'127.0.0.1'}})
+
+
+
+
+ 
+ 
+ /omd/sites/monitoring/etc/check_mk/conf.d/wato
+ sudo grep -rnw * -e "ELK"
+ 
+ cd /omd/versions/1.20/share/doc/check_mk/treasures
+ awk '$1=$1' OFS=, hosts.txt > hosts.csv
+ sudo su - monitoring
+ 
+ 
+ 
+ sudo systemctl stop firewalld
+ 
+ # Written by Multisite UserDB
+# encoding: utf-8
+contacts.update(
+{'omdadmin': {'alias': u'omdadmin',
+              'contactgroups': [],
+              'email': 'govind.parashar@mastek.com',
+              'host_notification_options': 'durfs',
+              'notification_method': 'email',
+              'notification_period': '24X7',
+              'notifications_enabled': False,
+              'pager': '',
+              'service_notification_options': 'wucrfs'}}
+
+			  
+			  contacts.mk 
+			  
+			  hosts.mk
+			  
+			  
+$scandir/tmp/tmphosts
+        while read host ip; do
+                # Insert into unassigned hosts.mk
+                echo " " &gt;&gt; $logfile 2&gt;&amp;1
+                echo "===================================== " &gt;&gt; $logfile 2&gt;&amp;1
+                echo " " &gt;&gt; $logfile 2&gt;&amp;1
+                echo "Adding $host to hosts.mk" &gt;&gt; $logfile 2&gt;&amp;1
+                sed -i.bak "/all_hosts/a \ \ \ \"$host\|cmk-agent\|prod\|lan\|tcp\|wato\|\/\"\ \+\ FOLDER_PATH\ \+ \"\/\"\," $checkmkhosts
+                sed -i.bak "/ipaddresses.update/a \ \ \'$host\'\:\ u\'$ip\'\," $checkmkhosts
+                #sed -i.bak "/host_attributes/a \ \'$host\'\:\ \{\'alias\'\:\ u\'$host\'\,\ \'ipaddress\'\:\ u\'$ip\'\}\," $checkmkhosts
+                sed -i.bak "/^host_attributes/{N;s/$/\n\ '$host\'\:\ \{\'alias\'\:\ u\'$host\'\,\ \'ipaddress\'\:\ u\'$ip\'\}\,/}" $checkmkhosts
+                check_mk -O &gt;&gt; $logfile 2&gt;&amp;1
+                check_mk -uI $host &gt;&gt; $logfile 2&gt;&amp;1
+                check_mk -O &gt;&gt; $logfile 2&gt;&amp;1
+                let COUNTER="COUNTER + 1"
+done
+			  
