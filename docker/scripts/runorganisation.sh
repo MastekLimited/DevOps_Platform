@@ -1,0 +1,1 @@
+docker run -p 8093:8093 -p 9093:6556 -h organisation-web -v /vshare/docker/config:/home/devops/config -v /vshare/Build/organisation-web/:/usr/share/ organisation-web
