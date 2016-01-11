@@ -20,16 +20,15 @@ yum -y install libmcrypt-2.5.7-1.2.el6.rf.x86_64.rpm
 yum -y install fping-3.10-1.el6.rf.x86_64.rpm
 yum -y install radiusclient-ng-0.5.6-5.el6.rf.x86_64.rpm
 yum -y install omd-1.20.rhel7.x86_64.rpm
-yum -y install check_mk-agent-1.2.4p5-1.noarch.rpm
 omd create monitoring
 omd start monitoring
 #SELinux on RHEL CentOS by default ships so that httpd processes cannot initiate outbound connections
 cd /usr/sbin
 setsebool -P httpd_can_network_connect 1
-
+yum -y install check_mk-agent-1.2.4p5-1.noarch.rpm
+#Install check mk agent
 chmod 777 /etc/xinetd.d
 cp /mnt/gluster/repo/check_mk_forserver  /etc/xinetd.d/check_mk
-service xinetd restart
 service xinetd restart
 chmod 777 /etc/snmp/snmpd.conf
 cp -R /mnt/gluster/repo/snmpd.conf /etc/snmp/snmpd.conf
