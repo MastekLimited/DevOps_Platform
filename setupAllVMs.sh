@@ -1,18 +1,18 @@
 #/bin/bash
-#TO DO 
-#received input env. name
-#get file ips from env file
+envname=env_inventory/$1/host_address.txt
+echo "Starting  Env.....$envname"
 startCleanVirtualBox() {	
 local VAGARANTFILE_PATH=$1
+local serverip=$2
+echo ">>>>>>>>>>>>>>>>>>$serverip"
 cd $VAGARANTFILE_PATH;
 echo "destroying the VM if already exists from location - "$VAGARANTFILE_PATH
 vagrant destroy -f;
 echo "Starting the VM at this location - "$VAGARANTFILE_PATH
-vagrant up;
-#JENKINS_IP=$1 vagrant up
+#vagrant up;
+SYS_IP=$2 vagrant up
 exitingFromThePassedFolder $VAGARANTFILE_PATH 
 }
-
 exitingFromThePassedFolder()
 {
 local path=$1
@@ -25,14 +25,22 @@ done
 $EXIT_STRING
 }
 
-startCleanVirtualBox vagrant/jenkins_sonar/ #192.168.51.104
-startCleanVirtualBox vagrant/elk/ #192.168.51.102
-startCleanVirtualBox vagrant/postgres/ #192.168.51.106
-startCleanVirtualBox vagrant/omd/  #192.168.51.105
-startCleanVirtualBox vagrant/docker/ #192.168.29.110
+declare -A IPMAP 
+while read -r line 
+do
+    name=$line
+	var=$(echo $name | awk -F"=" '{print $1,$2}')   
+	set -- $var
+	IPMAP[$1]=$2	 
+done < $envname
+echo "JENKINS SERVER :-  ${IPMAP["JENKINS_HOST_IP"]}"
+echo "ELK SERVER :- ${IPMAP["ELK_HOST_IP"]}"
+echo "POSTGRES SERVER :- ${IPMAP["POSTGRES_HOST_IP"]}"
+echo "OMD SERVER :- ${IPMAP["OMD_HOST_IP"]}"
+echo "DOCKER SERVER :- ${IPMAP["DOCKER_HOST_IP"]}"
 
-# Call startCleanVirtualBox vagrant/jenkins_sonar/ $JENKINS_IP
-
-#And use ENV['MY_VAR'] in recipe.
-#Add below line into vagrant file
- #config.vm.network  "public_network", bridge: 'eth1', ip: ENV['JENKINS_IP'] 
+startCleanVirtualBox vagrant/jenkins_sonar/ ${IPMAP["JENKINS_HOST_IP"]}
+startCleanVirtualBox vagrant/elk/  ${IPMAP["ELK_HOST_IP"]}
+startCleanVirtualBox vagrant/postgres/ ${IPMAP["POSTGRES_HOST_IP"]}
+startCleanVirtualBox vagrant/omd/  ${IPMAP["OMD_HOST_IP"]}
+startCleanVirtualBox vagrant/docker/ ${IPMAP["DOCKER_HOST_IP"]}"
