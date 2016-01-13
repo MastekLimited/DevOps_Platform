@@ -7,6 +7,10 @@ Vagrant.configure(2) do |config|
   config.vm.hostname = "prometheus-box"
   config.vm.box_check_update = false
   config.vm.network "private_network", ip: "192.168.51.112"
+  
+  config.vm.provider "virtualbox" do |vb|
+   	vb.gui = true
+  end
  
   config.vm.synced_folder "../../", "/vshare/", create: true
 
