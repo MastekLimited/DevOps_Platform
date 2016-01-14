@@ -34,6 +34,8 @@ Vagrant.configure(2) do |config|
   
   config.vm.provision "shell", inline: "cd /vshare/docker/ && ./startupScripts.sh", privileged: true
   
+  config.vm.provision "shell", inline: "chmod -R 777 /var/log", privileged: true
+  
   config.vm.provision "shell", inline: "cd /vshare/docker/ && ./runAllScripts.sh", privileged: true
   config.vm.provision "shell", inline: "systemctl stop firewalld", privileged: true
   config.vm.provision "shell", inline: "docker stop $(docker ps -a -q)", privileged: true
