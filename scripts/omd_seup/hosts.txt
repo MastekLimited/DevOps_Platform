@@ -1,5 +1,5 @@
 monitoring;monitoring;monitoring;127.0.0.1
-monitoring;ELK;ELK;192.168.51.102
-monitoring;jenkins_sonar;jenkins_sonar;192.168.51.104
-monitoring;DATABASE;DATABASE;192.168.51.106
-monitoring;RT-DOCKER;RT-DOCKER;192.168.29.110
+monitoring;ELK;ELK;172.16.72.246
+monitoring;jenkins_sonar;jenkins_sonar;172.16.72.241
+monitoring;DATABASE;DATABASE;172.16.72.242
+monitoring;RT-DOCKER;RT-DOCKER;172.16.72.247
