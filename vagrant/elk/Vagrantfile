@@ -7,7 +7,7 @@ Vagrant.configure(2) do |config|
   config.vm.hostname = "ELK-box"
   config.vm.box_check_update = false
   config.vm.network "private_network", ip: "192.168.51.102"
-  #config.vm.network  "public_network", bridge: 'eth1', ip: "172.16.72.246" 
+  #config.vm.network  "public_network", bridge: 'eth1', ip: ENV['SYS_IP'] 
    
    config.vm.provider "virtualbox" do |vb|
    	vb.gui = true
