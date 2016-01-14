@@ -39,8 +39,10 @@ echo "POSTGRES SERVER :- ${IPMAP["POSTGRES_HOST_IP"]}"
 echo "OMD SERVER :- ${IPMAP["OMD_HOST_IP"]}"
 echo "DOCKER SERVER :- ${IPMAP["DOCKER_HOST_IP"]}"
 
+find . -name "*.sh" -exec chmod +x {} \;
 startCleanVirtualBox vagrant/jenkins_sonar/ ${IPMAP["JENKINS_HOST_IP"]}
 startCleanVirtualBox vagrant/elk/  ${IPMAP["ELK_HOST_IP"]}
 startCleanVirtualBox vagrant/postgres/ ${IPMAP["POSTGRES_HOST_IP"]}
 startCleanVirtualBox vagrant/omd/  ${IPMAP["OMD_HOST_IP"]}
 startCleanVirtualBox vagrant/docker/ ${IPMAP["DOCKER_HOST_IP"]}"
+git reset --hard
