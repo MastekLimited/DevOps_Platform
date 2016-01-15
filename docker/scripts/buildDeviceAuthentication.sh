@@ -1,1 +1,1 @@
-docker build --no-cache -t emp roles/device-authentication-service
+docker build --no-cache -t deviceAuthentication roles/device-authentication-service
