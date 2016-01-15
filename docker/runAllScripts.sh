@@ -1,5 +1,5 @@
 #!/bin/sh
-stopContainerByName() {	
+stopContainerByName() {
 echo "Stoping all containers"
 docker stop $(docker ps -a -q)
 echo "Removing containers"
@@ -19,8 +19,8 @@ echo "runproject"
 ./scripts/runproject.sh &
 echo "runprojectAssignment"
 ./scripts/runprojectAssignment.sh &
-echo "runDeviceAuthentication"
-./scripts/runDeviceAuthentication.sh &
+echo "rundeviceAuthentication"
+./scripts/rundeviceAuthentication.sh &
 echo "runorganisation"
 ./scripts/runorganisation.sh &
 }
