@@ -39,6 +39,12 @@ echo "POSTGRES SERVER :- ${IPMAP["POSTGRES_HOST_IP"]}"
 echo "OMD SERVER :- ${IPMAP["OMD_HOST_IP"]}"
 echo "DOCKER SERVER :- ${IPMAP["DOCKER_HOST_IP"]}"
 
+#grep -r '&&JENKINS_HOST_IP&&' -l --null ./ | xargs -0 sed -i 's#${IPMAP["JENKINS_HOST_IP"]}#'${IPMAP["JENKINS_HOST_IP"]}'#g'
+#grep -r '&&ELK_HOST_IP&&' -l --null ./ | xargs -0 sed -i 's#${IPMAP["ELK_HOST_IP"]}#'${IPMAP["ELK_HOST_IP"]}'#g'
+#grep -r '&&POSTGRES_HOST_IP&&' -l --null . | xargs -0 sed -i 's#${IPMAP["POSTGRES_HOST_IP"]}#'${IPMAP["POSTGRES_HOST_IP"]}'#g'
+#grep -r '&&OMD_HOST_IP&&' -l --null ./ | xargs -0 sed -i 's#${IPMAP["OMD_HOST_IP"]}#'${IPMAP["OMD_HOST_IP"]}'#g'
+#grep -r '&&DOCKER_HOST_IP&&' -l --null ./ | xargs -0 sed -i 's#&&DOCKER_HOST_IP&&#'${IPMAP["DOCKER_HOST_IP"]}'#g'
+
 #find . -name "*.sh" -exec chmod +x {} \;
 startCleanVirtualBox vagrant/jenkins_sonar/ ${IPMAP["JENKINS_HOST_IP"]}
 startCleanVirtualBox vagrant/elk/  ${IPMAP["ELK_HOST_IP"]}
