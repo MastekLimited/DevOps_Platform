@@ -19,6 +19,8 @@ echo "runproject"
 ./scripts/runproject.sh &
 echo "runprojectAssignment"
 ./scripts/runprojectAssignment.sh &
+echo "runDeviceAuthentication"
+./scripts/runDeviceAuthentication.sh &
 echo "runorganisation"
 ./scripts/runorganisation.sh &
 }
