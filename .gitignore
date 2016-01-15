@@ -16,3 +16,4 @@
 /Build/project-assignment-service/.logstash-forwarder.new
 /Build/project-assignment-service/supervisord.log
 /docker/roles/base/logstash-forwarder.crt
+/.project
