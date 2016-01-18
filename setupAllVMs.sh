@@ -9,7 +9,7 @@ envfilename=env_inventory/$1/host_address.txt
 envname=$1
 networkScriptFileName="enp4s0"
 echo "Start building  environment of .....$envname"
-startCleanVirtualBox() {	
+startCleanVirtualBox() {
 local VAGARANTFILE_PATH=$1
 local serverip=$2
 cd $VAGARANTFILE_PATH;
@@ -18,7 +18,7 @@ vagrant destroy -f;
 echo "Starting the VM at this location - "$VAGARANTFILE_PATH
 #vagrant up;
 SYS_IP=$serverip  ENV_TYPE=$envname NET_CONFIG_FILE=$networkScriptFileName  vagrant up
-exitingFromThePassedFolder $VAGARANTFILE_PATH 
+exitingFromThePassedFolder $VAGARANTFILE_PATH
 }
 exitingFromThePassedFolder()
 {
@@ -32,13 +32,13 @@ done
 $EXIT_STRING
 }
 
-declare -A IPMAP 
-while read -r line 
+declare -A IPMAP
+while read -r line
 do
     name=$line
-	var=$(echo $name | awk -F"=" '{print $1,$2}')   
+	var=$(echo $name | awk -F"=" '{print $1,$2}')
 	set -- $var
-	IPMAP[$1]=$2	 
+	IPMAP[$1]=$2
 done < $envfilename
 echo "JENKINS SERVER :-  ${IPMAP["JENKINS_HOST_IP"]}"
 echo "ELK SERVER :- ${IPMAP["ELK_HOST_IP"]}"
