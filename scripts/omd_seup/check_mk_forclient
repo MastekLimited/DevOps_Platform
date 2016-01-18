@@ -39,7 +39,7 @@ service check_mk
 
 	# configure the IP address(es) of your Nagios server here:
 	#only_from      = 0.0.0.0
-	# 172.16.72.243
+	# &&OMD_HOST_IP&&
 	# Don't be too verbose. Don't log every check. This might be
 	# commented out for debugging. If this option is commented out
 	# the default options will be used for this service.
