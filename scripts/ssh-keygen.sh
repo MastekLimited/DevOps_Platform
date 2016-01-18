@@ -14,7 +14,7 @@
 #
 ###########################################################
 
-SSHSERV=vagrant@&&DOCKER_HOST_IP&&
+SSHSERV=vagrant@172.16.72.247
 SSHPORT=22
 SSHDIR=~/.ssh
 SSHDIR_REMOTE=.ssh
