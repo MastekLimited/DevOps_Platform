@@ -2,45 +2,49 @@
 # vi: set ft=ruby :
 
 Vagrant.configure(2) do |config|
-
-
+  
+ 
   config.vm.box = "vStone/centos-7.x-puppet.3.x"
   config.vm.hostname = "Jenkins-box"
   config.vm.box_check_update = false
-  #config.vm.network "private_network", ip: "192.168.51.104"
- config.vm.network  "public_network", bridge: 'enp4s0', ip: ENV['SYS_IP']
+if ENV['ENV_TYPE'] != "local"
+	config.vm.network  "public_network", bridge: ENV['NET_CONFIG_FILE'], ip: ENV['SYS_IP']
+else
+	config.vm.network "private_network", ip: ENV['SYS_IP']
+end
+ 
   config.vm.synced_folder "../../", "/vshare/", create: true
-
+  
   config.vm.provider "virtualbox" do |vb|
     vb.memory = "2048"
 	vb.gui = true
     vb.cpus = "1"
   end
-
+  
   config.vm.provision :"shell", inline: "/vshare/scripts/vm-initial-setup/basicInstallations.sh", privileged: true
-
+  
   config.vm.provision :"shell", inline: "/vshare/scripts/vm-initial-setup/createSharedDirectories.sh", privileged: true
-
+  
   config.vm.provision "shell", inline: "cp -R /vshare/scripts/jenkins-setup/* /mnt/gluster/repo/", privileged: true
-
+  
   config.vm.provision :"shell", inline: "/vshare/scripts/jenkins-setup/jenkinssetup_centos.sh", privileged: true
-
+  
   config.vm.provision "shell", inline: "cp /vshare/scripts/sonar-setup/* /mnt/gluster/repo/", privileged: true
-
+  
   config.vm.provision :"shell", inline: "/vshare/scripts/sonar-setup/sonarsetup.sh", privileged: true
-
+  
   config.vm.provision :"shell", inline: "/vshare/scripts/jenkins-setup/createjob.sh DevOps_Development", privileged: true
-
+ 
   config.vm.provision "shell", inline: "cp /vshare/scripts/maven_setup/* /mnt/gluster/repo/", privileged: true
-
+  
   config.vm.provision "shell", inline: "cp /vshare/scripts/omd_seup/check_mk_forclient /mnt/gluster/repo/", privileged: true
-
+  
   config.vm.provision :"shell", inline: "/vshare/scripts/omd_seup/omdagentsetuponcentos.sh", privileged: true
-
+  
   config.vm.provision :"shell", inline: "/vshare/scripts/maven_setup/mavensetup.sh", privileged: true
-
+  
   config.vm.provision :"shell", inline: "/mnt/gluster/repo/sshkeygenwithoutprompt.sh", privileged: true
-
+  
   config.vm.provision "shell", inline: "systemctl stop firewalld", privileged: true
-
+ 
 end
