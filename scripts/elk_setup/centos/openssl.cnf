@@ -225,7 +225,7 @@ keyUsage = nonRepudiation, digitalSignature, keyEncipherment
 
 
 #substituting in the Logstash Server's private IP address
-subjectAltName = IP: 172.16.72.246
+subjectAltName = IP: &&ELK_HOST_IP&&
 
 # Extensions for a typical CA
 
