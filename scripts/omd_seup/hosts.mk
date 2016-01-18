@@ -9,23 +9,23 @@ all_hosts += [
 ]
 
 # Explicit IP addresses
-ipaddresses.update({'EMP': u'172.16.72.247',
+ipaddresses.update({'EMP': u'&&DOCKER_HOST_IP&&',
  'OMD_SERVER': u'127.0.0.1',
- 'PROJECT': u'172.16.72.247',
- 'WEB': u'172.16.72.247'})
+ 'PROJECT': u'&&DOCKER_HOST_IP&&',
+ 'WEB': u'&&DOCKER_HOST_IP&&'})
 
 
 # Host attributes (needed for WATO)
 host_attributes.update(
-{'EMP': {'ipaddress': u'172.16.72.247',
+{'EMP': {'ipaddress': u'&&DOCKER_HOST_IP&&',
          'tag_agent': 'cmk-agent',
          'tag_networking': 'wan'},
  'OMD_SERVER': {'ipaddress': u'127.0.0.1',
                 'tag_agent': 'cmk-agent',
                 'tag_networking': 'wan'},
- 'PROJECT': {'ipaddress': u'172.16.72.247',
+ 'PROJECT': {'ipaddress': u'&&DOCKER_HOST_IP&&',
              'tag_agent': 'cmk-agent',
              'tag_networking': 'wan'},
- 'WEB': {'ipaddress': u'172.16.72.247',
+ 'WEB': {'ipaddress': u'&&DOCKER_HOST_IP&&',
          'tag_agent': 'cmk-agent',
          'tag_networking': 'wan'}})
