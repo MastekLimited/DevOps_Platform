@@ -3,7 +3,7 @@
   <hostConfigurations>
     <jenkins.plugins.publish__over__ssh.BapSshHostConfiguration>
       <name>Docker</name>
-      <hostname>172.16.72.247</hostname>
+      <hostname>&&DOCKER_HOST_IP&&</hostname>
       <username>vagrant</username>
       <secretPassword>IomeH1c8y0cFNzAI6dQcEQ==</secretPassword>
       <remoteRootDir>/vshare/Build/</remoteRootDir>
