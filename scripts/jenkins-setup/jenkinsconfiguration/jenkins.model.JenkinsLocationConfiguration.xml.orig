@@ -1,0 +1,12 @@
+<<<<<<< HEAD
+<?xml version='1.0' encoding='UTF-8'?>
+<jenkins.model.JenkinsLocationConfiguration>
+  <adminAddress>DevOps Suite Application &lt;devops.suite@mastek&gt;</adminAddress>
+  <jenkinsUrl>http://172.16.72.241:8080/</jenkinsUrl>
+=======
+<?xml version='1.0' encoding='UTF-8'?>
+<jenkins.model.JenkinsLocationConfiguration>
+  <adminAddress>DevOps Suite Application &lt;devops.suite@mastek&gt;</adminAddress>
+  <jenkinsUrl>http://&&JENKINS_HOST_IP&&:8080/</jenkinsUrl>
+>>>>>>> 4fe69e857730fc6f4296f77dc01f6730ddc24590
+</jenkins.model.JenkinsLocationConfiguration>
