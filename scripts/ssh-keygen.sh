@@ -4,11 +4,11 @@
 # file: ssh-keygen.sh
 #
 # Use this simple shell script to generate your
-# public rsa/dsa (SSH) encryption keys, and then 
+# public rsa/dsa (SSH) encryption keys, and then
 # copy the public keys to the remote machine in which
 # you wish to create a 'trusted' authentication mechanism.
 #
-# The idea behind this authentication mechanism is to 
+# The idea behind this authentication mechanism is to
 # allow you to login to a remote ssh server without being
 # prompted for your password.
 #
@@ -117,15 +117,15 @@ case "$1" in
     '-g' | '--gen' | '-all')
         # verify the dependencies
         verify_deps
-        
-        generate_keys 
-        
+
+        generate_keys
+
         push_keys
-        
+
         echo "Attempting to connect to: $SSHSERV:$SSHPORT..."
-        
+
         sleep 5
-        
+
         ssh $SSHSERV -p $SSHPORT
     ;;
     *)

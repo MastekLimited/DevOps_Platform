@@ -1,27 +1,15 @@
 #/bin/bash
-networkScriptFileName="eth1"
 if [ -z "$1" ]
   then
 	echo "No argument supplied"
-    echo "Please provide the environment type i.e. local,dev,test etc."
+    echo "Please pass the environment type i.e. local,dev etc."
 	exit
-fi
-
-if [ "$1" != "local" ]
-  then  
-	if [ -z "$2" ]
-	then
-	echo "Please provide one more argument as ethernet file name as  i.e. eth1 OR enp3s0 OR enp4s0 etc."
-	exit
-	else
-	networkScriptFileName=$2
-	fi
 fi
 envfilename=env_inventory/$1/host_address.txt
 envname=$1
+networkScriptFileName="enp4s0"
 echo "Start building  environment of .....$envname"
-echo "ethernet file name .....$networkScriptFileName"
-startCleanVirtualBox() {	
+startCleanVirtualBox() {
 local VAGARANTFILE_PATH=$1
 local serverip=$2
 cd $VAGARANTFILE_PATH;
@@ -30,7 +18,7 @@ vagrant destroy -f;
 echo "Starting the VM at this location - "$VAGARANTFILE_PATH
 #vagrant up;
 SYS_IP=$serverip  ENV_TYPE=$envname NET_CONFIG_FILE=$networkScriptFileName  vagrant up
-exitingFromThePassedFolder $VAGARANTFILE_PATH 
+exitingFromThePassedFolder $VAGARANTFILE_PATH
 }
 exitingFromThePassedFolder()
 {
@@ -44,13 +32,13 @@ done
 $EXIT_STRING
 }
 
-declare -A IPMAP 
-while read -r line 
+declare -A IPMAP
+while read -r line
 do
     name=$line
-	var=$(echo $name | awk -F"=" '{print $1,$2}')   
+	var=$(echo $name | awk -F"=" '{print $1,$2}')
 	set -- $var
-	IPMAP[$1]=$2	 
+	IPMAP[$1]=$2
 done < $envfilename
 echo "JENKINS SERVER :-  ${IPMAP["JENKINS_HOST_IP"]}"
 echo "ELK SERVER :- ${IPMAP["ELK_HOST_IP"]}"
@@ -70,5 +58,5 @@ startCleanVirtualBox vagrant/elk/  ${IPMAP["ELK_HOST_IP"]}
 startCleanVirtualBox vagrant/postgres/ ${IPMAP["POSTGRES_HOST_IP"]}
 startCleanVirtualBox vagrant/omd/  ${IPMAP["OMD_HOST_IP"]}
 startCleanVirtualBox vagrant/docker/ ${IPMAP["DOCKER_HOST_IP"]}
-git reset --hard
+#git reset --hard
 #git clean -f
