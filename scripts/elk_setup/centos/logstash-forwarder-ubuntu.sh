@@ -16,13 +16,13 @@ else
 	echo ...........................Create CERTS_DIRECTORY............................
 	mkdir -p $TLS_DIR/certs
 	chmod 777 $TLS_DIR/certs
-	
+
 fi
 
 
 cp /mnt/gluster/repo/logstash-forwarder.crt /etc/pki/tls/certs/
 #OR
-#scp root@172.16.72.246:/mnt/gluster/repo/logstash-forwarder.crt /etc/pki/tls/certs/
+#scp root@&&ELK_HOST_IP&&:/mnt/gluster/repo/logstash-forwarder.crt /etc/pki/tls/certs/
 
 cp /mnt/gluster/repo/logstash-forwarder.conf /etc
 
