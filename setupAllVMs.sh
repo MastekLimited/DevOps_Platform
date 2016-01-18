@@ -1,14 +1,26 @@
 #/bin/bash
+networkScriptFileName="eth1"
 if [ -z "$1" ]
   then
 	echo "No argument supplied"
-    echo "Please pass the environment type i.e. local,dev etc."
+    echo "Please provide the environment type i.e. local,dev,test etc."
 	exit
+fi
+
+if [ "$1" != "local" ]
+  then
+	if [ -z "$2" ]
+	then
+	echo "Please provide one more argument as ethernet file name as  i.e. eth1 OR enp3s0 OR enp4s0 etc."
+	exit
+	else
+	networkScriptFileName=$2
+	fi
 fi
 envfilename=env_inventory/$1/host_address.txt
 envname=$1
-networkScriptFileName="enp4s0"
 echo "Start building  environment of .....$envname"
+echo "ethernet file name .....$networkScriptFileName"
 startCleanVirtualBox() {
 local VAGARANTFILE_PATH=$1
 local serverip=$2
@@ -58,5 +70,5 @@ startCleanVirtualBox vagrant/elk/  ${IPMAP["ELK_HOST_IP"]}
 startCleanVirtualBox vagrant/postgres/ ${IPMAP["POSTGRES_HOST_IP"]}
 startCleanVirtualBox vagrant/omd/  ${IPMAP["OMD_HOST_IP"]}
 startCleanVirtualBox vagrant/docker/ ${IPMAP["DOCKER_HOST_IP"]}
-#git reset --hard
+git reset --hard
 #git clean -f
