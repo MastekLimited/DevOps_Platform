@@ -6,29 +6,33 @@ Vagrant.configure(2) do |config|
  config.vm.box = "vStone/centos-7.x-puppet.3.x"
  config.vm.hostname = "POSTGRES-BOX"
  config.vm.box_check_update = false
- #config.vm.network "private_network", ip: "192.168.51.106"
-config.vm.network  "public_network", bridge: 'enp4s0', ip: ENV['SYS_IP']
+
+if ENV['ENV_TYPE'] != "local"
+	config.vm.network  "public_network", bridge: ENV['NET_CONFIG_FILE'], ip: ENV['SYS_IP']
+else
+	config.vm.network "private_network", ip: ENV['SYS_IP']
+end 
 
  config.vm.provider "virtualbox" do |vb|
    	vb.gui = true
  end
-
+ 
  config.vm.synced_folder "../../../", "/vshare/", create: true
 
  config.vm.provision :shell, inline: "/vshare/DevOps_Platform/scripts/vm-initial-setup/basicInstallations.sh", privileged: true
  config.vm.provision :shell, inline: "/vshare/DevOps_Platform/scripts/vm-initial-setup/createSharedDirectories.sh", privileged: true
-
+ 
  #Database Files // copy
  config.vm.provision "shell", inline: "cp /vshare/DevOps_Platform/scripts/database-setup/* /mnt/gluster/repo/", privileged: true
-
+ 
  #Database Files // execute
  config.vm.provision "shell", inline: "/vshare/DevOps_Platform/scripts/database-setup/databaseInstallation.sh", privileged: true
  config.vm.provision "shell", inline: "systemctl stop firewalld", privileged: true
   config.vm.provision "shell", inline: "echo Password1 | su postgres -c 'psql -d postgres -U postgres --file /vshare/DevOps_Development/Database_Scripts/setup-data/createDatabase.sql'", privileged: true
-
+  
  config.vm.provision "shell", inline: "echo Password1 | su postgres -c 'psql -d Organisation -U postgres --file /vshare/DevOps_Development/Database_Scripts/setup-data/createTables.sql'", privileged: true
-
+ 
  config.vm.provision "shell", inline: "echo Password1 | su postgres -c 'psql -d Organisation -U postgres --file /vshare/DevOps_Development/Database_Scripts/setup-data/insertDummyRecords.sql'", privileged: true
-
-
+  
+ 
 end
