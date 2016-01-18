@@ -64,3 +64,16 @@
 2016-01-18 12:01:07,345 INFO success: omdagent-deviceAuthenticationService entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
 2016-01-18 12:01:07,551 INFO exited: omdagent-deviceAuthenticationService (exit status 0; expected)
 2016-01-18 12:01:07,715 INFO reaped unknown pid 55
+2016-01-18 12:08:21,179 WARN received SIGTERM indicating exit request
+2016-01-18 12:08:21,237 INFO waiting for logstash-deviceAuthenticationService, deviceAuthenticationService to die
+2016-01-18 12:08:22,314 INFO stopped: logstash-deviceAuthenticationService (exit status 2)
+2016-01-18 12:08:23,667 INFO stopped: deviceAuthenticationService (exit status 143)
+2016-01-18 12:09:23,540 CRIT Supervisor running as root (no user in config file)
+2016-01-18 12:09:23,555 INFO supervisord started with pid 1
+2016-01-18 12:09:24,629 INFO spawned: 'deviceAuthenticationService' with pid 8
+2016-01-18 12:09:24,637 INFO spawned: 'logstash-deviceAuthenticationService' with pid 9
+2016-01-18 12:09:24,656 INFO spawned: 'omdagent-deviceAuthenticationService' with pid 10
+2016-01-18 12:09:25,651 INFO success: deviceAuthenticationService entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2016-01-18 12:09:25,651 INFO success: logstash-deviceAuthenticationService entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2016-01-18 12:09:25,652 INFO success: omdagent-deviceAuthenticationService entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2016-01-18 12:09:25,986 INFO exited: omdagent-deviceAuthenticationService (exit status 0; expected)
