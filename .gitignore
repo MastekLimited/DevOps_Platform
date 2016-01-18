@@ -17,3 +17,11 @@
 /Build/project-assignment-service/supervisord.log
 /docker/roles/base/logstash-forwarder.crt
 /.project
+/Build/device-authentication-service/supervisord.log
+/Build/device-authentication-service/supervisord.pid
+/Build/device-authentication-service/.logstash-forwarder
+/Build/employee/.logstash-forwarder
+/Build/organisation-web/.logstash-forwarder
+/Build/project/.logstash-forwarder
+/Build/project-assignment-service/.logstash-forwarder
+/rsakey/jenkins/id_rsa.pub

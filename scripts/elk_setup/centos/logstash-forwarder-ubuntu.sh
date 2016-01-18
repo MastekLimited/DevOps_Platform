@@ -16,7 +16,7 @@ else
 	echo ...........................Create CERTS_DIRECTORY............................
 	mkdir -p $TLS_DIR/certs
 	chmod 777 $TLS_DIR/certs
-	
+
 fi
 
 
