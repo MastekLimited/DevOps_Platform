@@ -1,1 +1,1 @@
-docker build --no-cache -t emp roles/employee
+docker build --no-cache -t employee roles/employee
