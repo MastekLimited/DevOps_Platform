@@ -11,15 +11,18 @@ only_hosts = [
 
 
 agent_ports = [
-  ( 9087, ['cmk-agent', ], ['EMP'] ),
-  ( 9088, ['cmk-agent', ], ['PROJECT'] ),
-  ( 9093, ['cmk-agent', ], ['WEB'] ),
+  ( 9087, ['cmk-agent', ], ['Employee'] ),
+  ( 9088, ['cmk-agent', ], ['Project'] ),
+  ( 9092, ['cmk-agent', ], ['Project-Assignment'] ),
+  ( 9094, ['cmk-agent', ], ['Device-Registration'] ),
+  ( 9094, ['cmk-agent', ], ['Device-Authentication'] ),
+  ( 9093, ['cmk-agent', ], ['Organisation-Web'] ),
   ( 6556, ['cmk-agent', ], ['OMD_SERVER'] ),
 ] + agent_ports
 
 
 host_contactgroups = [
-  ( 'DevOps', [], ['EMP', 'OMD_SERVER', 'PROJECT'], {'comment': u'Put all hosts into the contact group "all"'} ),
+  ( 'DevOps', [], ['Employee', 'Project', 'Project-Assignment', 'Device-Registration', 'Device-Authentication', 'Organisation-Web', 'OMD_SERVER'], {'comment': u'Put all hosts into the contact group "all"'} ),
 ] + host_contactgroups
 
 
@@ -36,8 +39,11 @@ ping_levels = [
 active_checks.setdefault('tcp', [])
 
 active_checks['tcp'] = [
-  ( (8087, {'response_time': (100.0, 200.0)}), [], ['EMP'] ),
-  ( (8093, {'response_time': (100.0, 200.0)}), [], ['WEB'] ),
-  ( (8088, {'response_time': (100.0, 200.0)}), [], ['PROJECT'] ),
+  ( (8087, {'response_time': (100.0, 200.0)}), [], ['Employee'] ),
+  ( (8088, {'response_time': (100.0, 200.0)}), [], ['Project'] ),
+  ( (8092, {'response_time': (100.0, 200.0)}), [], ['Project-Assignment'] ),
+  ( (8094, {'response_time': (100.0, 200.0)}), [], ['Device-Registration'] ),
+  ( (8095, {'response_time': (100.0, 200.0)}), [], ['Device-Authentication'] ),
+  ( (8093, {'response_time': (100.0, 200.0)}), [], ['Organisation-Web'] ),
 ] + active_checks['tcp']
 
