@@ -11,39 +11,39 @@ if ENV['ENV_TYPE'] != "local"
 else
 	config.vm.network "private_network", ip: ENV['SYS_IP']
 end
-  
+
   config.vm.provider "virtualbox" do |vb|
-    vb.memory = "3072"
+    vb.memory = "1024"
 	vb.gui = true
-    vb.cpus = "2"
+    vb.cpus = "1"
   end
-  
+
   config.vm.synced_folder "../../", "/vshare/", create: true
-  
+
   config.vm.provision :shell, inline: "/vshare/scripts/vm-initial-setup/basicInstallations.sh", privileged: true
-  
+
   config.vm.provision :shell, inline: "/vshare/scripts/vm-initial-setup/createSharedDirectories.sh", privileged: true
-  
+
   config.vm.provision "shell", inline: "systemctl stop firewalld", privileged: true
    #Docker Installation
   config.vm.provision "shell", inline: "yum -y update", privileged: true
-  
-  config.vm.provision "shell", inline: "curl -sSL https://get.docker.com/ | sh", privileged: true 
-  
+
+  config.vm.provision "shell", inline: "curl -sSL https://get.docker.com/ | sh", privileged: true
+
   config.vm.provision "shell", inline: "systemctl enable docker", privileged: true
-  
+
   config.vm.provision "shell", inline: "service docker start", privileged: true
-  
+
   config.vm.provision "shell", inline: "usermod -aG docker vagrant", privileged: true
-  
+
   config.vm.provision "shell", inline: "cd /vshare/docker/ && ./startupScripts.sh", privileged: true
-  
+
   config.vm.provision "shell", inline: "chmod -R 777 /var/log", privileged: true
-  
+
   config.vm.provision "shell", inline: "cd /vshare/docker/ && ./runAllScripts.sh", privileged: true
   config.vm.provision "shell", inline: "systemctl stop firewalld", privileged: true
   config.vm.provision "shell", inline: "docker stop $(docker ps -a -q)", privileged: true
   config.vm.provision "shell", inline: "docker start $(docker ps -a -q)", privileged: true
-  
-  config.vm.provision "shell", inline: "cp /vshare/rsakey/jenkins/id_rsa.pub /home/vagrant/.ssh/authorized_keys", privileged: true 
+
+  config.vm.provision "shell", inline: "cp /vshare/rsakey/jenkins/id_rsa.pub /home/vagrant/.ssh/authorized_keys", privileged: true
 end
