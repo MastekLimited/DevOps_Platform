@@ -70,5 +70,5 @@ startCleanVirtualBox vagrant/elk/  ${IPMAP["ELK_HOST_IP"]}
 startCleanVirtualBox vagrant/postgres/ ${IPMAP["POSTGRES_HOST_IP"]}
 startCleanVirtualBox vagrant/omd/  ${IPMAP["OMD_HOST_IP"]}
 startCleanVirtualBox vagrant/docker/ ${IPMAP["DOCKER_HOST_IP"]}
-git reset --hard
+#git reset --hard
 #git clean -f
