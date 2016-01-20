@@ -1,7 +1,7 @@
 #!/bin/sh
 buildAll () {
 echo "build base"
-./scripts/buildbase.sh
+./scripts/base/build.sh
 echo "build employee"
 ./scripts/employee/build.sh
 echo "build project"
