@@ -2,30 +2,45 @@
 # encoding: utf-8
 
 all_hosts += [
-  "EMP|wan|cmk-agent|prod|tcp|wato|/" + FOLDER_PATH + "/",
+  "Employee|wan|cmk-agent|prod|tcp|wato|/" + FOLDER_PATH + "/",
+  "Project|wan|cmk-agent|prod|tcp|wato|/" + FOLDER_PATH + "/",
+  "Project-Registration|wan|cmk-agent|prod|tcp|wato|/" + FOLDER_PATH + "/",
+  "Device-Authentication|wan|cmk-agent|prod|tcp|wato|/" + FOLDER_PATH + "/",
+  "Device-Authentication|wan|cmk-agent|prod|tcp|wato|/" + FOLDER_PATH + "/",
+  "Organisation-Web|wan|cmk-agent|prod|tcp|wato|/" + FOLDER_PATH + "/",
   "OMD_SERVER|wan|cmk-agent|prod|tcp|wato|/" + FOLDER_PATH + "/",
-  "PROJECT|wan|cmk-agent|prod|tcp|wato|/" + FOLDER_PATH + "/",
-  "WEB|wan|cmk-agent|prod|tcp|wato|/" + FOLDER_PATH + "/",
 ]
 
 # Explicit IP addresses
-ipaddresses.update({'EMP': u'&&DOCKER_HOST_IP&&',
- 'OMD_SERVER': u'127.0.0.1',
- 'PROJECT': u'&&DOCKER_HOST_IP&&',
- 'WEB': u'&&DOCKER_HOST_IP&&'})
+ipaddresses.update({'Employee': u'&&DOCKER_HOST_IP&&',
+ 'Project': u'&&DOCKER_HOST_IP&&',
+ 'Project-Assignment': u'&&DOCKER_HOST_IP&&',
+ 'Device-Registration': u'&&DOCKER_HOST_IP&&',
+ 'Device-Authentication': u'&&DOCKER_HOST_IP&&',
+ 'Organisation-Web': u'&&DOCKER_HOST_IP&&',
+ 'OMD_SERVER': u'127.0.0.1'})
 
 
 # Host attributes (needed for WATO)
 host_attributes.update(
-{'EMP': {'ipaddress': u'&&DOCKER_HOST_IP&&',
+{'Employee': {'ipaddress': u'&&DOCKER_HOST_IP&&',
          'tag_agent': 'cmk-agent',
          'tag_networking': 'wan'},
- 'OMD_SERVER': {'ipaddress': u'127.0.0.1',
-                'tag_agent': 'cmk-agent',
-                'tag_networking': 'wan'},
- 'PROJECT': {'ipaddress': u'&&DOCKER_HOST_IP&&',
+ 'Project': {'ipaddress': u'&&DOCKER_HOST_IP&&',
              'tag_agent': 'cmk-agent',
              'tag_networking': 'wan'},
- 'WEB': {'ipaddress': u'&&DOCKER_HOST_IP&&',
+ 'Project-Assignment': {'ipaddress': u'&&DOCKER_HOST_IP&&',
+             'tag_agent': 'cmk-agent',
+             'tag_networking': 'wan'},
+ 'Device-Registration': {'ipaddress': u'&&DOCKER_HOST_IP&&',
+             'tag_agent': 'cmk-agent',
+             'tag_networking': 'wan'},
+ 'Device-Authentication': {'ipaddress': u'&&DOCKER_HOST_IP&&',
+             'tag_agent': 'cmk-agent',
+             'tag_networking': 'wan'},
+ 'Organisation-Web': {'ipaddress': u'&&DOCKER_HOST_IP&&',
          'tag_agent': 'cmk-agent',
-         'tag_networking': 'wan'}})
+         'tag_networking': 'wan'}},
+ 'OMD_SERVER': {'ipaddress': u'127.0.0.1',
+                'tag_agent': 'cmk-agent',
+                'tag_networking': 'wan'})
