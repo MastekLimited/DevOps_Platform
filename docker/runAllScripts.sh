@@ -15,12 +15,19 @@ echo "The current working directory."
 pwd
 echo "run employee"
 ./scripts/employee/run.sh &
+
 echo "run project"
 ./scripts/project/run.sh &
+
 echo "run project assignment"
 ./scripts/project-assignment/run.sh &
+
 echo "run device authentication"
 ./scripts/device-authentication/run.sh &
+
+echo "run device registration"
+./scripts/device-registration/run.sh &
+
 echo "run organisation web"
 ./scripts/organisation-web/run.sh &
 }
