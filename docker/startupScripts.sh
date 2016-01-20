@@ -1,17 +1,17 @@
 #!/bin/sh
 buildAll () {
-echo "buildbase"
+echo "build base"
 ./scripts/buildbase.sh
-echo "buildemployee"
-./scripts/buildemployee.sh
-echo "buildproject"
-./scripts/buildproject.sh
-echo "buildprojectAssignment"
-./scripts/buildprojectAssignment.sh
-echo "buildDeviceAuthentication"
-./scripts/builddeviceAuthentication.sh
-echo "buildorganisation"
-./scripts/buildorganisation.sh
+echo "build employee"
+./scripts/employee/build.sh
+echo "build project"
+./scripts/project/build.sh
+echo "build project assignment"
+./scripts/project-assignment/build.sh
+echo "build device authentication"
+./scripts/device-authentication/build.sh
+echo "build organisation web"
+./scripts/organisation-web/build.sh
 }
 
 buildAll
