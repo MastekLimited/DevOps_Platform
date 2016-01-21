@@ -1,1 +1,1 @@
-docker run -p 8088:8088 -p 9088:6556 --name project -h project -v /vshare/docker/config:/home/devops/config -v /vshare/Build/project/:/usr/share/ project
+docker run -p 8088:8088 -p 9088:6556 --name project -h project -v /vshare/docker/config/services:/home/devops/config/services -v /vshare/Build/project/:/usr/share/ project
