@@ -1,13 +1,9 @@
+cd /opt
 echo ...........................Get OWASP ZAP TAR file............................
-sudo wget https://github.com/zaproxy/zaproxy/releases/download/2.4.3/ZAP_2.4.3_Linux.tar.gz
+wget https://github.com/zaproxy/zaproxy/releases/download/2.4.3/ZAP_2.4.3_Linux.tar.gz
 
 # Untar OWASP ZAP TAR file,and move it under /opt/zaproxy directory
 echo ...........................Untar OWASP ZAP TAR file............................
-sudo tar -xzvf ZAP_2.4.3_Linux.tar.gz
-echo ...........................Move OWASP ZAP UNTAR folder to OPT Directory............................
-sudo cp -Ra zap-2.4.3.jar /opt/zaproxy
-
-echo ...........................Execute OWASP ZAP Application............................
-sudo -sH
-cd /opt/zaproxy
-sudo ./zap.sh &
+tar -xzvf ZAP_2.4.3_Linux.tar.gz
+cd /opt/ZAP_2.4.3
+#./zap.sh &
