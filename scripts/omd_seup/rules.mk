@@ -12,12 +12,12 @@ only_hosts = [
 
 agent_ports = [
   ( 10001, ['cmk-agent', ], ['UUID'] ),
-  ( 9087, ['cmk-agent', ], ['Employee'] ),
-  ( 9088, ['cmk-agent', ], ['Project'] ),
-  ( 9092, ['cmk-agent', ], ['Project-Assignment'] ),
-  ( 9094, ['cmk-agent', ], ['Device-Registration'] ),
-  ( 9095, ['cmk-agent', ], ['Device-Authentication'] ),
-  ( 9093, ['cmk-agent', ], ['Organisation-Web'] ),
+  ( 10011, ['cmk-agent', ], ['Employee'] ),
+  ( 10021, ['cmk-agent', ], ['Project'] ),
+  ( 10031, ['cmk-agent', ], ['Project-Assignment'] ),
+  ( 10041, ['cmk-agent', ], ['Device-Registration'] ),
+  ( 10051, ['cmk-agent', ], ['Device-Authentication'] ),
+  ( 11991, ['cmk-agent', ], ['Organisation-Web'] ),
   ( 6556, ['cmk-agent', ], ['OMD_SERVER'] ),
 ] + agent_ports
 
@@ -41,11 +41,11 @@ active_checks.setdefault('tcp', [])
 
 active_checks['tcp'] = [
   ( (10000, {'response_time': (100.0, 200.0)}), [], ['UUID'] ),
-  ( (8087, {'response_time': (100.0, 200.0)}), [], ['Employee'] ),
-  ( (8088, {'response_time': (100.0, 200.0)}), [], ['Project'] ),
-  ( (8092, {'response_time': (100.0, 200.0)}), [], ['Project-Assignment'] ),
-  ( (8094, {'response_time': (100.0, 200.0)}), [], ['Device-Registration'] ),
-  ( (8095, {'response_time': (100.0, 200.0)}), [], ['Device-Authentication'] ),
-  ( (8093, {'response_time': (100.0, 200.0)}), [], ['Organisation-Web'] ),
+  ( (10010, {'response_time': (100.0, 200.0)}), [], ['Employee'] ),
+  ( (10020, {'response_time': (100.0, 200.0)}), [], ['Project'] ),
+  ( (10030, {'response_time': (100.0, 200.0)}), [], ['Project-Assignment'] ),
+  ( (10040, {'response_time': (100.0, 200.0)}), [], ['Device-Registration'] ),
+  ( (10050, {'response_time': (100.0, 200.0)}), [], ['Device-Authentication'] ),
+  ( (11990, {'response_time': (100.0, 200.0)}), [], ['Organisation-Web'] ),
 ] + active_checks['tcp']
 
