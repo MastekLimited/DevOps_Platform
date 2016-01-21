@@ -16,7 +16,7 @@ end
   config.vm.synced_folder "../../", "/vshare/", create: true
 
   config.vm.provider "virtualbox" do |vb|
-    vb.memory = "2048"
+    vb.memory = "1500"
 	vb.gui = true
   end
 
