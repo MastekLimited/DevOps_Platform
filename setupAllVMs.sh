@@ -19,29 +19,29 @@ if [ "$1" != "local" ]
 fi
 envfilename=env_inventory/$1/host_address.txt
 envname=$1
-echo "Start building  environment of .....$envname"
+echo "Start building  environment for .....$envname"
 echo "ethernet file name .....$networkScriptFileName"
+
 startCleanVirtualBox() {
-local VAGARANTFILE_PATH=$1
-local serverip=$2
-cd $VAGARANTFILE_PATH;
-echo "destroying the VM if already exists from location - "$VAGARANTFILE_PATH
-vagrant destroy -f;
-echo "Starting the VM at this location - "$VAGARANTFILE_PATH
-#vagrant up;
-SYS_IP=$serverip  ENV_TYPE=$envname NET_CONFIG_FILE=$networkScriptFileName  vagrant up
-exitingFromThePassedFolder $VAGARANTFILE_PATH
+	local VAGARANTFILE_PATH=$1
+	local serverip=$2
+	cd $VAGARANTFILE_PATH;
+	echo "Destroying the VM if already exists from location - "$VAGARANTFILE_PATH
+	vagrant destroy -f;
+	echo "Starting the VM at this location - "$VAGARANTFILE_PATH
+	SYS_IP=$serverip  ENV_TYPE=$envname NET_CONFIG_FILE=$networkScriptFileName  vagrant up
+	exitFromVagrantExecutedDirectory $VAGARANTFILE_PATH
 }
-exitingFromThePassedFolder()
-{
-local path=$1
-count=$(echo $path | grep -ao '/' | wc -l)
-EXIT_STRING="cd ";
-for (( c=1; c <= $count; c++ ))
-do
-   EXIT_STRING=$EXIT_STRING"../"
-done
-$EXIT_STRING
+
+exitFromVagrantExecutedDirectory() {
+	local path=$1
+	count=$(echo $path | grep -ao '/' | wc -l)
+	EXIT_STRING="cd ";
+	for (( c=1; c <= $count; c++ ))
+	do
+	   EXIT_STRING=$EXIT_STRING"../"
+	done
+	$EXIT_STRING
 }
 
 declare -A IPMAP
@@ -52,6 +52,13 @@ do
 	set -- $var
 	IPMAP[$1]=$2
 done < $envfilename
+
+echo "Reset platform scripts before executing the build..."
+git reset --hard
+
+echo "Convert all the script files so that they can be executed through unix system..."
+find . -name \*.sh -exec dos2unix {} \;
+
 echo "JENKINS SERVER :-  ${IPMAP["JENKINS_HOST_IP"]}"
 echo "ELK SERVER :- ${IPMAP["ELK_HOST_IP"]}"
 echo "POSTGRES SERVER :- ${IPMAP["POSTGRES_HOST_IP"]}"
