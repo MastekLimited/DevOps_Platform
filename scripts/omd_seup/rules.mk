@@ -40,7 +40,7 @@ ping_levels = [
 active_checks.setdefault('tcp', [])
 
 active_checks['tcp'] = [
-  ( (10000, {'response_time': (100.0, 200.0)}), [], ['Employee'] ),
+  ( (10000, {'response_time': (100.0, 200.0)}), [], ['UUID'] ),
   ( (8087, {'response_time': (100.0, 200.0)}), [], ['Employee'] ),
   ( (8088, {'response_time': (100.0, 200.0)}), [], ['Project'] ),
   ( (8092, {'response_time': (100.0, 200.0)}), [], ['Project-Assignment'] ),
