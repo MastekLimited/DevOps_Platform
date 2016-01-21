@@ -15,7 +15,7 @@ agent_ports = [
   ( 9088, ['cmk-agent', ], ['Project'] ),
   ( 9092, ['cmk-agent', ], ['Project-Assignment'] ),
   ( 9094, ['cmk-agent', ], ['Device-Registration'] ),
-  ( 9094, ['cmk-agent', ], ['Device-Authentication'] ),
+  ( 9095, ['cmk-agent', ], ['Device-Authentication'] ),
   ( 9093, ['cmk-agent', ], ['Organisation-Web'] ),
   ( 6556, ['cmk-agent', ], ['OMD_SERVER'] ),
 ] + agent_ports
