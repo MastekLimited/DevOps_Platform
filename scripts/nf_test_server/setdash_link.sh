@@ -8,4 +8,4 @@ sed -i 's|\({text:"Dashboards",icon:"fa fa-fw fa-th-large",href:a.getUrl("/")}\)
 
 sed -i 's|\({text:"Dashboards",icon:"fa fa-fw fa-th-large",href:a.getUrl("/")}\)|\1,{text:"NF Test Stats",icon:"fa fa-fw fa-th-large",href:a.getUrl("/dashboard/script/getnfdash.js")}|' public/app/app.*.js
 
-sudo service grafana-server restart
+service grafana-server restart
