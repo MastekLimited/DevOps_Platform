@@ -4,8 +4,8 @@
 all_hosts += [
   "Employee|wan|cmk-agent|prod|tcp|wato|/" + FOLDER_PATH + "/",
   "Project|wan|cmk-agent|prod|tcp|wato|/" + FOLDER_PATH + "/",
-  "Project-Registration|wan|cmk-agent|prod|tcp|wato|/" + FOLDER_PATH + "/",
-  "Device-Authentication|wan|cmk-agent|prod|tcp|wato|/" + FOLDER_PATH + "/",
+  "Project-Assignment|wan|cmk-agent|prod|tcp|wato|/" + FOLDER_PATH + "/",
+  "Device-Registration|wan|cmk-agent|prod|tcp|wato|/" + FOLDER_PATH + "/",
   "Device-Authentication|wan|cmk-agent|prod|tcp|wato|/" + FOLDER_PATH + "/",
   "Organisation-Web|wan|cmk-agent|prod|tcp|wato|/" + FOLDER_PATH + "/",
   "OMD_SERVER|wan|cmk-agent|prod|tcp|wato|/" + FOLDER_PATH + "/",
