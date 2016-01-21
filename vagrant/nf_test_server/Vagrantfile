@@ -36,16 +36,7 @@ end
   config.vm.provision :shell, inline:"/vshare/scripts/nf_test_server/owaspZAP_setup.sh", privileged: true
   config.vm.provision :shell, inline:"/vshare/scripts/nf_test_server/util_setup.sh", privileged: true
   config.vm.provision :shell, inline:"cd /vshare/scripts/nf_test_server/ && ./dashborad_setup.sh", privileged: false
-  
-  #database
  
-  #Database Files
-  #config.vm.provision "shell", inline: "/vshare/scripts/nf_test_server/database-setup/databaseInstallation.sh", privileged: true
-
-  #config.vm.provision "shell", inline: "echo Password1 | su postgres -c 'psql -d postgres -U postgres --file /vshare/scripts/nf_test_server/database-setup/createDatabase.sql'", privileged: true
-  #config.vm.provision "shell", inline: "echo Password1 | su postgres -c 'psql -d Organisation -U postgres --file /vshare/scripts/nf_test_server/database-setup/createTables.sql'", privileged: true
-  #config.vm.provision "shell", inline: "echo Password1 | su postgres -c 'psql -d Organisation -U postgres --file /vshare/scripts/nf_test_server/database-setup/DummyRecords.sql'", privileged: true
-  
   # Execute File
   config.vm.provision :shell, inline:"/vshare/scripts/nf_test_server/service_re-startability.sh", privileged: true
   
