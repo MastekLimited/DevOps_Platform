@@ -11,6 +11,7 @@ only_hosts = [
 
 
 agent_ports = [
+  ( 10001, ['cmk-agent', ], ['UUID'] ),
   ( 9087, ['cmk-agent', ], ['Employee'] ),
   ( 9088, ['cmk-agent', ], ['Project'] ),
   ( 9092, ['cmk-agent', ], ['Project-Assignment'] ),
@@ -22,7 +23,7 @@ agent_ports = [
 
 
 host_contactgroups = [
-  ( 'DevOps', [], ['Employee', 'Project', 'Project-Assignment', 'Device-Registration', 'Device-Authentication', 'Organisation-Web', 'OMD_SERVER'], {'comment': u'Put all hosts into the contact group "all"'} ),
+  ( 'DevOps', [], ['UUID', 'Employee', 'Project', 'Project-Assignment', 'Device-Registration', 'Device-Authentication', 'Organisation-Web', 'OMD_SERVER'], {'comment': u'Put all hosts into the contact group "all"'} ),
 ] + host_contactgroups
 
 
@@ -39,6 +40,7 @@ ping_levels = [
 active_checks.setdefault('tcp', [])
 
 active_checks['tcp'] = [
+  ( (10000, {'response_time': (100.0, 200.0)}), [], ['Employee'] ),
   ( (8087, {'response_time': (100.0, 200.0)}), [], ['Employee'] ),
   ( (8088, {'response_time': (100.0, 200.0)}), [], ['Project'] ),
   ( (8092, {'response_time': (100.0, 200.0)}), [], ['Project-Assignment'] ),
