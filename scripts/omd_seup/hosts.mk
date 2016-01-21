@@ -40,7 +40,7 @@ host_attributes.update(
              'tag_networking': 'wan'},
  'Organisation-Web': {'ipaddress': u'&&DOCKER_HOST_IP&&',
          'tag_agent': 'cmk-agent',
-         'tag_networking': 'wan'}},
+         'tag_networking': 'wan'},
  'OMD_SERVER': {'ipaddress': u'127.0.0.1',
                 'tag_agent': 'cmk-agent',
-                'tag_networking': 'wan'})
+                'tag_networking': 'wan'}})
