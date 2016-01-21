@@ -1,3 +1,4 @@
 /supervisord.pid
 /supervisord.log
 /.logstash-forwarder.new
+/.logstash-forwarder
