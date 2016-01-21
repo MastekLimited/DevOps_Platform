@@ -1,1 +1,1 @@
-docker run -p 8094:8094 -p 9094:6556 --name device-registration -h device-registration -v /vshare/docker/config:/home/devops/config -v /vshare/Build/device-registration/:/usr/share/ device-registration
+docker run -p 8094:8094 -p 9094:6556 --name device-registration -h device-registration -v /vshare/docker/config/services:/home/devops/config/services -v /vshare/docker/config/certificates:/home/devops/config/certificates -v /vshare/Build/device-registration/:/usr/share/ device-registration
