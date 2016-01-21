@@ -13,7 +13,7 @@ else
 end
 
   config.vm.provider "virtualbox" do |vb|
-    vb.memory = "1024"
+    vb.memory = "1600"
 	vb.gui = true
     vb.cpus = "1"
   end
