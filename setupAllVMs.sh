@@ -44,6 +44,16 @@ exitFromVagrantExecutedDirectory() {
 	$EXIT_STRING
 }
 
+printExecutionTime() {
+	local executionTime=$1;
+	local message=$2
+	minutes=`expr $((executionTime/60))`;
+	seconds=`expr $((executionTime%60))`;
+	echo $message $minutes m $seconds s.
+}
+
+all_vms_start_time=`date +%s`
+
 declare -A IPMAP
 while read -r line
 do
@@ -72,10 +82,39 @@ grep -r '&&OMD_HOST_IP&&' -l --null $PWD/*/ | xargs -0 sed -i 's#&&OMD_HOST_IP&&
 grep -r '&&DOCKER_HOST_IP&&' -l --null $PWD/*/ | xargs -0 sed -i 's#&&DOCKER_HOST_IP&&#'${IPMAP["DOCKER_HOST_IP"]}'#g'
 
 find . -name "*.sh" -exec chmod +x {} \;
+
+jenkins_vm_start_time=`date +%s`
 startCleanVirtualBox vagrant/jenkins_sonar/ ${IPMAP["JENKINS_HOST_IP"]}
+jenkins_vm_end_time=`date +%s`
+
+elk_vm_start_time=`date +%s`
 startCleanVirtualBox vagrant/elk/  ${IPMAP["ELK_HOST_IP"]}
+elk_vm_end_time=`date +%s`
+
+postgres_vm_start_time=`date +%s`
 startCleanVirtualBox vagrant/postgres/ ${IPMAP["POSTGRES_HOST_IP"]}
+postgres_vm_end_time=`date +%s`
+
+omd_vm_start_time=`date +%s`
 startCleanVirtualBox vagrant/omd/  ${IPMAP["OMD_HOST_IP"]}
+omd_vm_end_time=`date +%s`
+
+docker_vm_start_time=`date +%s`
 startCleanVirtualBox vagrant/docker/ ${IPMAP["DOCKER_HOST_IP"]}
+docker_vm_end_time=`date +%s`
+
 #git reset --hard
 #git clean -f
+
+all_vms_end_time=`date +%s`
+
+echo "----------------------------------------------------------------------------------------------"
+echo "-----------------------------DevOps Suite Execution Summary-----------------------------------"
+echo "----------------------------------------------------------------------------------------------"
+printExecutionTime `expr $jenkins_vm_end_time - $jenkins_vm_start_time` "jenkins setup time"
+printExecutionTime `expr $elk_vm_end_time - $elk_vm_start_time` "elk setup time"
+printExecutionTime `expr $postgres_vm_end_time - $postgres_vm_start_time` "postgres setup time"
+printExecutionTime `expr $omd_vm_end_time - $omd_vm_start_time` "omd setup time"
+printExecutionTime `expr $docker_vm_end_time - $docker_vm_start_time` "docker setup time"
+printExecutionTime `expr $all_vms_end_time - $all_vms_start_time` "Total execution time"
+echo "----------------------------------------------------------------------------------------------"
