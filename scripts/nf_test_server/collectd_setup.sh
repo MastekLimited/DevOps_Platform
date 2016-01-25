@@ -3,12 +3,12 @@
 # Install prereqs
 cd /opt
 echo ...........................Install prereqs............................
-#sudo yum -y install libcurl libcurl-devel rrdtool rrdtool-devel rrdtool-prel libgcrypt-devel libyajl libyajl-devel gcc make gcc-c++
+#yum -y install libcurl libcurl-devel rrdtool rrdtool-devel rrdtool-prel libgcrypt-devel libyajl libyajl-devel gcc make gcc-c++
 yum install -y rrdtool rrdtool-devel rrdtool-perl perl-HTML-Parser perl-JSON perl-CPAN perl-devel gcc make gcc-c++
 
 # Enable the EPEL
 echo ...........................Install EPEL............................
-#sudo yum -y install http://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-5.noarch.rpm
+#yum -y install http://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-5.noarch.rpm
 yum install -y epel-release
 
 # Get Collectd, untar it, make it and install
@@ -23,7 +23,7 @@ echo ...........................Executed configure file.........................
 ./configure --prefix=/usr --sysconfdir=/etc --localstatedir=/var --libdir=/usr/lib64 --mandir=/usr/share/man --enable-all-plugins
 
 #echo ...........................Executed MAKE. command...........................
-#sudo make
+#make
 
 echo ...........................Executed MAKE Install command............................
 make all install
@@ -43,22 +43,21 @@ ln -sf /usr/lib/systemd/system/collectd.service /etc/systemd/system/multi-user.t
 
 # Start the deamon
 echo ...........................Start the deamon............................
-#sudo service collectd start
+#service collectd start
 systemctl start collectd.service
 systemctl enable collectd.service
 
 # Install Collectd Web
 echo ...........................Install Collectd Web............................
-sudo yum install -y git
-#sudo yum install -y rrdtool rrdtool-devel rrdtool-perl perl-HTML-Parser perl-JSON
+yum install -y git
+#yum install -y rrdtool rrdtool-devel rrdtool-perl perl-HTML-Parser perl-JSON
 cd /usr/local/
 git clone https://github.com/httpdss/collectd-web.git
 cd /usr/local/collectd-web
 chmod +x cgi-bin/graphdefs.cgi
 ./runserver.py &
 cp /mnt/gluster/repo/collectd.conf /etc/collectd.conf
-cp /mnt/gluster/repo/collectd-server /usr/local/bin/collectd-server
+cp /mnt/gluster/repo/collectd-server /usr/local/bin
 chmod +x /usr/local/bin/collectd-server
-
 /usr/local/bin/collectd-server start 
 
