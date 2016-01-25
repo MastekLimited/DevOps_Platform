@@ -14,9 +14,9 @@ usage() {
 
 INSTALL_PATH=$GRAFANA_ROOT_DIR/public/app/getdash/
 
-[[ ! -d $INSTALL_PATH ]] && mkdir $INSTALL_PATH
-cp getdash.{app.,conf.,}js $INSTALL_PATH
+[[ ! -d $INSTALL_PATH ]] &&  mkdir $INSTALL_PATH
+ cp getdash.{app.,conf.,}js $INSTALL_PATH
 cd $GRAFANA_ROOT_DIR/public/dashboards/
-ln -sf $INSTALL_PATH/getdash.js .
+ ln -sf $INSTALL_PATH/getdash.js .
 
 echo "Install finished."
