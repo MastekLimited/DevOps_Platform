@@ -35,10 +35,11 @@ end
   config.vm.provision :shell, inline:"/vshare/scripts/nf_test_server/setdash_link.sh", privileged: true
   config.vm.provision :shell, inline:"/vshare/scripts/nf_test_server/owaspZAP_setup.sh", privileged: true
   config.vm.provision :shell, inline:"/vshare/scripts/nf_test_server/util_setup.sh", privileged: true
-  config.vm.provision :shell, inline:"cd /vshare/scripts/nf_test_server/ && ./dashborad_setup.sh", privileged: false
- 
+  config.vm.provision :shell, inline:"/vshare/scripts/nf_test_server/dashborad_setup.sh", privileged: true
+  
+  
   # Execute File
-  config.vm.provision :shell, inline:"/vshare/scripts/nf_test_server/service_re-startability.sh", privileged: true
+  #config.vm.provision :shell, inline:"/vshare/scripts/nf_test_server/service_re-startability.sh", privileged: true
   
   # Execute Stop Firewall
   config.vm.provision "shell", inline: "systemctl stop firewalld", privileged: true
