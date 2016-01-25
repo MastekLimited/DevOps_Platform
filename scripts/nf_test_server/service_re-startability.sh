@@ -10,6 +10,8 @@ systemctl restart influxdb.service
 
 
 service grafana-server start
+systemctl start grafana-server
+
 /usr/local/bin/collectd-server start
 
 
