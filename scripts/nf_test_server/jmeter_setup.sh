@@ -33,7 +33,7 @@ echo ...........................Installing Jmeter Plugins.......................
 cp $PLUGINS_PATH/lib/*.jar $JMETER_PATH/apache-jmeter-$JMETER_VERSION/lib/
 cp $PLUGINS_PATH/lib/ext/*.jar $JMETER_PATH/apache-jmeter-$JMETER_VERSION/lib/ext/
 
-cp sudo cp /mnt/gluster/repo/devops_v1.0.jmx /home/vagrant/jmeter/apache-jmeter-2.13/bin/templates/
+cp /mnt/gluster/repo/devops_v1.0.jmx /opt/jmeter/apache-jmeter-2.13/bin/templates/
 # Install xorg
 
 #echo ...........................Installing xorg Package............................
