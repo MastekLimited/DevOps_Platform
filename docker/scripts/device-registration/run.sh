@@ -1,0 +1,1 @@
+docker run -p 10040:10040 -p 10041:6556 --name device-registration -h device-registration -v /vshare/docker/config/services:/home/devops/config/services -v /vshare/docker/config/certificates:/home/devops/config/certificates -v /vshare/Build/device-registration/:/usr/share/ device-registration
