@@ -37,7 +37,7 @@ startCleanVirtualBox() {
 	echo "Destroying the VM if already exists from location - "$VAGARANTFILE_PATH
 	vagrant destroy -f;
 	echo "Starting the VM at this location - "$VAGARANTFILE_PATH
-	echo "image-file:"$imagefile
+	echo "Using the centos image configuration: "$imagefile
 	SYS_IP=$serverip  ENV_TYPE=$envname IMAGE_FILE=$imagefile NET_CONFIG_FILE=$networkScriptFileName  vagrant up
 	exitFromVagrantExecutedDirectory $VAGARANTFILE_PATH
 }
