@@ -7,18 +7,26 @@ if [ -z "$1" ]
 	exit
 fi
 
+if [ -z "$2" ]
+  then
+    echo "Please specify which centos image to be used to setup the VMs i.e. 'use-image-from-local-machine' or 'use-image-from-cloud'"
+    echo "If you pass this parameter as 'use-image-from-local-machine' then please make sure you have {path-to-platform-code}/base-images/centos-7.x-64bit-puppet.3.x-vbox.5.0.0.1.box file on your local machine."
+	exit
+fi
+
 if [ "$1" != "local" ]
   then
-	if [ -z "$2" ]
+	if [ -z "$3" ]
 	then
 	echo "Please provide one more argument as ethernet file name as  i.e. eth1 OR enp3s0 OR enp4s0 etc."
 	exit
 	else
-	networkScriptFileName=$2
+	networkScriptFileName=$3
 	fi
 fi
 envfilename=env_inventory/$1/host_address.txt
 envname=$1
+imagefile=$2
 echo "Start building  environment for .....$envname"
 echo "ethernet file name .....$networkScriptFileName"
 
@@ -29,7 +37,8 @@ startCleanVirtualBox() {
 	echo "Destroying the VM if already exists from location - "$VAGARANTFILE_PATH
 	vagrant destroy -f;
 	echo "Starting the VM at this location - "$VAGARANTFILE_PATH
-	SYS_IP=$serverip  ENV_TYPE=$envname NET_CONFIG_FILE=$networkScriptFileName  vagrant up
+	echo "image-file:"$imagefile
+	SYS_IP=$serverip  ENV_TYPE=$envname IMAGE_FILE=$imagefile NET_CONFIG_FILE=$networkScriptFileName  vagrant up
 	exitFromVagrantExecutedDirectory $VAGARANTFILE_PATH
 }
 
