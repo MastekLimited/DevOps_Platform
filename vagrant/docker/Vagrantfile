@@ -2,7 +2,8 @@
 # vi: set ft=ruby :
 Vagrant.configure(2) do |config|
 
-  config.vm.box = "vStone/centos-7.x-puppet.3.x"
+  #config.vm.box = "vStone/centos-7.x-puppet.3.x"
+  config.vm.box = "../../base-images/centos-7.x-64bit-puppet.3.x-vbox.5.0.0.1.box"
   config.vm.hostname = "DOCKER-box"
   config.vm.box_check_update = false
 
@@ -36,7 +37,15 @@ end
 
   config.vm.provision "shell", inline: "usermod -aG docker vagrant", privileged: true
 
+  config.vm.provision "shell", inline: "mkdir /mnt/devops/", privileged: true
+
+  config.vm.provision "shell", inline: "cp -R /vshare/Build /mnt/devops/", privileged: true
+
+  config.vm.provision "shell", inline: "cp -R /vshare/docker/config /mnt/devops/", privileged: true
+
   config.vm.provision "shell", inline: "cd /vshare/docker/ && ./startupScripts.sh", privileged: true
+
+  config.vm.provision "shell", inline: "chmod -R 777 /mnt/devops/", privileged: true
 
   config.vm.provision "shell", inline: "chmod -R 777 /var/log", privileged: true
 
