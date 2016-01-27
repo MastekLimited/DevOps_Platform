@@ -19,30 +19,40 @@ if [ "$1" != "local" ]
 fi
 envfilename=env_inventory/$1/host_address.txt
 envname=$1
-echo "Start building  environment of .....$envname"
+echo "Start building  environment for .....$envname"
 echo "ethernet file name .....$networkScriptFileName"
+
 startCleanVirtualBox() {
-local VAGARANTFILE_PATH=$1
-local serverip=$2
-cd $VAGARANTFILE_PATH;
-echo "destroying the VM if already exists from location - "$VAGARANTFILE_PATH
-vagrant destroy -f;
-echo "Starting the VM at this location - "$VAGARANTFILE_PATH
-#vagrant up;
-SYS_IP=$serverip  ENV_TYPE=$envname NET_CONFIG_FILE=$networkScriptFileName  vagrant up
-exitingFromThePassedFolder $VAGARANTFILE_PATH
+	local VAGARANTFILE_PATH=$1
+	local serverip=$2
+	cd $VAGARANTFILE_PATH;
+	echo "Destroying the VM if already exists from location - "$VAGARANTFILE_PATH
+	vagrant destroy -f;
+	echo "Starting the VM at this location - "$VAGARANTFILE_PATH
+	SYS_IP=$serverip  ENV_TYPE=$envname NET_CONFIG_FILE=$networkScriptFileName  vagrant up
+	exitFromVagrantExecutedDirectory $VAGARANTFILE_PATH
 }
-exitingFromThePassedFolder()
-{
-local path=$1
-count=$(echo $path | grep -ao '/' | wc -l)
-EXIT_STRING="cd ";
-for (( c=1; c <= $count; c++ ))
-do
-   EXIT_STRING=$EXIT_STRING"../"
-done
-$EXIT_STRING
+
+exitFromVagrantExecutedDirectory() {
+	local path=$1
+	count=$(echo $path | grep -ao '/' | wc -l)
+	EXIT_STRING="cd ";
+	for (( c=1; c <= $count; c++ ))
+	do
+	   EXIT_STRING=$EXIT_STRING"../"
+	done
+	$EXIT_STRING
 }
+
+printExecutionTime() {
+	local executionTime=$1;
+	local message=$2
+	minutes=`expr $((executionTime/60))`;
+	seconds=`expr $((executionTime%60))`;
+	echo $message $minutes m $seconds s.
+}
+
+all_vms_start_time=`date +%s`
 
 declare -A IPMAP
 while read -r line
@@ -52,6 +62,13 @@ do
 	set -- $var
 	IPMAP[$1]=$2
 done < $envfilename
+
+echo "Reset platform scripts before executing the build..."
+git reset --hard
+
+echo "Convert all the script files so that they can be executed through unix system..."
+find . -name \*.sh -exec dos2unix {} \;
+
 echo "JENKINS SERVER :-  ${IPMAP["JENKINS_HOST_IP"]}"
 echo "ELK SERVER :- ${IPMAP["ELK_HOST_IP"]}"
 echo "POSTGRES SERVER :- ${IPMAP["POSTGRES_HOST_IP"]}"
@@ -65,10 +82,39 @@ grep -r '&&OMD_HOST_IP&&' -l --null $PWD/*/ | xargs -0 sed -i 's#&&OMD_HOST_IP&&
 grep -r '&&DOCKER_HOST_IP&&' -l --null $PWD/*/ | xargs -0 sed -i 's#&&DOCKER_HOST_IP&&#'${IPMAP["DOCKER_HOST_IP"]}'#g'
 
 find . -name "*.sh" -exec chmod +x {} \;
+
+jenkins_vm_start_time=`date +%s`
 startCleanVirtualBox vagrant/jenkins_sonar/ ${IPMAP["JENKINS_HOST_IP"]}
+jenkins_vm_end_time=`date +%s`
+
+elk_vm_start_time=`date +%s`
 startCleanVirtualBox vagrant/elk/  ${IPMAP["ELK_HOST_IP"]}
+elk_vm_end_time=`date +%s`
+
+postgres_vm_start_time=`date +%s`
 startCleanVirtualBox vagrant/postgres/ ${IPMAP["POSTGRES_HOST_IP"]}
+postgres_vm_end_time=`date +%s`
+
+omd_vm_start_time=`date +%s`
 startCleanVirtualBox vagrant/omd/  ${IPMAP["OMD_HOST_IP"]}
+omd_vm_end_time=`date +%s`
+
+docker_vm_start_time=`date +%s`
 startCleanVirtualBox vagrant/docker/ ${IPMAP["DOCKER_HOST_IP"]}
+docker_vm_end_time=`date +%s`
+
 #git reset --hard
 #git clean -f
+
+all_vms_end_time=`date +%s`
+
+echo "----------------------------------------------------------------------------------------------"
+echo "-----------------------------DevOps Suite Execution Summary-----------------------------------"
+echo "----------------------------------------------------------------------------------------------"
+printExecutionTime `expr $jenkins_vm_end_time - $jenkins_vm_start_time` "jenkins setup time"
+printExecutionTime `expr $elk_vm_end_time - $elk_vm_start_time` "elk setup time"
+printExecutionTime `expr $postgres_vm_end_time - $postgres_vm_start_time` "postgres setup time"
+printExecutionTime `expr $omd_vm_end_time - $omd_vm_start_time` "omd setup time"
+printExecutionTime `expr $docker_vm_end_time - $docker_vm_start_time` "docker setup time"
+printExecutionTime `expr $all_vms_end_time - $all_vms_start_time` "Total execution time"
+echo "----------------------------------------------------------------------------------------------"

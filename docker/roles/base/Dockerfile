@@ -22,6 +22,7 @@ ADD check_mk_forclient /tmp/
 RUN ./tmp/omdagentsetuponcentos.sh
 
 RUN mkdir /home/devops/config
+RUN mkdir /home/devops/config/services
 #COPY /mnt/git/DevOps_Platform/docker/config/services.properties /home/devops/config/
 WORKDIR /usr/share/
 RUN mkdir /var/log/organisation

@@ -1,0 +1,1 @@
+docker run -p 10030:10030 -p 10031:6556 --name project-assignment -h project-assignment -v /vshare/docker/config/services:/home/devops/config/services -v /vshare/Build/project-assignment/:/usr/share/ project-assignment
