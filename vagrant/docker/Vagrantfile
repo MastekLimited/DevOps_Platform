@@ -23,6 +23,8 @@ end
   config.vm.provision :shell, inline: "/vshare/scripts/vm-initial-setup/basicInstallations.sh", privileged: true
 
   config.vm.provision :shell, inline: "/vshare/scripts/vm-initial-setup/createSharedDirectories.sh", privileged: true
+  
+  config.vm.provision "shell", inline: "cp -R /vshare/docker/* /mnt/gluster/repo/", privileged: true
 
   config.vm.provision "shell", inline: "systemctl stop firewalld", privileged: true
   config.vm.provision "shell", inline: "systemctl disable firewalld", privileged: true
