@@ -29,6 +29,7 @@ end
  #ELK Files // execute
  config.vm.provision :shell, inline:"cd /vshare/scripts/elk_setup/centos/ && ./elksetupupdate.sh", privileged: false
  config.vm.provision "shell", inline: "systemctl stop firewalld", privileged: true
+ config.vm.provision "shell", inline: "systemctl disable firewalld", privileged: true
  
   
 end
