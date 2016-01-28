@@ -47,6 +47,6 @@ end
   config.vm.provision "shell", inline: "systemctl stop firewalld", privileged: true
   config.vm.provision "shell", inline: "docker stop $(docker ps -a -q)", privileged: true
   config.vm.provision "shell", inline: "docker start $(docker ps -a -q)", privileged: true
-
   config.vm.provision "shell", inline: "cp /vshare/rsakey/jenkins/id_rsa.pub /home/vagrant/.ssh/authorized_keys", privileged: true
+  config.vm.provision "shell", inline: "cp /vshare/scripts/disablesystemctlfirewalld.sh /etc/init.d/", privileged: true
 end
