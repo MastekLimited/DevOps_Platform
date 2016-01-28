@@ -28,6 +28,7 @@ end
  #Database Files // execute
  config.vm.provision "shell", inline: "/vshare/DevOps_Platform/scripts/database-setup/databaseInstallation.sh", privileged: true
  config.vm.provision "shell", inline: "systemctl stop firewalld", privileged: true
+ config.vm.provision "shell", inline: "systemctl disable firewalld", privileged: true
   config.vm.provision "shell", inline: "echo Password1 | su postgres -c 'psql -d postgres -U postgres --file /vshare/DevOps_Development/Database_Scripts/setup-data/createDatabase.sql'", privileged: true
   
  config.vm.provision "shell", inline: "echo Password1 | su postgres -c 'psql -d Organisation -U postgres --file /vshare/DevOps_Development/Database_Scripts/setup-data/createTables.sql'", privileged: true
