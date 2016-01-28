@@ -21,6 +21,7 @@ Vagrant.configure(2) do |config|
   #prometheus Files // execute
   config.vm.provision :shell, inline: "/mnt/gluster/repo/prometheus-server.sh", privileged: true
   config.vm.provision "shell", inline: "systemctl stop firewalld", privileged: true
+  config.vm.provision "shell", inline: "systemctl disable firewalld", privileged: true
 
   
 end
