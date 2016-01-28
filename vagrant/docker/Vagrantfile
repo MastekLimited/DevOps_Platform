@@ -25,6 +25,7 @@ end
   config.vm.provision :shell, inline: "/vshare/scripts/vm-initial-setup/createSharedDirectories.sh", privileged: true
 
   config.vm.provision "shell", inline: "systemctl stop firewalld", privileged: true
+  config.vm.provision "shell", inline: "systemctl disable firewalld", privileged: true
    #Docker Installation
   config.vm.provision "shell", inline: "yum -y update", privileged: true
 
