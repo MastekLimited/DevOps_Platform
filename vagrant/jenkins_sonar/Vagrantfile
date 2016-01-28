@@ -45,5 +45,6 @@ end
   config.vm.provision :"shell", inline: "/mnt/gluster/repo/sshkeygenwithoutprompt.sh", privileged: true
 
   config.vm.provision "shell", inline: "systemctl stop firewalld", privileged: true
+  config.vm.provision "shell", inline: "systemctl disable firewalld", privileged: true
 
 end
