@@ -5,7 +5,7 @@
 cd /opt
 if [ -d "/mnt/gluster" ];
 then
-    echo ........................... mnt  . gluster directory not present .......................................	
+    echo ........................... mnt  . gluster directory not present .......................................
 else
 	mkdir -p /mnt/gluster
 	chmod  777 /mnt/gluster
@@ -15,28 +15,37 @@ if [ -d "/mnt/gluster/repo" ];
 then
    echo ........................... mnt  . gluster repo directory not present .......................................
 else
-	   echo ........................... creatting  mnt  gluster repo directory .......................................
+	   echo ........................... creating  mnt  gluster repo directory .......................................
 	mkdir -p /mnt/gluster/repo
 	chmod  777 /mnt/gluster/repo
 fi
 
-if [ -f "collectd.conf" ];
+if [ -d "/mnt/gluster/repo/collectd_client_setup/" ];
 then
-echo ...........................collectd.conf found  now coping file............................
-cp /mnt/gluster/repo/collectd.conf /etc/collectd.conf
+   echo ........................... mnt  . gluster repo collectd directory not present .......................................
 else
-echo ...........................collectd.conf file does not exist............................
-exit
+           echo ........................... creatting  mnt  gluster repo collectd directory .......................................
+        mkdir -p /mnt/gluster/repo/collectd_client_setup
+        chmod  777 /mnt/gluster/repo/collectd_client_setup
 fi
 
-if [ -f "collectd.service" ];
-then
-echo ...........................collectd.service found  now coping file............................
-cp /mnt/gluster/repo/collectd.service /usr/lib/systemd/system/
-else
-echo ...........................collectd.service file does not exist............................
-exit
-fi
+#if [ -f "collectd.conf" ];
+#then
+#echo ...........................collectd.conf found  now coping file............................
+cp /mnt/gluster/repo/collectd_client_setup/collectd.conf /etc/collectd.conf
+#else
+#echo ...........................collectd.conf file does not exist............................
+#exit
+#fi
+
+#if [ -f "collectd.service" ];
+#then
+#echo ...........................collectd.service found  now coping file............................
+cp /mnt/gluster/repo/collectd_client_setup/collectd.service /usr/lib/systemd/system/
+#else
+#echo ...........................collectd.service file does not exist............................
+#exit
+#fi
 
 echo ...........................Install prereqs............................
 #sudo yum -y install libcurl libcurl-devel rrdtool rrdtool-devel rrdtool-prel libgcrypt-devel libyajl libyajl-devel gcc make gcc-c++
