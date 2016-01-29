@@ -28,8 +28,11 @@ end
   config.vm.provision :shell, inline: "/vshare/scripts/vm-initial-setup/basicInstallations.sh", privileged: true
 
   config.vm.provision :shell, inline: "/vshare/scripts/vm-initial-setup/createSharedDirectories.sh", privileged: true
+  
+  config.vm.provision "shell", inline: "cp -R /vshare/docker/* /mnt/gluster/repo/", privileged: true
 
   config.vm.provision "shell", inline: "systemctl stop firewalld", privileged: true
+  config.vm.provision "shell", inline: "systemctl disable firewalld", privileged: true
    #Docker Installation
   config.vm.provision "shell", inline: "yum -y update", privileged: true
 
@@ -57,6 +60,6 @@ end
   config.vm.provision "shell", inline: "systemctl stop firewalld", privileged: true
   config.vm.provision "shell", inline: "docker stop $(docker ps -a -q)", privileged: true
   config.vm.provision "shell", inline: "docker start $(docker ps -a -q)", privileged: true
-
   config.vm.provision "shell", inline: "cp /vshare/rsakey/jenkins/id_rsa.pub /home/vagrant/.ssh/authorized_keys", privileged: true
+  config.vm.provision "shell", inline: "cp /vshare/scripts/disablesystemctlfirewalld.sh /etc/init.d/", privileged: true
 end
