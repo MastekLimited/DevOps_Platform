@@ -44,4 +44,6 @@ end
 
  config.vm.provision "shell", inline: "cp /vshare/DevOps_Platform/scripts/disablesystemctlfirewalld.sh /etc/init.d/", privileged: true
 
+ config.vm.provision "shell", inline: "/vshare/DevOps_Platform/scripts/nf_test_server/collectd_client_setup/collectd_client_setup.sh", privileged: true
+
 end
