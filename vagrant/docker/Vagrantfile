@@ -28,8 +28,14 @@ end
   config.vm.provision :shell, inline: "/vshare/scripts/vm-initial-setup/basicInstallations.sh", privileged: true
 
   config.vm.provision :shell, inline: "/vshare/scripts/vm-initial-setup/createSharedDirectories.sh", privileged: true
-  
-  config.vm.provision "shell", inline: "cp -R /vshare/docker/* /mnt/gluster/repo/", privileged: true
+
+  config.vm.provision "shell", inline: "cp -R /vshare/docker /mnt/gluster/repo/", privileged: true
+
+  #config.vm.provision "shell", inline: "mkdir /mnt/devops/", privileged: true
+
+  config.vm.provision "shell", inline: "cp -R /vshare/Build /mnt/gluster/repo/", privileged: true
+
+  config.vm.provision "shell", inline: "cp -R /vshare/docker/config /mnt/gluster/repo/", privileged: true
 
   config.vm.provision "shell", inline: "systemctl stop firewalld", privileged: true
   config.vm.provision "shell", inline: "systemctl disable firewalld", privileged: true
@@ -43,12 +49,6 @@ end
   config.vm.provision "shell", inline: "service docker start", privileged: true
 
   config.vm.provision "shell", inline: "usermod -aG docker vagrant", privileged: true
-
-  config.vm.provision "shell", inline: "mkdir /mnt/devops/", privileged: true
-
-  config.vm.provision "shell", inline: "cp -R /vshare/Build /mnt/devops/", privileged: true
-
-  config.vm.provision "shell", inline: "cp -R /vshare/docker/config /mnt/devops/", privileged: true
 
   config.vm.provision "shell", inline: "cd /vshare/docker/ && ./startupScripts.sh", privileged: true
 
