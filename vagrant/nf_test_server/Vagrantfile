@@ -35,8 +35,8 @@ end
 
   # Execute File
   config.vm.provision :shell, inline: "/vshare/scripts/nf_test_server/jmeter_setup.sh", privileged: true
-  config.vm.provision :shell, inline:"/vshare/scripts/nf_test_server/collectd_setup.sh", privileged: true
   config.vm.provision :shell, inline:"/vshare/scripts/nf_test_server/influxdb_setup.sh", privileged: true
+  config.vm.provision :shell, inline:"/vshare/scripts/nf_test_server/collectd_setup.sh", privileged: true
   config.vm.provision :shell, inline:"/vshare/scripts/nf_test_server/grafana_setup.sh", privileged: true
   config.vm.provision :shell, inline:"/vshare/scripts/nf_test_server/setdash_link.sh", privileged: true
   config.vm.provision :shell, inline:"/vshare/scripts/nf_test_server/owaspZAP_setup.sh", privileged: true
