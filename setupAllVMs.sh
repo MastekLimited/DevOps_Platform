@@ -83,12 +83,14 @@ echo "ELK SERVER :- ${IPMAP["ELK_HOST_IP"]}"
 echo "POSTGRES SERVER :- ${IPMAP["POSTGRES_HOST_IP"]}"
 echo "OMD SERVER :- ${IPMAP["OMD_HOST_IP"]}"
 echo "DOCKER SERVER :- ${IPMAP["DOCKER_HOST_IP"]}"
+echo "NF SERVER :- ${IPMAP["NF_HOST_IP"]}"
 
 grep -r '&&JENKINS_HOST_IP&&' -l --null $PWD/*/ | xargs -0 sed -i 's#&&JENKINS_HOST_IP&&#'${IPMAP["JENKINS_HOST_IP"]}'#g'
 grep -r '&&ELK_HOST_IP&&' -l --null $PWD/*/ | xargs -0 sed -i 's#&&ELK_HOST_IP&&#'${IPMAP["ELK_HOST_IP"]}'#g'
 grep -r '&&POSTGRES_HOST_IP&&' -l --null $PWD/*/ | xargs -0 sed -i 's#&&POSTGRES_HOST_IP&&#'${IPMAP["POSTGRES_HOST_IP"]}'#g'
 grep -r '&&OMD_HOST_IP&&' -l --null $PWD/*/ | xargs -0 sed -i 's#&&OMD_HOST_IP&&#'${IPMAP["OMD_HOST_IP"]}'#g'
 grep -r '&&DOCKER_HOST_IP&&' -l --null $PWD/*/ | xargs -0 sed -i 's#&&DOCKER_HOST_IP&&#'${IPMAP["DOCKER_HOST_IP"]}'#g'
+grep -r '&&NF_HOST_IP&&' -l --null $PWD/*/ | xargs -0 sed -i 's#&&NF_HOST_IP&&#'${IPMAP["NF_HOST_IP"]}'#g'
 
 find . -name "*.sh" -exec chmod +x {} \;
 
@@ -112,6 +114,10 @@ docker_vm_start_time=`date +%s`
 startCleanVirtualBox vagrant/docker/ ${IPMAP["DOCKER_HOST_IP"]}
 docker_vm_end_time=`date +%s`
 
+nf_vm_start_time=`date +%s`
+startCleanVirtualBox vagrant/nf_test_server/ ${IPMAP["NF_HOST_IP"]}
+nf_vm_end_time=`date +%s`
+
 #git reset --hard
 #git clean -f
 
@@ -125,5 +131,6 @@ printExecutionTime `expr $elk_vm_end_time - $elk_vm_start_time` "elk setup time"
 printExecutionTime `expr $postgres_vm_end_time - $postgres_vm_start_time` "postgres setup time"
 printExecutionTime `expr $omd_vm_end_time - $omd_vm_start_time` "omd setup time"
 printExecutionTime `expr $docker_vm_end_time - $docker_vm_start_time` "docker setup time"
+printExecutionTime `expr $nf_vm_end_time - $nf_vm_start_time` "nf server setup time"
 printExecutionTime `expr $all_vms_end_time - $all_vms_start_time` "Total execution time"
 echo "----------------------------------------------------------------------------------------------"
