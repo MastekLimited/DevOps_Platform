@@ -30,6 +30,8 @@ end
   config.vm.provision :shell, inline: "/vshare/scripts/vm-initial-setup/createSharedDirectories.sh", privileged: true
 
   config.vm.provision "shell", inline: "cp -R /vshare/docker /mnt/gluster/repo/", privileged: true
+  
+  config.vm.provision "shell", inline: "chmod -R 777 /mnt/devops/repo/*", privileged: true
 
   #config.vm.provision "shell", inline: "mkdir /mnt/devops/", privileged: true
 
