@@ -1,1 +1,0 @@
-docker build --no-cache -t deviceauthentication roles/device-authentication-service
