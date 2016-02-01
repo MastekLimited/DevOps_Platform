@@ -36,7 +36,8 @@ end
  config.vm.provision "shell", inline: "/vshare/DevOps_Platform/scripts/database-setup/databaseInstallation.sh", privileged: true
  config.vm.provision "shell", inline: "systemctl stop firewalld", privileged: true
  config.vm.provision "shell", inline: "systemctl disable firewalld", privileged: true
-  config.vm.provision "shell", inline: "echo Password1 | su postgres -c 'psql -d postgres -U postgres --file /vshare/DevOps_Development/Database_Scripts/setup-data/createDatabase.sql'", privileged: true
+ 
+ config.vm.provision "shell", inline: "echo Password1 | su postgres -c 'psql -d postgres -U postgres --file /vshare/DevOps_Development/Database_Scripts/setup-data/createDatabase.sql'", privileged: true
 
  config.vm.provision "shell", inline: "echo Password1 | su postgres -c 'psql -d Organisation -U postgres --file /vshare/DevOps_Development/Database_Scripts/setup-data/createTables.sql'", privileged: true
 
@@ -46,8 +47,8 @@ end
 
  config.vm.provision "shell", inline: "cp -R /vshare/DevOps_Platform/scripts/nf_test_server/collectd_client_setup /mnt/gluster/repo/", privileged: true
 
- #config.vm.provision "shell", inline: "chmod -R 777 /mnt/gluster/repo/collectd_client_setup/", privileged: true
-
- config.vm.provision "shell", inline: "/vshare/DevOps_Platform/scripts/nf_test_server/collectd_client_setup/collectd_client_setup.sh", privileged: true
+ config.vm.provision "shell", inline: "chmod -R 777 /mnt/gluster/repo/collectd_client_setup", privileged: true
+ config.vm.provision "shell", inline: "chmod -R 777 /mnt/gluster/repo/collectd_client_setup/*", privileged: true
+ config.vm.provision "shell", inline: "/mnt/gluster/repo/collectd_client_setup/collectd_client_setup.sh", privileged: true
 
 end
