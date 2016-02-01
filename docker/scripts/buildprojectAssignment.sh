@@ -1,1 +1,0 @@
-docker build --no-cache -t project-assignment roles/project-assignment-service
