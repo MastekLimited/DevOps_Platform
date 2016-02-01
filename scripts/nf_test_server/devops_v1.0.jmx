@@ -5809,7 +5809,7 @@
             </elementProp>
             <elementProp name="graphiteHost" elementType="Argument">
               <stringProp name="Argument.name">graphiteHost</stringProp>
-              <stringProp name="Argument.value">172.16.72.248</stringProp>
+              <stringProp name="Argument.value">&&DOCKER_HOST_IP&&</stringProp>
               <stringProp name="Argument.metadata">=</stringProp>
             </elementProp>
             <elementProp name="graphitePort" elementType="Argument">
