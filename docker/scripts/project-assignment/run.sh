@@ -1,0 +1,1 @@
+docker run -p 10030:10030 -p 10031:6556 --name project-assignment -h project-assignment -v /mnt/gluster/repo/config/services:/home/devops/config/services -v /mnt/gluster/repo/Build/project-assignment/:/usr/share/ project-assignment
