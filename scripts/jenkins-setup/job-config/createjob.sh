@@ -4,7 +4,7 @@ cd /var/lib/jenkins/jobs/
 echo .............creating job............
 mkdir $jobname
 cd $jobname
-cp /mnt/gluster/repo/config.xml .
+cp /mnt/gluster/repo/jenkins-setup/job-config/config.xml .
 echo .............job is created ............
 cd /var/lib/jenkins/jobs/
 chown jenkins:jenkins $jobname
