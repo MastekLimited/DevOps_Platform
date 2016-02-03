@@ -17,9 +17,9 @@ rpm --import https://jenkins-ci.org/redhat/jenkins-ci.org.key
 yum -y install jenkins
 service jenkins start
 sleep 1m
-cp /mnt/gluster/repo/*.hpi /var/lib/jenkins/plugins/
+cp /mnt/gluster/repo/jenkins-setup/plugins/*.hpi /var/lib/jenkins/plugins/
 chown jenkins:jenkins /var/lib/jenkins/plugins/*
-cp /mnt/gluster/repo/jenkinsconfiguration/*.xml /var/lib/jenkins/
+cp /mnt/gluster/repo/jenkins-setup/config/*.xml /var/lib/jenkins/
 chown jenkins:jenkins /var/lib/jenkins/*
 cp /mnt/gluster/repo/pwd /var/lib/jenkins/
 service jenkins restart
