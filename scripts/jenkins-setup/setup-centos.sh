@@ -21,5 +21,5 @@ cp /mnt/gluster/repo/jenkins-setup/plugins/*.hpi /var/lib/jenkins/plugins/
 chown jenkins:jenkins /var/lib/jenkins/plugins/*
 cp /mnt/gluster/repo/jenkins-setup/config/*.xml /var/lib/jenkins/
 chown jenkins:jenkins /var/lib/jenkins/*
-cp /mnt/gluster/repo/jenkins-setup/pwd /var/lib/jenkins/
+cp /mnt/gluster/repo/jenkins-setup/job-config/pwd /var/lib/jenkins/
 service jenkins restart
