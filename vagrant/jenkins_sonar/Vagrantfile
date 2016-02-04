@@ -25,33 +25,38 @@ end
 	vb.gui = true
   end
 
-  config.vm.provision :"shell", inline: "/vshare/scripts/vm-initial-setup/basicInstallations.sh", privileged: true
+#Basic installations
 
+  config.vm.provision :"shell", inline: "/vshare/scripts/vm-initial-setup/basicInstallations.sh", privileged: true
   config.vm.provision :"shell", inline: "/vshare/scripts/vm-initial-setup/createSharedDirectories.sh", privileged: true
 
+#Setup Jenkins
+
   config.vm.provision "shell", inline: "mkdir /mnt/gluster/repo/jenkins-setup/", privileged: true
-
   config.vm.provision "shell", inline: "chmod -R 777 /mnt/gluster/repo/jenkins-setup/", privileged: true
-
   config.vm.provision "shell", inline: "cp -R /vshare/scripts/jenkins-setup/* /mnt/gluster/repo/jenkins-setup/", privileged: true
-
   config.vm.provision :"shell", inline: "/mnt/gluster/repo/jenkins-setup/setup-centos.sh", privileged: true
-
-  config.vm.provision "shell", inline: "cp /vshare/scripts/sonar-setup/* /mnt/gluster/repo/", privileged: true
-
-  config.vm.provision :"shell", inline: "/vshare/scripts/sonar-setup/sonarsetup.sh", privileged: true
-
   config.vm.provision :"shell", inline: "/mnt/gluster/repo/jenkins-setup/job-config/createjob.sh DevOps_Development", privileged: true
+  config.vm.provision :"shell", inline: "/mnt/gluster/repo/jenkins-setup/ssh-key-generate.sh", privileged: true
+
+#Setup Sonar
+
+  config.vm.provision "shell", inline: "mkdir /mnt/gluster/repo/sonar-setup/", privileged: true
+  config.vm.provision "shell", inline: "chmod -R 777 /mnt/gluster/repo/sonar-setup/", privileged: true
+  config.vm.provision "shell", inline: "cp /vshare/scripts/sonar-setup/* /mnt/gluster/repo/sonar-setup/", privileged: true
+  config.vm.provision :"shell", inline: "/mnt/gluster/repo/sonar-setup/setup.sh", privileged: true
+
+#Setup Maven
 
   config.vm.provision "shell", inline: "cp /vshare/scripts/maven_setup/* /mnt/gluster/repo/", privileged: true
-
-  config.vm.provision "shell", inline: "cp /vshare/scripts/omd_seup/check_mk_forclient /mnt/gluster/repo/", privileged: true
-
-  config.vm.provision :"shell", inline: "/vshare/scripts/omd_seup/omdagentsetuponcentos.sh", privileged: true
-
   config.vm.provision :"shell", inline: "/vshare/scripts/maven_setup/mavensetup.sh", privileged: true
 
-  config.vm.provision :"shell", inline: "/mnt/gluster/repo/jenkins-setup/ssh-key-generate.sh", privileged: true
+#Setup OMD
+
+  config.vm.provision "shell", inline: "cp /vshare/scripts/omd_seup/check_mk_forclient /mnt/gluster/repo/", privileged: true
+  config.vm.provision :"shell", inline: "/vshare/scripts/omd_seup/omdagentsetuponcentos.sh", privileged: true
+
+#Change firewall settings
 
   config.vm.provision "shell", inline: "systemctl stop firewalld", privileged: true
   config.vm.provision "shell", inline: "systemctl disable firewalld", privileged: true
