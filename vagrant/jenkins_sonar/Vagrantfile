@@ -32,6 +32,10 @@ end
 
 #Setup Jenkins
 
+  config.vm.provision "shell", inline: "mkdir /var/log/organisation/", privileged: true
+  config.vm.provision "shell", inline: "chmod -R 777 /var/log/organisation/", privileged: true
+  config.vm.provision "shell", inline: "mkdir /var/log/dev-ops/", privileged: true
+  config.vm.provision "shell", inline: "chmod -R 777 /var/log/dev-ops/", privileged: true
   config.vm.provision "shell", inline: "mkdir /mnt/gluster/repo/jenkins-setup/", privileged: true
   config.vm.provision "shell", inline: "chmod -R 777 /mnt/gluster/repo/jenkins-setup/", privileged: true
   config.vm.provision "shell", inline: "cp -R /vshare/scripts/jenkins-setup/* /mnt/gluster/repo/jenkins-setup/", privileged: true
