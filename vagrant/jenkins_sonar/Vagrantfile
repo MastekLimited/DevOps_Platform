@@ -35,13 +35,13 @@ end
 
   config.vm.provision "shell", inline: "cp -R /vshare/scripts/jenkins-setup/* /mnt/gluster/repo/jenkins-setup/", privileged: true
 
-  config.vm.provision :"shell", inline: "/vshare/scripts/jenkins-setup/setup-centos.sh", privileged: true
+  config.vm.provision :"shell", inline: "/mnt/gluster/repo/jenkins-setup/setup-centos.sh", privileged: true
 
   config.vm.provision "shell", inline: "cp /vshare/scripts/sonar-setup/* /mnt/gluster/repo/", privileged: true
 
   config.vm.provision :"shell", inline: "/vshare/scripts/sonar-setup/sonarsetup.sh", privileged: true
 
-  config.vm.provision :"shell", inline: "/vshare/scripts/jenkins-setup/job-config/createjob.sh DevOps_Development", privileged: true
+  config.vm.provision :"shell", inline: "/mnt/gluster/repo/jenkins-setup/job-config/createjob.sh DevOps_Development", privileged: true
 
   config.vm.provision "shell", inline: "cp /vshare/scripts/maven_setup/* /mnt/gluster/repo/", privileged: true
 
