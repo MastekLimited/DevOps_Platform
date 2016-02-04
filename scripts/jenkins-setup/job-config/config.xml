@@ -76,7 +76,7 @@
 	<prebuilders />
 	<postbuilders>
 		<hudson.tasks.Shell>
-			<command>cat /var/lib/jenkins/pwd | su - vagrant -c &quot;sh /vshare/scripts/jenkins-setup/job-config/artifactTransfer.sh&quot;</command>
+			<command>cat /var/lib/jenkins/pwd | su - vagrant -c &quot;sh /vshare/scripts/jenkins-setup/job-config/artifacts-transfer.sh&quot;</command>
 		</hudson.tasks.Shell>
 	</postbuilders>
 	<runPostStepsIfResult>
