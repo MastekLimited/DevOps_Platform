@@ -48,8 +48,10 @@ end
 
 #Setup Maven
 
-  config.vm.provision "shell", inline: "cp /vshare/scripts/maven_setup/* /mnt/gluster/repo/", privileged: true
-  config.vm.provision :"shell", inline: "/vshare/scripts/maven_setup/mavensetup.sh", privileged: true
+  config.vm.provision "shell", inline: "mkdir /mnt/gluster/repo/maven-setup/", privileged: true
+  config.vm.provision "shell", inline: "chmod -R 777 /mnt/gluster/repo/maven-setup/", privileged: true
+  config.vm.provision "shell", inline: "cp /vshare/scripts/maven-setup/* /mnt/gluster/repo/maven-setup/", privileged: true
+  config.vm.provision :"shell", inline: "/mnt/gluster/repo/maven-setup/setup.sh", privileged: true
 
 #Setup OMD
 
