@@ -51,7 +51,7 @@ end
 
   config.vm.provision :"shell", inline: "/vshare/scripts/maven_setup/mavensetup.sh", privileged: true
 
-  config.vm.provision :"shell", inline: "/mnt/gluster/repo/jenkins-setup/sshkeygenwithoutprompt.sh", privileged: true
+  config.vm.provision :"shell", inline: "/mnt/gluster/repo/jenkins-setup/ssh-key-generate.sh", privileged: true
 
   config.vm.provision "shell", inline: "systemctl stop firewalld", privileged: true
   config.vm.provision "shell", inline: "systemctl disable firewalld", privileged: true
