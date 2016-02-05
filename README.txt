@@ -1,1 +1,1 @@
-DevOps suite platform scripts test
+DevOps suite platform scripts
