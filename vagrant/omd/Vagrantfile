@@ -26,7 +26,7 @@ end
 
   config.vm.provision :shell, inline: "/vshare/scripts/vm-initial-setup/basicInstallations.sh", privileged: true
   config.vm.provision :shell, inline: "/vshare/scripts/vm-initial-setup/createSharedDirectories.sh", privileged: true
-  config.vm.provision "shell", inline: "cp /vshare/scripts/omd_seup/* /mnt/gluster/repo/", privileged: true
+  config.vm.provision "shell", inline: "cp -R /vshare/scripts/omd_seup/* /mnt/gluster/repo/", privileged: true
 
   #OMD Files // execute
   config.vm.provision :shell, inline: "/vshare/scripts/omd_seup/omdserversetuponcentos.sh", privileged: true
