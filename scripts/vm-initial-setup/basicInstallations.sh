@@ -7,7 +7,7 @@
 #yum install apt
 #sudo apt-get update
 
-echo ...........................Installing Net tools (ifconfig)...........................
+echo "...........................Installing Net tools (ifconfig)..........................."
 if [ -f "/vshare/base-images/misc/net-tools-2.0-0.17.20131004git.el7.x86_64.rpm" ]; then
 	yum install -y /vshare/base-images/misc/net-tools-2.0-0.17.20131004git.el7.x86_64.rpm
 else
