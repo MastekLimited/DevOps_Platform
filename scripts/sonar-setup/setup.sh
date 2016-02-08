@@ -7,7 +7,7 @@ chmod 777 /opt/sonar
 cd /opt/sonar
 
 echo ...........................Installing Unzip...........................
-if [ -f "/vshare/base-images/jenkins/apache-maven-3.0.5-bin.tar.gz" ]; then
+if [ -f "/vshare/base-images/jenkins/unzip-6.0-13.el7.x86_64.rpm" ]; then
 	yum install -y /vshare/base-images/misc/unzip-6.0-13.el7.x86_64.rpm
 else
 	yum install -y unzip
