@@ -40,7 +40,7 @@ end
 	config.vm.provision "shell", inline: "chmod -R 777 /mnt/gluster/repo/jenkins-setup/", privileged: true
 	config.vm.provision "shell", inline: "cp -R /vshare/scripts/jenkins-setup/* /mnt/gluster/repo/jenkins-setup/", privileged: true
 	config.vm.provision :"shell", inline: "/mnt/gluster/repo/jenkins-setup/setup-centos.sh", privileged: true
-	config.vm.provision :"shell", inline: "/mnt/gluster/repo/jenkins-setup/job-config/createjob.sh DevOps_Development", privileged: true
+	config.vm.provision :"shell", inline: "/mnt/gluster/repo/jenkins-setup/job-config/create-job.sh DevOps_Development", privileged: true
 	config.vm.provision :"shell", inline: "/mnt/gluster/repo/jenkins-setup/ssh-key-generate.sh", privileged: true
 
 #Setup Sonar
