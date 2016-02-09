@@ -1,5 +1,6 @@
 #!/bin/sh
 buildAll () {
+
 echo "build base"
 ./scripts/base/build.sh
 
