@@ -6,7 +6,7 @@ mkdir -p $INSTALL_DIR
 
 cd $INSTALL_DIR
 
-apt-get update 
+apt-get update
 
 apt-get upgrade
 
@@ -16,7 +16,7 @@ dpkg -i check-mk-agent_1.2.4p5-2_all.deb
 
 chmod 777 /etc/xinetd.d
 
-cp /mnt/gluster/repo/check_mk_forclient  /etc/xinetd.d/check_mk
+cp /mnt/gluster/repo/omd-setup/agent/config/check_mk  /etc/xinetd.d/check_mk
 
 service xinetd restart
 
