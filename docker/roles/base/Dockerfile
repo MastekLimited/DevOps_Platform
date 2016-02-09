@@ -17,6 +17,8 @@ RUN yum -y install logstash-forwarder
 COPY logstash-forwarder.crt /etc/pki/tls/certs/
 COPY logstash-forwarder.conf  /etc/
 
+ADD /mnt/gluster/repo/omd-setup /tmp/
+
 ADD omdagentsetuponcentos.sh /tmp/
 ADD check_mk_forclient /tmp/
 RUN ./tmp/omdagentsetuponcentos.sh
