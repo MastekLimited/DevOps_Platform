@@ -1,0 +1,5 @@
+monitoring;monitoring;monitoring;127.0.0.1
+monitoring;ELK;ELK;&&ELK_HOST_IP&&
+monitoring;jenkins_sonar;jenkins_sonar;&&JENKINS_HOST_IP&&
+monitoring;DATABASE;DATABASE;&&POSTGRES_HOST_IP&&
+monitoring;RT-DOCKER;RT-DOCKER;&&DOCKER_HOST_IP&&
