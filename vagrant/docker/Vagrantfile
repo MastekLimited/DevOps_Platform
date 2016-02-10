@@ -30,7 +30,7 @@ Vagrant.configure(2) do |config|
 	config.vm.provision :shell, inline: "/vshare/scripts/vm-initial-setup/basicInstallations.sh", privileged: true
 	config.vm.provision :shell, inline: "/vshare/scripts/vm-initial-setup/createSharedDirectories.sh", privileged: true
 
-#Mount docker directories
+#Copy docker directories
 
 	config.vm.provision "shell", inline: "cp -R /vshare/docker /mnt/gluster/repo/", privileged: true
 	#config.vm.provision "shell", inline: "mkdir /mnt/devops/", privileged: true
@@ -38,11 +38,14 @@ Vagrant.configure(2) do |config|
 	config.vm.provision "shell", inline: "cp -R /vshare/Build /mnt/gluster/repo/", privileged: true
 	config.vm.provision "shell", inline: "cp -R /vshare/docker/config /mnt/gluster/repo/", privileged: true
 
-#Mount OMD directories
+#Copy OMD directories and installables
 
 	config.vm.provision "shell", inline: "mkdir /mnt/gluster/repo/omd-setup/", privileged: true
-	config.vm.provision "shell", inline: "chmod -R 777 /mnt/gluster/repo/omd-setup/", privileged: true
 	config.vm.provision "shell", inline: "cp -R /vshare/scripts/omd-setup/agent/ /mnt/gluster/repo/omd-setup/", privileged: true
+
+	config.vm.provision "shell", inline: "mkdir /mnt/gluster/repo/docker/roles/base/omd-setup/", privileged: true
+	config.vm.provision "shell", inline: "cp -R /vshare/scripts/omd-setup/agent/ /mnt/gluster/repo/docker/roles/base/omd-setup/", privileged: true
+	config.vm.provision "shell", inline: "cp /vshare/base-images/check_mk/agent/check_mk-agent-1.2.4p5-1.noarch.rpm /mnt/gluster/repo/docker/roles/base/omd-setup/agent/", privileged: true
 
 	config.vm.provision "shell", inline: "chmod -R 777 /mnt/gluster/repo/*", privileged: true
 
