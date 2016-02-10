@@ -17,11 +17,15 @@ RUN yum -y install logstash-forwarder
 COPY logstash-forwarder.crt /etc/pki/tls/certs/
 COPY logstash-forwarder.conf  /etc/
 
-ADD /mnt/gluster/repo/omd-setup /tmp/
+#ADD /mnt/gluster/repo/omd-setup /tmp/
 
-ADD omdagentsetuponcentos.sh /tmp/
-ADD check_mk_forclient /tmp/
-RUN ./tmp/omdagentsetuponcentos.sh
+#ADD omdagentsetuponcentos.sh /tmp/
+#ADD check_mk_forclient /tmp/
+#RUN ./tmp/omdagentsetuponcentos.sh
+RUN mkdir /tmp/omd-setup
+RUN mkdir /tmp/omd-setup/agent
+ADD omd-setup/ /tmp/omd-setup/
+RUN ./tmp/omd-setup/agent/setup-centos.sh /tmp/omd-setup/agent/check_mk-agent-1.2.4p5-1.noarch.rpm /tmp/omd-setup/agent/config/check_mk
 
 RUN mkdir /home/devops/config
 RUN mkdir /home/devops/config/services
