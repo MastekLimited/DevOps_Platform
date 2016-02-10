@@ -20,7 +20,7 @@ COPY logstash-forwarder.conf  /etc/
 #ADD omdagentsetuponcentos.sh /tmp/
 #ADD check_mk_forclient /tmp/
 #RUN ./tmp/omdagentsetuponcentos.sh
-RUN mkdir /tmp/omd-setup
+#RUN mkdir /tmp/omd-setup
 #RUN mkdir /tmp/omd-setup/agent
 #COPY omd-setup/agent/setup-centos.sh /tmp/
 #COPY omd-setup/agent/config/check_mk /tmp/
@@ -28,7 +28,7 @@ RUN mkdir /tmp/omd-setup
 #RUN ./tmp/setup-centos.sh /tmp/checkmk-agent-1.2.4p5-1.noarch.rpm /tmp/check_mk
 RUN chmod -R 777 /tmp/*
 RUN ls -lrt /tmp/
-COPY omd-setup /tmp/omd-setup/
+COPY omd-setup /tmp/omd-setup
 RUN chmod -R 777 /tmp/*
 RUN ls -lrt /tmp/
 RUN ./tmp/omd-setup/agent/setup-centos.sh /tmp/omd-setup/agent/checkmk-agent-1.2.4p5-1.noarch.rpm /tmp/omd-setup/agent/config/check_mk
