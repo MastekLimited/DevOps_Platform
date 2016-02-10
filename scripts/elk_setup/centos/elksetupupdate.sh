@@ -15,6 +15,14 @@ sudo yum -y install elasticsearch-1.4.4
 
 sudo cp /mnt/gluster/repo/elasticsearch.yml  /etc/elasticsearch
 
+echo ...........................Installing java...........................
+if [ -f "/vshare/base-images/jdk/jdk-8u45-linux-x64.rpm" ]; then
+	yum install -y /vshare/base-images/jdk/jdk-8u45-linux-x64.rpm
+else
+	wget --no-cookies --no-check-certificate --header "Cookie: gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=accept-securebackup-cookie" "http://download.oracle.com/otn-pub/java/jdk/8u45-b14/jdk-8u45-linux-x64.rpm";
+	rpm -Uvh jdk-8u45-linux-x64.rpm;
+fi
+
 cd /usr/share/elasticsearch/
 
 if [ -d "plugins/bigdesk" ];
@@ -31,7 +39,7 @@ then
 else
 	echo ...........................Installing elasticsearch-head latest............................
 	sudo bin/plugin -install mobz/elasticsearch-head
-	
+
 fi
 
 sudo systemctl start elasticsearch
@@ -59,7 +67,7 @@ else
 	echo ...........................Create kibana DIRECTORY............................
 	sudo mkdir -p /opt/kibana
 	sudo chmod 777 /opt/kibana
-	
+
 fi
 
 sudo cp -R ~/kibana-4*/* /opt/kibana/
@@ -70,7 +78,7 @@ then
 else
 	echo ...........................Create CERTS_DIRECTORY............................
 	sudo mkdir -p /etc/systemd
-		
+
 fi
 
 if [ -d "/etc/systemd/system" ];
@@ -79,7 +87,7 @@ then
 else
 	echo ...........................Create system dir............................
 	sudo mkdir -p /etc/systemd/system
-	sudo chmod 777 /etc/systemd/system		
+	sudo chmod 777 /etc/systemd/system
 fi
 
 sudo cp /mnt/gluster/repo/kibana4.service /etc/systemd/system
@@ -117,7 +125,7 @@ else
 	echo ...........................Create logstash directory. inside etc............................
 	sudo mkdir /etc/logstash
 	sudo chmod 777 /etc/logstash
-	
+
 fi
 
 if [ -d /etc/logstash/conf.d ];
@@ -127,7 +135,7 @@ else
 	echo ...........................Create conf.d directory. inside etc.logstash............................
 	sudo mkdir /etc/logstash/conf.d
 	sudo chmod 777 /etc/logstash/conf.d
-	
+
 fi
 
 echo Lets coping a configuration file called 01-lumberjack-input.conf and set up our lumberjack input the protocol that Logstash Forwarder uses..............
