@@ -13,8 +13,10 @@ fi
 
 echo "...........................Local install postgres..........................."
 
-if [ -f "/vshare/base-images/database/postgres/postgresql94-server-9.4.5-1PGDG.rhel5.x86_64.rpm" ]; then
-	yum install -y /vshare/base-images/database/postgres/postgresql94-server-9.4.5-1PGDG.rhel5.x86_64.rpm
+if [ -f "/vshare/base-images/database/postgres/postgresql94-libs-9.4.5-2PGDG.rhel7.x86_64.rpm" ] && [ -f "/vshare/base-images/database/postgres/postgresql94-9.4.5-2PGDG.rhel7.x86_64.rpm" ] && [ -f "/vshare/base-images/database/postgres/postgresql94-server-9.4.5-2PGDG.rhel7.x86_64.rpm" ]; then
+	yum install -y /vshare/base-images/database/postgres/postgresql94-libs-9.4.5-2PGDG.rhel7.x86_64.rpm
+	yum install -y /vshare/base-images/database/postgres/postgresql94-9.4.5-2PGDG.rhel7.x86_64.rpm
+	yum install -y /vshare/base-images/database/postgres/postgresql94-server-9.4.5-2PGDG.rhel7.x86_64.rpm
 else
 	yum install -y postgresql94-server
 fi
