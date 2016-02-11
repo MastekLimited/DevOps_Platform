@@ -33,7 +33,7 @@ Vagrant.configure(2) do |config|
 	config.vm.provision "shell", inline: "mkdir /mnt/gluster/repo/elk-setup/", privileged: true
 	config.vm.provision "shell", inline: "chmod -R 777 /mnt/gluster/repo/elk-setup/", privileged: true
 	config.vm.provision "shell", inline: "cp -R /vshare/scripts/elk-setup/* /mnt/gluster/repo/elk-setup/", privileged: true
-	config.vm.provision :shell, inline:"/mnt/gluster/repo/elk-setup/server/setup-centos.sh", privileged: true
+	config.vm.provision :shell, inline:"/mnt/gluster/repo/elk-setup/server/setup-centos.sh", privileged: false
 
 #Change firewall settings
 	config.vm.provision "shell", inline: "systemctl stop firewalld", privileged: true
