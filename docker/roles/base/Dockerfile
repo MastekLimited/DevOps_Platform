@@ -10,12 +10,17 @@ RUN yum install -y passwd
 RUN yum install -y python-setuptools
 ADD setup.sh /tmp/
 RUN ./tmp/setup.sh
-RUN rpm --import http://packages.elasticsearch.org/GPG-KEY-elasticsearch
-COPY logstash-forwarder.repo  /etc/yum.repos.d/
-RUN yum -y install logstash-forwarder
 
-COPY logstash-forwarder.crt /etc/pki/tls/certs/
-COPY logstash-forwarder.conf  /etc/
+COPY elk-setup /tmp/elk-setup
+RUN chmod -R 777 /tmp/*
+RUN ./tmp/elk-setup/agent/setup-centos.sh /tmp/elk-setup/agent/config/logstash-forwarder.conf /tmp/elk-setup/agent/config/logstash-forwarder.crt /tmp/elk-setup/agent/config/logstash-forwarder.repo
+
+#RUN rpm --import http://packages.elasticsearch.org/GPG-KEY-elasticsearch
+#COPY logstash-forwarder.repo  /etc/yum.repos.d/
+#RUN yum -y install logstash-forwarder
+
+#COPY logstash-forwarder.crt /etc/pki/tls/certs/
+#COPY logstash-forwarder.conf  /etc/
 
 #ADD omdagentsetuponcentos.sh /tmp/
 #ADD check_mk_forclient /tmp/
