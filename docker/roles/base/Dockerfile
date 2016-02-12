@@ -8,8 +8,8 @@ RUN cd /opt;wget --no-cookies --no-check-certificate --header "Cookie: gpw_e24=h
 "http://download.oracle.com/otn-pub/java/jdk/7u71-b14/jre-7u71-linux-x64.tar.gz";tar xvf jre-7u71-linux-x64.tar.gz;chown -R root: jre1.7.0_71;alternatives --install /usr/bin/java java /opt/jre1.7.0_71/bin/java 1;rm /opt/jre-7u71-linux-x64.tar.gz
 RUN yum install -y passwd
 RUN yum install -y python-setuptools
-ADD setup.sh /tmp/
-RUN ./tmp/setup.sh
+ADD add-devops-user.sh /tmp/
+RUN ./tmp/add-devops-user.sh
 
 COPY elk-setup /tmp/elk-setup
 COPY logstash-forwarder.crt /tmp
