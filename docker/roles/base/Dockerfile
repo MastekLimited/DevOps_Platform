@@ -12,9 +12,9 @@ ADD add-devops-user.sh /tmp/
 RUN ./tmp/add-devops-user.sh
 
 COPY elk-setup /tmp/elk-setup
-COPY logstash-forwarder.crt /tmp
+#COPY logstash-forwarder.crt /tmp
 RUN chmod -R 777 /tmp/*
-RUN ./tmp/elk-setup/agent/setup-centos.sh /tmp/elk-setup/agent/config/logstash-forwarder.conf /tmp/logstash-forwarder.crt /tmp/elk-setup/agent/config/logstash-forwarder.repo
+RUN ./tmp/elk-setup/agent/setup-centos.sh /tmp/elk-setup/agent/config/logstash-forwarder.conf /tmp/elk-setup/agent/config/logstash-forwarder.crt /tmp/elk-setup/agent/config/logstash-forwarder.repo
 
 #RUN rpm --import http://packages.elasticsearch.org/GPG-KEY-elasticsearch
 #COPY logstash-forwarder.repo  /etc/yum.repos.d/
