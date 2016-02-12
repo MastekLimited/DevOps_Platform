@@ -1,19 +1,4 @@
 TLS_DIR=/etc/pki/tls
-sudo rpm --import http://packages.elasticsearch.org/GPG-KEY-elasticsearch
-if [ -d "/etc/yum.repos.d" ];
-then
-    echo .........................yum.repos.d already Exist.................................
-else
-	echo ...........................Create CERTS_DIRECTORY............................
-	sudo mkdir -p /etc/yum.repos.d
-	sudo chmod 777 /etc/yum.repos.d
-fi
-
-sudo cp /mnt/gluster/repo/elk-setup/server/elasticsearch/config/elasticsearch.repo  /etc/yum.repos.d
-sudo yum -y install elasticsearch-1.4.4
-
-
-sudo cp /mnt/gluster/repo/elk-setup/server/elasticsearch/config/elasticsearch.yml  /etc/elasticsearch
 
 echo ...........................Installing java...........................
 if [ -f "/vshare/base-images/jdk/jdk-8u45-linux-x64.rpm" ]; then
@@ -23,133 +8,150 @@ else
 	sudo rpm -Uvh jdk-8u45-linux-x64.rpm;
 fi
 
+echo ...........................Checking and creating certs directory...........................
+if [ -d "/etc/yum.repos.d" ]; then
+    echo ...........................yum.repos.d already exists...........................
+else
+	sudo mkdir -p /etc/yum.repos.d
+	sudo chmod 777 /etc/yum.repos.d
+fi
+
+echo ...........................Installing Elasticsearch...........................
+sudo cp /mnt/gluster/repo/elk-setup/server/elasticsearch/config/elasticsearch.repo /etc/yum.repos.d
+
+if [ -f "/vshare/base-images/elk/elasticsearch-1.4.4.noarch.rpm" ]; then
+	sudo yum install --skip-broken -y /vshare/base-images/elk/elasticsearch-1.4.4.noarch.rpm
+else
+	sudo yum -y install elasticsearch-1.4.4
+fi
+
+sudo cp /mnt/gluster/repo/elk-setup/server/elasticsearch/config/elasticsearch.yml /etc/elasticsearch
+
 cd /usr/share/elasticsearch/
 
-if [ -d "plugins/bigdesk" ];
-then
-    echo ...........................bigdesk already installed.......................................
+echo ...........................Checking and Installing bigdesk...........................
+if [ -d "plugins/bigdesk" ]; then
+    echo ...........................bigdesk already installed...........................
 else
-	echo ...........................Installing bigdesk latest.......................................
 	sudo bin/plugin -install lukas-vlcek/bigdesk/2.4.0
 fi
 
-if [ -d "plugins/elasticsearch-head" ];
-then
-    echo .........................elasticsearch-head already installed.................................
+echo ...........................Checking and Installing elasticsearch-head...........................
+if [ -d "plugins/elasticsearch-head" ]; then
+    echo ...........................elasticsearch-head already installed...........................
 else
-	echo ...........................Installing elasticsearch-head latest............................
 	sudo bin/plugin -install mobz/elasticsearch-head
-
 fi
 
+echo ...........................Starting Elasticsearch...........................
 sudo systemctl start elasticsearch
 
+echo ...........................Installing Kibana...........................
 cd ~;
 
-if [ -d "kibana-4.0.1-linux-x64.tar.gz" ];
-then
-    echo .........................kibana-4.0.1-linux-x64.tar.gz already Exist.................................
+if [ -d "kibana-4.0.1-linux-x64.tar.gz" ]; then
+    echo ...........................kibana-4.0.1-linux-x64.tar.gz already exists...........................
 else
-	echo ...........................Download kibana-4.0.1-linux-x64.tar.gz............................
-	sudo wget https://download.elasticsearch.org/kibana/kibana/kibana-4.0.1-linux-x64.tar.gz
+	if [ -f "/vshare/base-images/elk/kibana-4.0.1-linux-x64.tar.gz" ]; then
+		sudo cp /vshare/base-images/elk/kibana-4.0.1-linux-x64.tar.gz .
+	else
+		sudo wget https://download.elasticsearch.org/kibana/kibana/kibana-4.0.1-linux-x64.tar.gz
+	fi
 	sudo chmod 777 kibana-4.0.1-linux-x64.tar.gz
-	sudo tar xvf kibana-*.tar.gz
+	sudo tar xf kibana-*.tar.gz
 fi
 
-#sudo cp /mnt/gluster/repo/kibana.yml ~/kibana-4*/config
-
-
-
-if [ -d "/opt/kibana" ];
-then
-    echo .........................Kibana already Exist.................................
+echo ...........................Copying kibana installation directory in opt...........................
+if [ -d "/opt/kibana" ]; then
+    echo .........................Kibana already exists.................................
 else
-	echo ...........................Create kibana DIRECTORY............................
+	echo ...........................Create kibana directory............................
 	sudo mkdir -p /opt/kibana
 	sudo chmod 777 /opt/kibana
-
 fi
 
 sudo cp -R ~/kibana-4*/* /opt/kibana/
 
-if [ -d "/etc/systemd" ];
-then
-    echo .........................CERTS_DIR already Exist.................................
+echo ...........................Checking and creating certs directory systemd...........................
+if [ -d "/etc/systemd" ]; then
+    echo .........................certs directory already exists.................................
 else
-	echo ...........................Create CERTS_DIRECTORY............................
 	sudo mkdir -p /etc/systemd
-
 fi
 
-if [ -d "/etc/systemd/system" ];
-then
-    echo .........................system dir already Exist.................................
+echo ...........................Checking and creating system directory...........................
+if [ -d "/etc/systemd/system" ]; then
+    echo ...........................system directory already exists...........................
 else
-	echo ...........................Create system dir............................
 	sudo mkdir -p /etc/systemd/system
 	sudo chmod 777 /etc/systemd/system
 fi
 
+echo ...........................Starting Kibana...........................
 sudo cp /mnt/gluster/repo/elk-setup/server/kibana/config/kibana4.service /etc/systemd/system
-
 sudo systemctl start kibana4
 sudo systemctl enable kibana4
 
-sudo rpm --import http://packages.elasticsearch.org/GPG-KEY-elasticsearch
+echo ...........................Installing Logstash...........................
+
+if [ -f "/vshare/base-images/elk/GPG-KEY-elasticsearch" ]; then
+	sudo cp /vshare/base-images/elk/GPG-KEY-elasticsearch .
+else
+	sudo rpm --import http://packages.elasticsearch.org/GPG-KEY-elasticsearch
+fi
 
 sudo cp /mnt/gluster/repo/elk-setup/server/logstash/config/logstash.repo  /etc/yum.repos.d/
 
-sudo yum -y install logstash
+if [ -f "/vshare/base-images/elk/logstash-1.5.6-1.noarch.rpm" ]; then
+	sudo yum -y install /vshare/base-images/elk/logstash-1.5.6-1.noarch.rpm
+else
+	sudo yum -y install logstash
+fi
 
-echo ................................Now replacing openssl.cnf file into etc.ssl ...........................................................
+echo ..........................Replace openssl.cnf file into etc.ssl...........................
 sudo cp /mnt/gluster/repo/elk-setup/server/logstash/config/openssl.cnf  /etc/ssl
 
-echo ................................Now generate the SSL certificate and private key...........................................................
+echo ...........................Generate SSL certificate and private key...........................
 cd /etc/pki/tls
-
 sudo openssl req -config /etc/ssl/openssl.cnf -x509 -days 3650 -batch -nodes -newkey rsa:2048 -keyout private/logstash-forwarder.key -out certs/logstash-forwarder.crt
-echo ................................Copy logstash-forwarder.crt into shared folder mnt.gluster.repo ...........................................................
 
-if [ -f $TLS_DIR"/certs/logstash-forwarder.crt" ];
-then
-echo ...........................logstash-forwarder.crt found  now coping file............................
-sudo cp -f /etc/pki/tls/certs/logstash-forwarder.crt /vshare/docker/roles/base/
+echo ...........................Copy newly generated logstash-forwarder.crt into shared folder for docker instances...........................
+
+if [ -f $TLS_DIR"/certs/logstash-forwarder.crt" ]; then
+	sudo cp -f /etc/pki/tls/certs/logstash-forwarder.crt /vshare/docker/roles/base/
 else
-echo ...........................logstash-forwarder.crt file does not exist............................
+	echo ...........................logstash-forwarder.crt file does not exist...........................
 fi
 
-if [ -d /etc/logstash ];
-then
-    echo .........................logstash directory already Exist inside etc .................................
+echo ...........................Checking and creating logstash directory...........................
+if [ -d /etc/logstash ]; then
+    echo ...........................logstash directory already Exist in etc...........................
 else
-	echo ...........................Create logstash directory. inside etc............................
 	sudo mkdir /etc/logstash
 	sudo chmod 777 /etc/logstash
-
 fi
 
-if [ -d /etc/logstash/conf.d ];
-then
-    echo .........................conf.d directory already Exist inside etc.logstash.................................
+echo ...........................Checking and creating conf.d directory...........................
+if [ -d /etc/logstash/conf.d ]; then
+    echo ...........................conf.d directory already exists inside etc.logstash...........................
 else
-	echo ...........................Create conf.d directory. inside etc.logstash............................
 	sudo mkdir /etc/logstash/conf.d
 	sudo chmod 777 /etc/logstash/conf.d
-
 fi
 
-echo Lets coping a configuration file called 01-lumberjack-input.conf and set up our lumberjack input the protocol that Logstash Forwarder uses..............
+echo ...........................Set up lumberjack input the protocol for logstash forwarder...........................
 sudo chmod 777 /mnt/gluster/repo/elk-setup/server/logstash/config/01-lumberjack-input.conf
 sudo cp /mnt/gluster/repo/elk-setup/server/logstash/config/01-lumberjack-input.conf /etc/logstash/conf.d
 
-echo Now lets coping a configuration file called 10-syslog.conf where we will add a filter for syslog messages...............................
+echo ...........................Add a filter for syslog messages...........................
 sudo chmod 777 /mnt/gluster/repo/elk-setup/server/logstash/config/10-syslog.conf
 sudo cp /mnt/gluster/repo/elk-setup/server/logstash/config/10-syslog.conf /etc/logstash/conf.d
 
-echo ..........................we will coping a configuration file called 30-lumberjack-output.conf
+echo ...........................Set up lumberjack output the protocol for logstash forwarder...........................
 sudo chmod 777 /mnt/gluster/repo/elk-setup/server/logstash/config/30-lumberjack-output.conf
 sudo cp /mnt/gluster/repo/elk-setup/server/logstash/config/30-lumberjack-output.conf /etc/logstash/conf.d
 
+echo ...........................Restarting logstash...........................
 sudo service logstash restart
 
 #bin/logstash -e 'input { stdin { } } output { elasticsearch { host => localhost } }'
