@@ -1,7 +1,7 @@
 #base Dockerfile
 #FROM centos:6.6
 
-if [ -f "/vshare/base-images/docker/centos-6.6" ]; then
+RUN if [ -f "/vshare/base-images/docker/centos-6.6" ]; then
 	docker load -i /vshare/base-images/docker/centos-6.6
 else
 	FROM centos:6.6
@@ -12,19 +12,19 @@ MAINTAINER DevOps
 #RUN yum install -y wget
 #RUN yum install -y tar
 
-if [ -f "/vshare/base-images/misc/telnet-0.17-59.el7.x86_64.rpm" ]; then
+RUN if [ -f "/vshare/base-images/misc/telnet-0.17-59.el7.x86_64.rpm" ]; then
 	yum install -y /vshare/base-images/misc/telnet-0.17-59.el7.x86_64.rpm
 else
 	yum install -y telnet
 fi
 
-if [ -f "/vshare/base-images/misc/wget-1.14-10.el7.x86_64.rpm" ]; then
+RUN if [ -f "/vshare/base-images/misc/wget-1.14-10.el7.x86_64.rpm" ]; then
 	yum install -y /vshare/base-images/misc/wget-1.14-10.el7.x86_64.rpm
 else
 	yum install -y wget
 fi
 
-if [ -f "/vshare/base-images/misc/tar-1.26-29.el7.x86_64.rpm" ]; then
+RUN if [ -f "/vshare/base-images/misc/tar-1.26-29.el7.x86_64.rpm" ]; then
 	yum install -y /vshare/base-images/misc/tar-1.26-29.el7.x86_64.rpm
 else
 	yum install -y tar
@@ -33,7 +33,7 @@ fi
 #RUN cd /opt;wget --no-cookies --no-check-certificate --header "Cookie: gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=accept-securebackup-cookie" \
 "http://download.oracle.com/otn-pub/java/jdk/7u71-b14/jre-7u71-linux-x64.tar.gz";tar xvf jre-7u71-linux-x64.tar.gz;chown -R root: jre1.7.0_71;alternatives --install /usr/bin/java java /opt/jre1.7.0_71/bin/java 1;rm /opt/jre-7u71-linux-x64.tar.gz
 
-if [ -f "/vshare/base-images/jdk/jdk-8u45-linux-x64.rpm" ]; then
+RUN if [ -f "/vshare/base-images/jdk/jdk-8u45-linux-x64.rpm" ]; then
 	sudo yum install -y /vshare/base-images/jdk/jdk-8u45-linux-x64.rpm
 else
 	sudo wget --no-cookies --no-check-certificate --header "Cookie: gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=accept-securebackup-cookie" "http://download.oracle.com/otn-pub/java/jdk/8u45-b14/jdk-8u45-linux-x64.rpm";
@@ -41,14 +41,14 @@ else
 fi
 
 #RUN yum install -y passwd
-if [ -f "/vshare/base-images/misc/passwd-0.79-4.el7.x86_64.rpm" ]; then
+RUN if [ -f "/vshare/base-images/misc/passwd-0.79-4.el7.x86_64.rpm" ]; then
 	sudo yum install -y /vshare/base-images/misc/passwd-0.79-4.el7.x86_64.rpm
 else
 	RUN yum install -y passwd
 fi
 
-RUN yum install -y python-setuptools
-if [ -f "/vshare/base-images/misc/python-setuptools-0.9.8-4.el7.noarch.rpm" ]; then
+#RUN yum install -y python-setuptools
+RUN if [ -f "/vshare/base-images/misc/python-setuptools-0.9.8-4.el7.noarch.rpm" ]; then
 	sudo yum install -y /vshare/base-images/misc/python-setuptools-0.9.8-4.el7.noarch.rpm
 else
 	RUN yum install -y python-setuptools
