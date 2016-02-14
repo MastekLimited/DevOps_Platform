@@ -1,5 +1,12 @@
 #base Dockerfile
-FROM centos:6.6
+#FROM centos:6.6
+
+if [ -f "/vshare/base-images/docker/centos-6.6" ]; then
+	docker load -i /vshare/base-images/docker/centos-6.6
+else
+	FROM centos:6.6
+fi
+
 MAINTAINER DevOps
 #RUN yum install -y telnet
 #RUN yum install -y wget
