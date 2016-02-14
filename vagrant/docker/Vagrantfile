@@ -37,6 +37,17 @@ Vagrant.configure(2) do |config|
 	#config.vm.provision "shell", inline: "chmod -R 777 /mnt/devops/", privileged: true
 	config.vm.provision "shell", inline: "cp -R /vshare/Build /mnt/gluster/repo/", privileged: true
 	config.vm.provision "shell", inline: "cp -R /vshare/certificates /mnt/gluster/repo/", privileged: true
+
+#Copy logstash forwarder files
+	config.vm.provision "shell", inline: "cp /vshare/scripts/elk-setup/agent/config/logstash-forwarder.repo /mnt/gluster/repo/docker/roles/base/elk-setup/agent/config/", privileged: true
+	config.vm.provision "shell", inline: "cp /vshare/scripts/elk-setup/agent/setup-centos.sh /mnt/gluster/repo/docker/roles/base/elk-setup/agent/", privileged: true
+	config.vm.provision "shell", inline: "cp /vshare/scripts/elk-setup/agent/setup-ubuntu.sh /mnt/gluster/repo/docker/roles/base/elk-setup/agent/", privileged: true
+
+#Copy omd files
+
+	config.vm.provision "shell", inline: "mkdir /mnt/gluster/repo/docker/roles/base/omd-setup/", privileged: true
+	config.vm.provision "shell", inline: "cp -R /vshare/scripts/omd-setup/agent /mnt/gluster/repo/docker/roles/base/omd-setup/", privileged: true
+
 	config.vm.provision "shell", inline: "chmod -R 777 /mnt/gluster/repo/*", privileged: true
 
 #Change firewall settings
