@@ -52,8 +52,8 @@ Vagrant.configure(2) do |config|
 	config.vm.provision "shell", inline: "usermod -aG docker vagrant", privileged: true
 
 #Build and run docker
-	config.vm.provision "shell", inline: "/mnt/gluster/repo/docker/startupScripts.sh", privileged: true
-	config.vm.provision "shell", inline: "/mnt/gluster/repo/docker/runAllScripts.sh", privileged: true
+	config.vm.provision "shell", inline: "cd /mnt/gluster/repo/docker/ && ./startupScripts.sh", privileged: true
+	config.vm.provision "shell", inline: "cd /mnt/gluster/repo/docker/ && ./runAllScripts.sh", privileged: true
 
 	config.vm.provision "shell", inline: "systemctl stop firewalld", privileged: true
 	config.vm.provision "shell", inline: "docker stop $(docker ps -a -q)", privileged: true
