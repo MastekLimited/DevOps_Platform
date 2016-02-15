@@ -29,6 +29,7 @@ end
   # Execute File
   config.vm.provision :shell, inline: "/vshare/scripts/vm-initial-setup/basicInstallations.sh", privileged: true
   config.vm.provision :shell, inline: "/vshare/scripts/vm-initial-setup/createSharedDirectories.sh", privileged: true
+	config.vm.provision "shell", inline: "cp /vshare/scripts/vm-initial-setup/disable-system-ctl-firewalld.sh /etc/init.d/", privileged: true
 
   #copying config files to mount server share folder
   config.vm.provision "shell", inline: "cp -r /vshare/scripts/nf_test_server/* /mnt/gluster/repo/", privileged: true
@@ -49,6 +50,5 @@ end
   # Execute Stop Firewall
   config.vm.provision "shell", inline: "systemctl stop firewalld", privileged: true
   config.vm.provision "shell", inline: "systemctl disable firewalld", privileged: true
-  config.vm.provision "shell", inline: "cp /vshare/scripts/disablesystemctlfirewalld.sh /etc/init.d/", privileged: true
 
 end
