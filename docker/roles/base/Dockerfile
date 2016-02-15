@@ -9,17 +9,20 @@ MAINTAINER DevOps
 #RUN yum install -y passwd
 #RUN yum install -y python-setuptools
 
-RUN yum install -y /mnt/gluster/repo/docker/roles/base/installables/misc/telnet-0.17-59.el7.x86_64.rpm;
+COPY installables /tmp/installables
 
-RUN yum install -y /mnt/gluster/repo/docker/roles/base/installables/misc/wget-1.14-10.el7.x86_64.rpm
+RUN yum install -y /tmp/installables/misc/telnet-0.17-59.el7.x86_64.rpm;
 
-RUN yum install -y /mnt/gluster/repo/docker/roles/base/installables/misc/tar-1.26-29.el7.x86_64.rpm
+RUN yum install -y /tmp/installables/misc/wget-1.14-10.el7.x86_64.rpm
 
-RUN yum install -y /mnt/gluster/repo/docker/roles/base/installables/jdk/jdk-8u45-linux-x64.rpm
+RUN yum install -y /tmp/installables/misc/tar-1.26-29.el7.x86_64.rpm
 
-RUN yum install -y /mnt/gluster/repo/docker/roles/base/installables/misc/passwd-0.79-4.el7.x86_64.rpm
+RUN yum install -y /tmp/installables/jdk/jdk-8u45-linux-x64.rpm
 
-RUN yum install -y /mnt/gluster/repo/docker/roles/base/installables/misc/python-setuptools-0.9.8-4.el7.noarch.rpm
+RUN yum install -y /tmp/installables/misc/passwd-0.79-4.el7.x86_64.rpm
+
+RUN yum install -y /tmp/installables/misc/python-setuptools-0.9.8-4.el7.noarch.rpm
+
 
 
 RUN easy_install supervisor
