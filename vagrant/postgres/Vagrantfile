@@ -29,6 +29,7 @@ Vagrant.configure(2) do |config|
 
 	config.vm.provision :shell, inline: "/vshare/scripts/vm-initial-setup/basicInstallations.sh", privileged: true
 	config.vm.provision :shell, inline: "/vshare/scripts/vm-initial-setup/createSharedDirectories.sh", privileged: true
+	config.vm.provision "shell", inline: "cp /vshare/scripts/vm-initial-setup/disable-system-ctl-firewalld.sh /etc/init.d/", privileged: true
 
 #Copy Database files
 	config.vm.provision "shell", inline: "mkdir /mnt/gluster/repo/database-setup/", privileged: true
@@ -53,5 +54,4 @@ Vagrant.configure(2) do |config|
 
 	config.vm.provision "shell", inline: "systemctl stop firewalld", privileged: true
 	config.vm.provision "shell", inline: "systemctl disable firewalld", privileged: true
-	config.vm.provision "shell", inline: "cp /vshare/scripts/disablesystemctlfirewalld.sh /etc/init.d/", privileged: true
 end
