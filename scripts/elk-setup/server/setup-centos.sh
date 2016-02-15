@@ -118,7 +118,7 @@ sudo openssl req -config /etc/ssl/openssl.cnf -x509 -days 3650 -batch -nodes -ne
 echo ...........................Copy newly generated logstash-forwarder.crt into shared folder for logstash forwarder instances running on any VM/docker containers...........................
 
 if [ -f $TLS_DIR"/certs/logstash-forwarder.crt" ]; then
-	sudo cp -f /etc/pki/tls/certs/logstash-forwarder.crt /vshare/certificates/generated/
+	sudo cp -f $TLS_DIR"/certs/logstash-forwarder.crt" /vshare/certificates/generated/
 else
 	echo ...........................logstash-forwarder.crt file does not exist...........................
 fi
