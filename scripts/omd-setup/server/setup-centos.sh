@@ -19,7 +19,6 @@ systemctl start mariadb
 
 echo ...........................Installing SNMP...........................
 if [ -f "/vshare/base-images/check_mk/server/perl-Net-SNMP-5.2.0-1.2.el6.rf.noarch.rpm" ]; then
-	echo "perl-Net-SNMP-5.2.0-1.2.el6.rf.noarch found locally"
 	cp /vshare/base-images/check_mk/server/perl-Net-SNMP-5.2.0-1.2.el6.rf.noarch.rpm .
 else
 	wget  http://pkgs.repoforge.org/perl-Net-SNMP/perl-Net-SNMP-5.2.0-1.2.el6.rf.noarch.rpm
@@ -28,7 +27,6 @@ yum -y install perl-Net-SNMP-5.2.0-1.2.el6.rf.noarch.rpm
 
 echo ...........................Installing libmcrypt...........................
 if [ -f "/vshare/base-images/check_mk/server/libmcrypt-2.5.7-1.2.el6.rf.x86_64.rpm" ]; then
-	echo "libmcrypt-2.5.7-1.2.el6.rf.x86_64 found locally"
 	cp /vshare/base-images/check_mk/server/libmcrypt-2.5.7-1.2.el6.rf.x86_64.rpm .
 else
 	wget  http://pkgs.repoforge.org/libmcrypt/libmcrypt-2.5.7-1.2.el6.rf.x86_64.rpm
@@ -37,7 +35,6 @@ yum -y install libmcrypt-2.5.7-1.2.el6.rf.x86_64.rpm
 
 echo ...........................Installing fping...........................
 if [ -f "/vshare/base-images/check_mk/server/fping-3.10-1.el6.rf.x86_64.rpm" ]; then
-	echo "fping-3.10-1.el6.rf.x86_64 found locally"
 	cp /vshare/base-images/check_mk/server/fping-3.10-1.el6.rf.x86_64.rpm .
 else
 	wget  http://pkgs.repoforge.org/fping/fping-3.10-1.el6.rf.x86_64.rpm
@@ -46,7 +43,6 @@ yum -y install fping-3.10-1.el6.rf.x86_64.rpm
 
 echo ...........................Installing radiusclient...........................
 if [ -f "/vshare/base-images/check_mk/server/radiusclient-ng-0.5.6-5.el6.rf.x86_64.rpm" ]; then
-	echo "radiusclient-ng-0.5.6-5.el6.rf.x86_64 found locally"
 	cp /vshare/base-images/check_mk/server/radiusclient-ng-0.5.6-5.el6.rf.x86_64.rpm .
 else
 	wget  http://pkgs.repoforge.org/radiusclient-ng/radiusclient-ng-0.5.6-5.el6.rf.x86_64.rpm
@@ -55,7 +51,6 @@ yum -y install radiusclient-ng-0.5.6-5.el6.rf.x86_64.rpm
 
 echo ...........................Installing OMD...........................
 if [ -f "/vshare/base-images/check_mk/server/omd-1.20.rhel7.x86_64.rpm" ]; then
-	echo "omd-1.20.rhel7.x86_64 found locally"
 	cp /vshare/base-images/check_mk/server/omd-1.20.rhel7.x86_64.rpm .
 else
 	wget http://files.omdistro.org/releases/centos_rhel/omd-1.20.rhel7.x86_64.rpm
@@ -64,7 +59,6 @@ yum -y install omd-1.20.rhel7.x86_64.rpm
 
 echo ...........................Installing Check MK agent...........................
 if [ -f "/vshare/base-images/check_mk/agent/check_mk-agent-1.2.4p5-1.noarch.rpm" ]; then
-	echo "perl-Net-SNMP-5.2.0-1.2.el6.rf.noarch found locally"
 	cp /vshare/base-images/check_mk/agent/check_mk-agent-1.2.4p5-1.noarch.rpm .
 else
 	wget http://mathias-kettner.de/download/check_mk-agent-1.2.4p5-1.noarch.rpm
