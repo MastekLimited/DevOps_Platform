@@ -1,7 +1,7 @@
 #!/bin/bash
 
-checkMKAgentRPMFilePath=$1
-checkMKAgentConfigFilePath=$2
+checkMKAgentConfigFilePath=$1
+checkMKAgentRPMFilePath=$2
 
 INSTALLATION_DIRECTORY=/opt/omd
 mkdir -p $INSTALLATION_DIRECTORY
