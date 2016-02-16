@@ -1,7 +1,7 @@
 #!/bin/sh
 buildAll () {
 
-echo "build base"
+echo ">>>>>>>>>>>>>>>>>>>build base>>>>>>>>>>>>>>>>>>>"
 ./scripts/base/build.sh
 
 echo ">>>>>>>>>>>>>>>>>>>build uuid>>>>>>>>>>>>>>>>>>>"
