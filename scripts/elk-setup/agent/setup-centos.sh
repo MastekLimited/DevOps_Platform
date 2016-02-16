@@ -8,12 +8,23 @@ logstashForwarderRepoFilePath=$logstashForwarderConfigDirectoryPath/logstash-for
 logstashForwarderInstallablesDirectoryPath=$2
 
 gpgKeyElasticsearchFilePath=$logstashForwarderInstallablesDirectoryPath/GPG-KEY-elasticsearch
-logstashForwarderRPMFilePath=$logstashForwarderInstallablesDirectoryPath/check_mk-agent-1.2.4p5-1.noarch.rpm
+logstashForwarderRPMFilePath=$logstashForwarderInstallablesDirectoryPath/logstash-forwarder-0.4.0-1.x86_64.rpm
 
 echo ...........................Installing logstash-forwarder...........................
-rpm --import http://packages.elasticsearch.org/GPG-KEY-elasticsearch
+
+if [ -f $gpgKeyElasticsearchFilePath ]; then
+	rpm --import $gpgKeyElasticsearchFilePath
+else
+	rpm --import http://packages.elasticsearch.org/GPG-KEY-elasticsearch
+fi
+
 cp $logstashForwarderRepoFilePath  /etc/yum.repos.d
-yum -y install logstash-forwarder
+
+if [ -f $logstashForwarderRPMFilePath ]; then
+	yum install -y $logstashForwarderRPMFilePath
+else
+	yum -y install logstash-forwarder
+fi
 
 cp $logstashForwarderCertificateFilePath /etc/pki/tls/certs
 cp $logstashForwarderConfigFilePath  /etc
