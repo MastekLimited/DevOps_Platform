@@ -18,14 +18,21 @@ else
 fi
 
 echo ...........................Installing git...........................
-if [ -f "/vshare/base-images/jenkins/git-1.8.3.1-5.el7.x86_64.rpm" ]; then
-	yum install -y git
 
-	#yum install -y /vshare/base-images/jenkins/perl-Error-0.17020-2.el7.noarch.rpm
-	#yum install -y /vshare/base-images/jenkins/perl-TermReadKey-2.30-20.el7.x86_64.rpm
-	#yum install -y /vshare/base-images/jenkins/libgnome-keyring-3.8.0-3.el7.x86_64.rpm
-	#yum install -y /vshare/base-images/jenkins/perl-Git-1.8.3.1-5.el7.noarch.rpm
-	#yum install -y /vshare/base-images/jenkins/git-1.8.3.1-5.el7.x86_64.rpm
+if [ -f "/vshare/base-images/git/perl-Error-0.17020-2.el7.noarch.rpm" ]; then
+	yum install -y --skip-broken /vshare/base-images/git/perl-Error-0.17020-2.el7.noarch.rpm
+fi
+
+if [ -f "/vshare/base-images/git/libgnome-keyring-3.8.0-3.el7.x86_64.rpm" ]; then
+	yum install -y --skip-broken /vshare/base-images/git/libgnome-keyring-3.8.0-3.el7.x86_64.rpm
+fi
+
+if [ -f "/vshare/base-images/git/perl-TermReadKey-2.30-20.el7.x86_64.rpm" ]; then
+	yum install -y --skip-broken /vshare/base-images/git/perl-TermReadKey-2.30-20.el7.x86_64.rpm
+fi
+
+if [ -f "/vshare/base-images/git/git-1.8.3.1-6.el7.x86_64.rpm" ] && [ -f "/vshare/base-images/git/perl-Git-1.8.3.1-6.el7.noarch.rpm" ]; then
+	yum install -y /vshare/base-images/git/git-1.8.3.1-6.el7.x86_64.rpm /vshare/base-images/git/perl-Git-1.8.3.1-6.el7.noarch.rpm
 else
 	yum install -y git
 fi
