@@ -9,7 +9,7 @@ Vagrant.configure(2) do |config|
 	if ENV['IMAGE_FILE'] != "use-local-image"
 		config.vm.box = "vStone/centos-7.x-puppet.3.x"
 	else
-		config.vm.box = "../../base-images/centos-7.x-64bit-puppet.3.x-vbox.5.0.0.1.box"
+		config.vm.box = "../../base-images/centos/centos-7.x-64bit-puppet.3.x-vbox.5.0.0.1.box"
 	end
 
 	if ENV['ENV_TYPE'] != "local"
