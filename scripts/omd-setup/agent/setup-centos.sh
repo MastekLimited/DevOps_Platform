@@ -1,13 +1,30 @@
 #!/bin/bash
-
 checkMKAgentConfigFilePath=$1
-checkMKAgentRPMFilePath=$2
+
+installablesDirectory=$2
+systemdRPMFilePath=$installablesDirectory/systemd-sysv-219-19.el7.x86_64.rpm
+tcpWrappersLibsRPMFilePath=$installablesDirectory/tcp_wrappers-libs-7.6-77.el7.x86_64.rpm
+xinetdRPMFilePath=$installablesDirectory/xinetd-2.3.15-12.el7.x86_64.rpm
+checkMKAgentRPMFilePath=$installablesDirectory/check_mk-agent-1.2.4p5-1.noarch.rpm
 
 INSTALLATION_DIRECTORY=/opt/omd
 mkdir -p $INSTALLATION_DIRECTORY
 cd $INSTALLATION_DIRECTORY
 
 echo ...........................Installing check mk agent...........................
+
+if [ -f $systemdRPMFilePath ]; then
+	yum install -y --skip-broken $systemdRPMFilePath
+fi
+
+if [ -f $tcpWrappersLibsRPMFilePath ]; then
+	yum install -y --skip-broken $tcpWrappersLibsRPMFilePath
+fi
+
+if [ -f $xinetdRPMFilePath ]; then
+	yum install -y --skip-broken $xinetdRPMFilePath
+fi
+
 if [ -f $checkMKAgentRPMFilePath ]; then
 	yum install -y $checkMKAgentRPMFilePath
 else
@@ -19,7 +36,6 @@ echo ...........................Configuring check mk agent......................
 chmod 777 /etc/xinetd.d
 cp $checkMKAgentConfigFilePath  /etc/xinetd.d/check_mk
 
-echo ...........................Restarting check mk agent...........................
-service xinetd restart
-
+#echo ...........................Restarting check mk agent...........................
+#service xinetd restart
 exit
