@@ -10,7 +10,7 @@ fi
 if [ -z "$2" ]
   then
     echo "Please specify which centos image to be used to setup the VMs i.e. 'use-local-image' or 'use-cloud-image'"
-    echo "If you pass this parameter as 'use-image-from-local-machine' then please make sure you have {path-to-platform-code}/base-images/centos-7.x-64bit-puppet.3.x-vbox.5.0.0.1.box file on your local machine."
+    echo "If you pass this parameter as 'use-image-from-local-machine' then please make sure you have {path-to-platform-code}/repo/centos-7.x-64bit-puppet.3.x-vbox.5.0.0.1.box file on your local machine."
 	exit
 fi
 
