@@ -1,8 +1,7 @@
 #!/bin/bash
 echo '================================================================================'
-echo '			Transferring build artifacts'
+echo '			Transferring built artifacts'
 echo '================================================================================'
-echo ">>>>>>>>>>>>>>>> Transferring Artifacts >>>>>>>>>>>>>>>>>>>>"
 scp  -o StrictHostKeyChecking=no /var/lib/jenkins/jobs/DevOps_Development/workspace/Microservices/uuid-service/target/uuidService.jar vagrant@&&DOCKER_HOST_IP&&:/mnt/gluster/repo/Build/uuid
 scp  -o StrictHostKeyChecking=no /var/lib/jenkins/jobs/DevOps_Development/workspace/Microservices/employee-service/target/employeeService.jar vagrant@&&DOCKER_HOST_IP&&:/mnt/gluster/repo/Build/employee
 scp  -o StrictHostKeyChecking=no /var/lib/jenkins/jobs/DevOps_Development/workspace/Microservices/project-service/target/projectService.jar vagrant@&&DOCKER_HOST_IP&&:/mnt/gluster/repo/Build/project
