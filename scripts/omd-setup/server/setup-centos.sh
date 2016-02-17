@@ -6,7 +6,7 @@ chmod 777 *
 yum remove MySQL-*
 
 echo '================================================================================'
-echo $'			Installing mariadb: START'
+echo '			Installing mariadb: START'
 echo '================================================================================'
 
 if [ -f "/vshare/base-images/check_mk/server/mariadb-libs-5.5.44-2.el7.centos.x86_64.rpm" ]; then
@@ -52,18 +52,18 @@ else
 fi
 
 echo '================================================================================'
-echo $'			Installing mariadb: END'
+echo '			Installing mariadb: END'
 echo '================================================================================'
 
 echo '================================================================================'
-echo $'			Starting mariadb'
+echo '			Starting mariadb'
 echo '================================================================================'
 systemctl start mariadb
 systemctl enable mariadb
 systemctl start mariadb
 
 echo '================================================================================'
-echo $'			Installing SNMP: START'
+echo '			Installing SNMP: START'
 echo '================================================================================'
 
 if [ -f "/vshare/base-images/check_mk/server/perl-Digest-1.17-245.el7.noarch.rpm" ]; then
@@ -102,11 +102,11 @@ fi
 yum -y install perl-Net-SNMP-5.2.0-1.2.el6.rf.noarch.rpm
 
 echo '================================================================================'
-echo $'			Installing SNMP: END'
+echo '			Installing SNMP: END'
 echo '================================================================================'
 
 echo '================================================================================'
-echo $'			Installing libmcrypt'
+echo '			Installing libmcrypt'
 echo '================================================================================'
 if [ -f "/vshare/base-images/check_mk/server/libmcrypt-2.5.7-1.2.el6.rf.x86_64.rpm" ]; then
 	cp /vshare/base-images/check_mk/server/libmcrypt-2.5.7-1.2.el6.rf.x86_64.rpm .
@@ -116,7 +116,7 @@ fi
 yum -y install libmcrypt-2.5.7-1.2.el6.rf.x86_64.rpm
 
 echo '================================================================================'
-echo $'			Installing fping'
+echo '			Installing fping'
 echo '================================================================================'
 if [ -f "/vshare/base-images/check_mk/server/fping-3.10-1.el6.rf.x86_64.rpm" ]; then
 	cp /vshare/base-images/check_mk/server/fping-3.10-1.el6.rf.x86_64.rpm .
@@ -126,7 +126,7 @@ fi
 yum -y install fping-3.10-1.el6.rf.x86_64.rpm
 
 echo '================================================================================'
-echo $'			Installing radiusclient'
+echo '			Installing radiusclient'
 echo '================================================================================'
 if [ -f "/vshare/base-images/check_mk/server/radiusclient-ng-0.5.6-5.el6.rf.x86_64.rpm" ]; then
 	cp /vshare/base-images/check_mk/server/radiusclient-ng-0.5.6-5.el6.rf.x86_64.rpm .
@@ -136,7 +136,7 @@ fi
 yum -y install radiusclient-ng-0.5.6-5.el6.rf.x86_64.rpm
 
 echo '================================================================================'
-echo $'			Installing OMD'
+echo '			Installing OMD'
 echo '================================================================================'
 if [ -f "/vshare/base-images/check_mk/server/omd-1.20.rhel7.x86_64.rpm" ]; then
 	cp /vshare/base-images/check_mk/server/omd-1.20.rhel7.x86_64.rpm .
@@ -146,7 +146,7 @@ fi
 yum -y install omd-1.20.rhel7.x86_64.rpm
 
 echo '================================================================================'
-echo $'			Installing Check MK agent'
+echo '			Installing Check MK agent'
 echo '================================================================================'
 if [ -f "/vshare/base-images/check_mk/agent/check_mk-agent-1.2.4p5-1.noarch.rpm" ]; then
 	cp /vshare/base-images/check_mk/agent/check_mk-agent-1.2.4p5-1.noarch.rpm .
@@ -156,34 +156,34 @@ fi
 yum -y install check_mk-agent-1.2.4p5-1.noarch.rpm
 
 echo '================================================================================'
-echo $'			Starting OMD server'
+echo '			Starting OMD server'
 echo '================================================================================'
 omd create monitoring
 omd start monitoring
 
 echo '================================================================================'
-echo $'		Allowing httpd processes to make outbound connection'
+echo '		Allowing httpd processes to make outbound connection'
 echo '================================================================================'
 #SELinux on RHEL CentOS by default ships so that httpd processes cannot initiate outbound connections
 cd /usr/sbin
 setsebool -P httpd_can_network_connect 1
 
 echo '================================================================================'
-echo $'			Configuring check mk agent'
+echo '			Configuring check mk agent'
 echo '================================================================================'
 chmod 777 /etc/xinetd.d
 cp /mnt/gluster/repo/omd-setup/server/config/check_mk  /etc/xinetd.d/check_mk
 service xinetd restart
 
 echo '================================================================================'
-echo $'			Change configuration for SNMP'
+echo '			Change configuration for SNMP'
 echo '================================================================================'
 chmod 777 /etc/snmp/snmpd.conf
 cp -R /mnt/gluster/repo/omd-setup/server/config/snmpd.conf /etc/snmp/snmpd.conf
 service snmpd restart
 
 echo '================================================================================'
-echo $'			Change configuration for OMD server'
+echo '			Change configuration for OMD server'
 echo '================================================================================'
 cp /mnt/gluster/repo/omd-setup/server/config/contacts.mk /omd/sites/monitoring/etc/check_mk/conf.d/wato/
 cp /mnt/gluster/repo/omd-setup/server/config/global.mk /omd/sites/monitoring/etc/check_mk/conf.d/wato/
@@ -208,7 +208,7 @@ chown monitoring:monitoring /omd/sites/monitoring/etc/check_mk/multisite.d/wato/
 #./add_hosts.py hosts.csv
 
 echo '================================================================================'
-echo $'			Restarting OMD server'
+echo '			Restarting OMD server'
 echo '================================================================================'
 su - monitoring
 omd restart
