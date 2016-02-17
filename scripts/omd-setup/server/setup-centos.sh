@@ -41,6 +41,10 @@ if [ -f "/vshare/base-images/check_mk/server/perl-DBI-1.627-4.el7.x86_64.rpm" ];
 	yum install -y --skip-broken /vshare/base-images/check_mk/server/perl-DBI-1.627-4.el7.x86_64.rpm
 fi
 
+if [ -f "/vshare/base-images/check_mk/server/perl-DBD-MySQL-4.023-5.el7.x86_64.rpm" ]; then
+	yum install -y --skip-broken /vshare/base-images/check_mk/server/perl-DBD-MySQL-4.023-5.el7.x86_64.rpm
+fi
+
 if [ -f "/vshare/base-images/check_mk/server/mariadb-server-5.5.44-2.el7.centos.x86_64.rpm" ] && [ -f "/vshare/base-images/check_mk/server/mariadb-5.5.44-2.el7.centos.x86_64.rpm" ]; then
 	yum install -y /vshare/base-images/check_mk/server/mariadb-server-5.5.44-2.el7.centos.x86_64.rpm /vshare/base-images/check_mk/server/mariadb-5.5.44-2.el7.centos.x86_64.rpm
 else
