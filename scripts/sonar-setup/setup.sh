@@ -9,8 +9,8 @@ cd /opt/sonar
 echo '================================================================================'
 echo '			Installing Unzip'
 echo '================================================================================'
-if [ -f "/vshare/base-images/misc/unzip-6.0-13.el7.x86_64.rpm" ]; then
-	yum install -y /vshare/base-images/misc/unzip-6.0-13.el7.x86_64.rpm
+if [ -f "/vshare/repo/misc/unzip-6.0-13.el7.x86_64.rpm" ]; then
+	yum install -y /vshare/repo/misc/unzip-6.0-13.el7.x86_64.rpm
 else
 	yum install -y unzip
 fi
@@ -18,8 +18,8 @@ fi
 echo '================================================================================'
 echo '			Installing Sonarqube: START'
 echo '================================================================================'
-if [ -f "/vshare/base-images/sonarqube/sonarqube-5.1.zip" ]; then
-	cp /vshare/base-images/sonarqube/sonarqube-5.1.zip .
+if [ -f "/vshare/repo/sonarqube/sonarqube-5.1.zip" ]; then
+	cp /vshare/repo/sonarqube/sonarqube-5.1.zip .
 else
 	wget http://dist.sonar.codehaus.org/sonarqube-5.1.zip
 fi
