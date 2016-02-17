@@ -12,7 +12,7 @@ mkdir -p $INSTALLATION_DIRECTORY
 cd $INSTALLATION_DIRECTORY
 
 echo '================================================================================'
-echo $'			Installing check mk agent'
+echo '			Installing check mk agent'
 echo '================================================================================'
 
 if [ -f $systemdRPMFilePath ]; then
@@ -35,7 +35,7 @@ else
 fi
 
 echo '================================================================================'
-echo $'			Configuring and Restarting check mk agent'
+echo '			Configuring and Restarting check mk agent'
 echo '================================================================================'
 chmod 777 /etc/xinetd.d
 cp $checkMKAgentConfigFilePath  /etc/xinetd.d/check_mk
