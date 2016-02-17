@@ -1,6 +1,9 @@
 #!/bin/bash
 installablesDirectory=$1
 
+echo '================================================================================'
+echo $'			Installing Initscripts: START'
+echo '================================================================================'
 if [ -f "$installablesDirectory/misc/sysvinit-tools-2.88-14.dsf.el7.x86_64.rpm" ]; then
 	yum install -y --skip-broken $installablesDirectory/misc/sysvinit-tools-2.88-14.dsf.el7.x86_64.rpm;
 fi
@@ -31,24 +34,41 @@ else
 	yum install -y initscripts;
 fi
 
+echo '================================================================================'
+echo $'			Installing Initscripts: END'
+echo '================================================================================'
+
+echo '================================================================================'
+echo $'			Installing telnet'
+echo '================================================================================'
+
 if [ -f "$installablesDirectory/misc/telnet-0.17-59.el7.x86_64.rpm" ]; then
 	yum install -y $installablesDirectory/misc/telnet-0.17-59.el7.x86_64.rpm;
 else
 	yum install -y telnet;
 fi
 
+echo '================================================================================'
+echo $'			Installing wget'
+echo '================================================================================'
 if [ -f "$installablesDirectory/misc/wget-1.14-10.el7.x86_64.rpm" ]; then
 	yum install -y $installablesDirectory/misc/wget-1.14-10.el7.x86_64.rpm
 else
 	yum install -y wget
 fi
 
+echo '================================================================================'
+echo $'			Installing tar'
+echo '================================================================================'
 if [ -f "$installablesDirectory/misc/tar-1.26-29.el7.x86_64.rpm" ]; then
 	yum install -y $installablesDirectory/misc/tar-1.26-29.el7.x86_64.rpm
 else
 	yum install -y tar
 fi
 
+echo '================================================================================'
+echo $'			Installing JDK'
+echo '================================================================================'
 if [ -f "$installablesDirectory/jdk/jdk-8u45-linux-x64.rpm" ]; then
 	yum install -y $installablesDirectory/jdk/jdk-8u45-linux-x64.rpm
 else
@@ -56,12 +76,18 @@ else
 	rpm -Uvh jdk-8u45-linux-x64.rpm;
 fi
 
+echo '================================================================================'
+echo $'			Installing passwd'
+echo '================================================================================'
 if [ -f "$installablesDirectory/misc/passwd-0.79-4.el7.x86_64.rpm" ]; then
 	yum install -y $installablesDirectory/misc/passwd-0.79-4.el7.x86_64.rpm
 else
 	yum install -y passwd
 fi
 
+echo '================================================================================'
+echo $'			Installing python: START'
+echo '================================================================================'
 if [ -f "$installablesDirectory/misc/python-backports-1.0-8.el7.x86_64.rpm" ]; then
 	yum install -y --skip-broken $installablesDirectory/misc/python-backports-1.0-8.el7.x86_64.rpm
 fi
@@ -75,5 +101,7 @@ if [ -f "$installablesDirectory/misc/python-setuptools-0.9.8-4.el7.noarch.rpm" ]
 else
 	yum install -y python-setuptools
 fi
-
+echo '================================================================================'
+echo $'			Installing python: END'
+echo '================================================================================'
 exit
