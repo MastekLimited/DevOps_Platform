@@ -1,13 +1,13 @@
 #!/bin/sh
 stopContainerByName() {
 	echo '================================================================================'
-	echo $'			Stopping all the containers'
+	echo '			Stopping all the containers'
 	echo '================================================================================'
 	docker stop $(docker ps -a -q)
 	echo '================================================================================'
 
 	echo '================================================================================'
-	echo $'			Removing all containers'
+	echo '			Removing all containers'
 	echo '================================================================================'
 	docker rm $(docker ps -a -q)
 	echo '================================================================================'
@@ -15,37 +15,37 @@ stopContainerByName() {
 
 runAll() {
 	echo '================================================================================'
-	echo $'			run uuid service'
+	echo '			run uuid service'
 	echo '================================================================================'
 	./scripts/uuid/run.sh &
 
 	echo '================================================================================'
-	echo $'			run employee service'
+	echo '			run employee service'
 	echo '================================================================================'
 	./scripts/employee/run.sh &
 
 	echo '================================================================================'
-	echo $'			run project service'
+	echo '			run project service'
 	echo '================================================================================'
 	./scripts/project/run.sh &
 
 	echo '================================================================================'
-	echo $'			run project assignment service'
+	echo '			run project assignment service'
 	echo '================================================================================'
 	./scripts/project-assignment/run.sh &
 
 	echo '================================================================================'
-	echo $'			run device authentication service'
+	echo '			run device authentication service'
 	echo '================================================================================'
 	./scripts/device-authentication/run.sh &
 
 	echo '================================================================================'
-	echo $'			run device registration service'
+	echo '			run device registration service'
 	echo '================================================================================'
 	./scripts/device-registration/run.sh &
 
 	echo '================================================================================'
-	echo $'			run organisation web'
+	echo '			run organisation web'
 	echo '================================================================================'
 	./scripts/organisation-web/run.sh &
 }
