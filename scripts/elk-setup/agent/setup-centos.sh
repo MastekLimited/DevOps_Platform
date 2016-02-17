@@ -10,7 +10,9 @@ logstashForwarderInstallablesDirectoryPath=$2
 gpgKeyElasticsearchFilePath=$logstashForwarderInstallablesDirectoryPath/GPG-KEY-elasticsearch
 logstashForwarderRPMFilePath=$logstashForwarderInstallablesDirectoryPath/logstash-forwarder-0.4.0-1.x86_64.rpm
 
-echo ...........................Installing logstash-forwarder...........................
+echo '================================================================================'
+echo '			Installing logstash-forwarder'
+echo '================================================================================'
 
 if [ -f $gpgKeyElasticsearchFilePath ]; then
 	rpm --import $gpgKeyElasticsearchFilePath
