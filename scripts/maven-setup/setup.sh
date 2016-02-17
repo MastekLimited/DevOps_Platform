@@ -6,8 +6,8 @@ cd /opt/maven
 echo '================================================================================'
 echo '			Installing Maven'
 echo '================================================================================'
-if [ -f "/vshare/base-images/jenkins/apache-maven-3.0.5-bin.tar.gz" ]; then
-	cp /vshare/base-images/jenkins/apache-maven-3.0.5-bin.tar.gz .
+if [ -f "/vshare/repo/jenkins/apache-maven-3.0.5-bin.tar.gz" ]; then
+	cp /vshare/repo/jenkins/apache-maven-3.0.5-bin.tar.gz .
 else
 	wget http://mirror.cc.columbia.edu/pub/software/apache/maven/maven-3/3.0.5/binaries/apache-maven-3.0.5-bin.tar.gz
 fi
