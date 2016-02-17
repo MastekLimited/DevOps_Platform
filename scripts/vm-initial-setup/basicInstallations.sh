@@ -12,8 +12,8 @@
 echo '================================================================================'
 echo '			Installing telnet'
 echo '================================================================================'
-if [ -f "/vshare/base-images/misc/telnet-0.17-59.el7.x86_64.rpm" ]; then
-	yum install -y /vshare/base-images/misc/telnet-0.17-59.el7.x86_64.rpm
+if [ -f "/vshare/repo/misc/telnet-0.17-59.el7.x86_64.rpm" ]; then
+	yum install -y /vshare/repo/misc/telnet-0.17-59.el7.x86_64.rpm
 else
 	yum install -y telnet
 fi
@@ -21,8 +21,8 @@ fi
 echo '================================================================================'
 echo '			Installing wget'
 echo '================================================================================'
-if [ -f "/vshare/base-images/misc/wget-1.14-10.el7.x86_64.rpm" ]; then
-	yum install -y /vshare/base-images/misc/wget-1.14-10.el7.x86_64.rpm
+if [ -f "/vshare/repo/misc/wget-1.14-10.el7.x86_64.rpm" ]; then
+	yum install -y /vshare/repo/misc/wget-1.14-10.el7.x86_64.rpm
 else
 	yum install -y wget
 fi
