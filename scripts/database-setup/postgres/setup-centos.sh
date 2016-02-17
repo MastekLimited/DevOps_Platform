@@ -5,8 +5,8 @@ echo '==========================================================================
 echo '			Installing pgdg-centos'
 echo '================================================================================'
 
-if [ -f "/vshare/base-images/database/postgres/pgdg-centos94-9.4-1.noarch.rpm" ]; then
-	yum install -y /vshare/base-images/database/postgres/pgdg-centos94-9.4-1.noarch.rpm
+if [ -f "/vshare/repo/database/postgres/pgdg-centos94-9.4-1.noarch.rpm" ]; then
+	yum install -y /vshare/repo/database/postgres/pgdg-centos94-9.4-1.noarch.rpm
 else
 	yum install -y http://yum.postgresql.org/9.4/redhat/rhel-6-x86_64/pgdg-centos94-9.4-1.noarch.rpm
 fi
@@ -15,10 +15,10 @@ echo '==========================================================================
 echo '			Installing postgres'
 echo '================================================================================'
 
-if [ -f "/vshare/base-images/database/postgres/postgresql94-libs-9.4.5-2PGDG.rhel7.x86_64.rpm" ] && [ -f "/vshare/base-images/database/postgres/postgresql94-9.4.5-2PGDG.rhel7.x86_64.rpm" ] && [ -f "/vshare/base-images/database/postgres/postgresql94-server-9.4.5-2PGDG.rhel7.x86_64.rpm" ]; then
-	yum install -y /vshare/base-images/database/postgres/postgresql94-libs-9.4.5-2PGDG.rhel7.x86_64.rpm
-	yum install -y /vshare/base-images/database/postgres/postgresql94-9.4.5-2PGDG.rhel7.x86_64.rpm
-	yum install -y /vshare/base-images/database/postgres/postgresql94-server-9.4.5-2PGDG.rhel7.x86_64.rpm
+if [ -f "/vshare/repo/database/postgres/postgresql94-libs-9.4.5-2PGDG.rhel7.x86_64.rpm" ] && [ -f "/vshare/repo/database/postgres/postgresql94-9.4.5-2PGDG.rhel7.x86_64.rpm" ] && [ -f "/vshare/repo/database/postgres/postgresql94-server-9.4.5-2PGDG.rhel7.x86_64.rpm" ]; then
+	yum install -y /vshare/repo/database/postgres/postgresql94-libs-9.4.5-2PGDG.rhel7.x86_64.rpm
+	yum install -y /vshare/repo/database/postgres/postgresql94-9.4.5-2PGDG.rhel7.x86_64.rpm
+	yum install -y /vshare/repo/database/postgres/postgresql94-server-9.4.5-2PGDG.rhel7.x86_64.rpm
 else
 	yum install -y postgresql94-server
 fi
