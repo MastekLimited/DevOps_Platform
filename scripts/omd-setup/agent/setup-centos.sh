@@ -37,7 +37,6 @@ fi
 echo '================================================================================'
 echo $'			Configuring and Restarting check mk agent'
 echo '================================================================================'
-echo ...........................Configuring check mk agent...........................
 chmod 777 /etc/xinetd.d
 cp $checkMKAgentConfigFilePath  /etc/xinetd.d/check_mk
 #service xinetd restart
