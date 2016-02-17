@@ -1,6 +1,8 @@
 TLS_DIR=/etc/pki/tls
 
-echo ...........................Installing java...........................
+echo '================================================================================'
+echo '			Installing java'
+echo '================================================================================'
 if [ -f "/vshare/base-images/jdk/jdk-8u45-linux-x64.rpm" ]; then
 	sudo yum install -y /vshare/base-images/jdk/jdk-8u45-linux-x64.rpm
 else
@@ -16,7 +18,9 @@ else
 	sudo chmod 777 /etc/yum.repos.d
 fi
 
-echo ...........................Installing Elasticsearch...........................
+echo '================================================================================'
+echo '			Installing Elasticsearch'
+echo '================================================================================'
 sudo cp /mnt/gluster/repo/elk-setup/server/elasticsearch/config/elasticsearch.repo /etc/yum.repos.d
 
 if [ -f "/vshare/base-images/elk/elasticsearch-1.4.4.noarch.rpm" ]; then
@@ -29,14 +33,18 @@ sudo cp /mnt/gluster/repo/elk-setup/server/elasticsearch/config/elasticsearch.ym
 
 cd /usr/share/elasticsearch/
 
-echo ...........................Checking and Installing bigdesk...........................
+echo '================================================================================'
+echo '			Checking and Installing bigdesk'
+echo '================================================================================'
 if [ -d "plugins/bigdesk" ]; then
     echo ...........................bigdesk already installed...........................
 else
 	sudo bin/plugin -install lukas-vlcek/bigdesk/2.4.0
 fi
 
-echo ...........................Checking and Installing elasticsearch-head...........................
+echo '================================================================================'
+echo '			Checking and Installing elasticsearch-head'
+echo '================================================================================'
 if [ -d "plugins/elasticsearch-head" ]; then
     echo ...........................elasticsearch-head already installed...........................
 else
@@ -46,11 +54,13 @@ fi
 echo ...........................Starting Elasticsearch...........................
 sudo systemctl start elasticsearch
 
-echo ...........................Installing Kibana...........................
+echo '================================================================================'
+echo '			Installing Kibana'
+echo '================================================================================'
 cd ~;
 
 if [ -d "kibana-4.0.1-linux-x64.tar.gz" ]; then
-    echo ...........................kibana-4.0.1-linux-x64.tar.gz already exists...........................
+    echo ...........................kibana-4.0.1-linux-x64.tar.gz already installed...........................
 else
 	if [ -f "/vshare/base-images/elk/kibana-4.0.1-linux-x64.tar.gz" ]; then
 		sudo cp /vshare/base-images/elk/kibana-4.0.1-linux-x64.tar.gz .
@@ -92,6 +102,9 @@ sudo cp /mnt/gluster/repo/elk-setup/server/kibana/config/kibana4.service /etc/sy
 sudo systemctl start kibana4
 sudo systemctl enable kibana4
 
+echo '================================================================================'
+echo '			Installing Logstash'
+echo '================================================================================'
 echo ...........................Installing Logstash...........................
 
 if [ -f "/vshare/base-images/elk/GPG-KEY-elasticsearch" ]; then
