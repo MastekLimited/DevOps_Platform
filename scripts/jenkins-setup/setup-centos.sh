@@ -2,7 +2,9 @@
 
 
 cd /opt;
-echo ...........................Installing java...........................
+echo '================================================================================'
+echo '			Installing java'
+echo '================================================================================'
 if [ -f "/vshare/base-images/jdk/jdk-8u45-linux-x64.rpm" ]; then
 	yum install -y /vshare/base-images/jdk/jdk-8u45-linux-x64.rpm
 else
@@ -10,14 +12,18 @@ else
 	rpm -Uvh jdk-8u45-linux-x64.rpm;
 fi
 
-echo ...........................Installing sshpass...........................
+echo '================================================================================'
+echo '			Installing sshpass'
+echo '================================================================================'
 if [ -f "/vshare/base-images/misc/sshpass-1.05-9.2.x86_64.rpm" ]; then
 	yum --enablerepo=epel -y install /vshare/base-images/misc/sshpass-1.05-9.2.x86_64.rpm
 else
 	yum --enablerepo=epel -y install sshpass
 fi
 
-echo ...........................Installing git...........................
+echo '================================================================================'
+echo '			Installing git: START'
+echo '================================================================================'
 
 if [ -f "/vshare/base-images/git/perl-Error-0.17020-2.el7.noarch.rpm" ]; then
 	yum install -y --skip-broken /vshare/base-images/git/perl-Error-0.17020-2.el7.noarch.rpm
@@ -37,7 +43,13 @@ else
 	yum install -y git
 fi
 
-echo ...........................Installing jenkins...........................
+echo '================================================================================'
+echo '			Installing git: END'
+echo '================================================================================'
+
+echo '================================================================================'
+echo '			Installing jenkins'
+echo '================================================================================'
 if [ -f "/vshare/base-images/jenkins/jenkins-ci.org.key" ]; then
 	rpm --import /vshare/base-images/jenkins/jenkins-ci.org.key
 else
