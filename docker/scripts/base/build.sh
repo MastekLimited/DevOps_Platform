@@ -6,7 +6,9 @@ if [ -f "/vshare/base-images/docker/centos-7" ]; then
 	echo "Found centos-7"
 fi
 
-echo ...........................Copying installables to docker.roles.base.installables...........................
+echo '================================================================================'
+echo '			Copying installables to docker.roles.base'
+echo '================================================================================'
 
 mkdir /mnt/gluster/repo/docker/roles/base/installables/
 cp -R /vshare/base-images/misc /mnt/gluster/repo/docker/roles/base/installables/
