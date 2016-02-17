@@ -6,24 +6,22 @@ echo 'deb http://packages.elasticsearch.org/logstashforwarder/debian stable main
 wget -O - http://packages.elasticsearch.org/GPG-KEY-elasticsearch | sudo apt-key add -
 
 apt-get update
-
+echo '================================================================================'
+echo '			Installing logstash-forwarder'
+echo '================================================================================'
 apt-get install logstash-forwarder
 
 if [ -d $TLS_DIR"/certs" ];
 then
-    echo .........................CERTS_DIR already Exist.................................
+    echo .........................certificates directory already exists.................................
 else
-	echo ...........................Create CERTS_DIRECTORY............................
+	echo ...........................creating certificates directory............................
 	mkdir -p $TLS_DIR/certs
 	chmod 777 $TLS_DIR/certs
-
 fi
 
 
 cp /mnt/gluster/repo/logstash-forwarder.crt /etc/pki/tls/certs/
-#OR
-#scp root@&&ELK_HOST_IP&&:/mnt/gluster/repo/logstash-forwarder.crt /etc/pki/tls/certs/
-
 cp /mnt/gluster/repo/logstash-forwarder.conf /etc
 
 service logstash-forwarder restart
