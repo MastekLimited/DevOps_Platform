@@ -11,7 +11,9 @@ INSTALLATION_DIRECTORY=/opt/omd
 mkdir -p $INSTALLATION_DIRECTORY
 cd $INSTALLATION_DIRECTORY
 
-echo ...........................Installing check mk agent...........................
+echo '================================================================================'
+echo $'			Installing check mk agent'
+echo '================================================================================'
 
 if [ -f $systemdRPMFilePath ]; then
 	yum install -y --skip-broken $systemdRPMFilePath
@@ -32,10 +34,11 @@ else
 	yum -y install check_mk-agent-1.2.4p5-1.noarch.rpm
 fi
 
+echo '================================================================================'
+echo $'			Configuring and Restarting check mk agent'
+echo '================================================================================'
 echo ...........................Configuring check mk agent...........................
 chmod 777 /etc/xinetd.d
 cp $checkMKAgentConfigFilePath  /etc/xinetd.d/check_mk
-
-#echo ...........................Restarting check mk agent...........................
 #service xinetd restart
 exit
