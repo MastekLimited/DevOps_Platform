@@ -3,8 +3,8 @@ TLS_DIR=/etc/pki/tls
 echo '================================================================================'
 echo '			Installing java'
 echo '================================================================================'
-if [ -f "/vshare/base-images/jdk/jdk-8u45-linux-x64.rpm" ]; then
-	sudo yum install -y /vshare/base-images/jdk/jdk-8u45-linux-x64.rpm
+if [ -f "/vshare/repo/jdk/jdk-8u45-linux-x64.rpm" ]; then
+	sudo yum install -y /vshare/repo/jdk/jdk-8u45-linux-x64.rpm
 else
 	sudo wget --no-cookies --no-check-certificate --header "Cookie: gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=accept-securebackup-cookie" "http://download.oracle.com/otn-pub/java/jdk/8u45-b14/jdk-8u45-linux-x64.rpm";
 	sudo rpm -Uvh jdk-8u45-linux-x64.rpm;
@@ -23,8 +23,8 @@ echo '			Installing Elasticsearch'
 echo '================================================================================'
 sudo cp /mnt/gluster/repo/elk-setup/server/elasticsearch/config/elasticsearch.repo /etc/yum.repos.d
 
-if [ -f "/vshare/base-images/elk/elasticsearch-1.4.4.noarch.rpm" ]; then
-	sudo yum install --skip-broken -y /vshare/base-images/elk/elasticsearch-1.4.4.noarch.rpm
+if [ -f "/vshare/repo/elk/elasticsearch-1.4.4.noarch.rpm" ]; then
+	sudo yum install --skip-broken -y /vshare/repo/elk/elasticsearch-1.4.4.noarch.rpm
 else
 	sudo yum -y install elasticsearch-1.4.4
 fi
@@ -62,8 +62,8 @@ cd ~;
 if [ -d "kibana-4.0.1-linux-x64.tar.gz" ]; then
     echo ...........................kibana-4.0.1-linux-x64.tar.gz already installed...........................
 else
-	if [ -f "/vshare/base-images/elk/kibana-4.0.1-linux-x64.tar.gz" ]; then
-		sudo cp /vshare/base-images/elk/kibana-4.0.1-linux-x64.tar.gz .
+	if [ -f "/vshare/repo/elk/kibana-4.0.1-linux-x64.tar.gz" ]; then
+		sudo cp /vshare/repo/elk/kibana-4.0.1-linux-x64.tar.gz .
 	else
 		sudo wget https://download.elasticsearch.org/kibana/kibana/kibana-4.0.1-linux-x64.tar.gz
 	fi
@@ -107,16 +107,16 @@ echo '			Installing Logstash'
 echo '================================================================================'
 echo ...........................Installing Logstash...........................
 
-if [ -f "/vshare/base-images/elk/GPG-KEY-elasticsearch" ]; then
-	sudo cp /vshare/base-images/elk/GPG-KEY-elasticsearch .
+if [ -f "/vshare/repo/elk/GPG-KEY-elasticsearch" ]; then
+	sudo cp /vshare/repo/elk/GPG-KEY-elasticsearch .
 else
 	sudo rpm --import http://packages.elasticsearch.org/GPG-KEY-elasticsearch
 fi
 
 sudo cp /mnt/gluster/repo/elk-setup/server/logstash/config/logstash.repo  /etc/yum.repos.d/
 
-if [ -f "/vshare/base-images/elk/logstash-1.5.6-1.noarch.rpm" ]; then
-	sudo yum -y install /vshare/base-images/elk/logstash-1.5.6-1.noarch.rpm
+if [ -f "/vshare/repo/elk/logstash-1.5.6-1.noarch.rpm" ]; then
+	sudo yum -y install /vshare/repo/elk/logstash-1.5.6-1.noarch.rpm
 else
 	sudo yum -y install logstash
 fi
