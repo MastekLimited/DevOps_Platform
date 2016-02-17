@@ -3,7 +3,9 @@ mkdir /opt/maven
 chmod 777 /opt/maven
 cd /opt/maven
 
-echo ...........................Installing Maven...........................
+echo '================================================================================'
+echo '			Installing Maven'
+echo '================================================================================'
 if [ -f "/vshare/base-images/jenkins/apache-maven-3.0.5-bin.tar.gz" ]; then
 	cp /vshare/base-images/jenkins/apache-maven-3.0.5-bin.tar.gz .
 else
