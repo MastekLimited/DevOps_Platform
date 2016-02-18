@@ -44,6 +44,11 @@ Vagrant.configure(2) do |config|
 	config.vm.provision :"shell", inline: "/mnt/gluster/repo/jenkins-setup/job-config/create-job.sh DevOps_Development", privileged: true
 	config.vm.provision :"shell", inline: "/mnt/gluster/repo/jenkins-setup/ssh-key-generate.sh", privileged: true
 
+#Copy ssh private of mastek_build to jenkins
+
+	config.vm.provision "shell", inline: "mkdir /var/lib/jenkins/.ssh/", privileged: true
+	config.vm.provision :"shell", inline: "cp /vshare/certificates/git-mastek-build/mastek_build /var/lib/jenkins/.ssh", privileged: true
+
 #Setup Sonar
 
 	config.vm.provision "shell", inline: "mkdir /mnt/gluster/repo/sonar-setup/", privileged: true
