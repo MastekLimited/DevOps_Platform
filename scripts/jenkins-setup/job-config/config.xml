@@ -8,7 +8,8 @@
 		<configVersion>2</configVersion>
 		<userRemoteConfigs>
 			<hudson.plugins.git.UserRemoteConfig>
-				<url>https://github.com/MastekLtd/DevOps_Development.git</url>
+				<url>ssh://git@github.com/MastekLtd/DevOps_Development.git</url>
+        		<credentialsId>3d072f2b-bdae-43c9-b6c9-103a357b8d69</credentialsId>
 			</hudson.plugins.git.UserRemoteConfig>
 		</userRemoteConfigs>
 		<branches>
