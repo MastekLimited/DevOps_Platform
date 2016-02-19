@@ -25,14 +25,9 @@ Vagrant.configure(2) do |config|
 
 	config.vm.synced_folder "../../", "/vshare/", create: true
 
-#Basic installations
-
-	config.vm.provision :shell, inline: "/vshare/scripts/vm-initial-setup/basicInstallations.sh", privileged: true
-	config.vm.provision :shell, inline: "/vshare/scripts/vm-initial-setup/createSharedDirectories.sh", privileged: true
-	config.vm.provision "shell", inline: "cp /vshare/scripts/vm-initial-setup/disable-system-ctl-firewalld.sh /etc/init.d/", privileged: true
-
 #Copy docker directory
 
+	config.vm.provision :shell, inline: "/vshare/scripts/vm-initial-setup/createSharedDirectories.sh", privileged: true
 	config.vm.provision "shell", inline: "cp -R /vshare/docker /mnt/gluster/repo/", privileged: true
 	#config.vm.provision "shell", inline: "mkdir /mnt/devops/", privileged: true
 	#config.vm.provision "shell", inline: "chmod -R 777 /mnt/devops/", privileged: true
@@ -40,11 +35,16 @@ Vagrant.configure(2) do |config|
 #Copy built artifacts directory
 	config.vm.provision "shell", inline: "cp -R /vshare/Build /mnt/gluster/repo/", privileged: true
 
-#Copy certificates directory
-	config.vm.provision "shell", inline: "cp -R /vshare/certificates /mnt/gluster/repo/", privileged: true
-
 #Copy public key generated on jenkins VM to docker VM for built artifacts transfer
 	config.vm.provision "shell", inline: "cp /mnt/gluster/repo/certificates/generated/jenkins/id_rsa.pub /home/vagrant/.ssh/authorized_keys", privileged: true
+
+#Basic installations
+
+	config.vm.provision :shell, inline: "/vshare/scripts/vm-initial-setup/basicInstallations.sh", privileged: true
+	config.vm.provision "shell", inline: "cp /vshare/scripts/vm-initial-setup/disable-system-ctl-firewalld.sh /etc/init.d/", privileged: true
+
+#Copy certificates directory
+	config.vm.provision "shell", inline: "cp -R /vshare/certificates /mnt/gluster/repo/", privileged: true
 
 #Copy logstash forwarder files
 	config.vm.provision "shell", inline: "cp /vshare/scripts/elk-setup/agent/config/logstash-forwarder.repo /mnt/gluster/repo/docker/roles/base/elk-setup/agent/config/", privileged: true
