@@ -3,6 +3,15 @@ installablesDirectory=$1
 workingDirectory=$(pwd)
 supervisorInstallablesDirectory=$installablesDirectory/misc/supervisor
 
+echo '================================================================================'
+echo '			Installing Unzip'
+echo '================================================================================'
+if [ -f "$installablesDirectory/misc/unzip-6.0-13.el7.x86_64.rpm" ]; then
+	yum install -y $installablesDirectory/misc/unzip-6.0-13.el7.x86_64.rpm
+else
+	yum install -y unzip
+fi
+
 cd $supervisorInstallablesDirectory
 
 echo '================================================================================'
