@@ -69,8 +69,8 @@ fi
 echo '================================================================================'
 echo '			Installing Java'
 echo '================================================================================'
-if [ -f "$installablesDirectory/jdk/jre-7u71-linux-x64.rpm" ]; then
-	yum install -y $installablesDirectory/jdk/jre-7u71-linux-x64.rpm
+if [ -f "$installablesDirectory/java/jre-7u71-linux-x64.rpm" ]; then
+	yum install -y $installablesDirectory/java/jre-7u71-linux-x64.rpm
 else
 	wget --no-cookies --no-check-certificate --header "Cookie: gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=accept-securebackup-cookie" "http://download.oracle.com/otn-pub/java/jdk/7u71-b14/jre-7u71-linux-x64.rpm";
 	yum install -y jre-7u71-linux-x64.rpm;
