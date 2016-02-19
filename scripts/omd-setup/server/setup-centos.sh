@@ -210,6 +210,7 @@ chown monitoring:monitoring /omd/sites/monitoring/etc/check_mk/multisite.d/wato/
 echo '================================================================================'
 echo '			Restarting OMD server'
 echo '================================================================================'
+runuser -l monitoring -c 'cmk --reload'
 su - monitoring
 omd restart
 exit
