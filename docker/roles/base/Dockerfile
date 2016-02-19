@@ -7,7 +7,6 @@ COPY installables /tmp/installables
 ADD setup-centos.sh /tmp/
 RUN ./tmp/setup-centos.sh /tmp/installables
 
-#RUN easy_install supervisor
 ADD install-supervisor.sh /tmp/
 RUN ./tmp/install-supervisor.sh /tmp/installables
 
