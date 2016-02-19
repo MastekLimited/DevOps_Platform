@@ -12,7 +12,7 @@ echo '==========================================================================
 
 mkdir /mnt/gluster/repo/docker/roles/base/installables/
 cp -R /vshare/repo/misc /mnt/gluster/repo/docker/roles/base/installables/
-cp -R /vshare/repo/jdk /mnt/gluster/repo/docker/roles/base/installables/
+cp -R /vshare/repo/java /mnt/gluster/repo/docker/roles/base/installables/
 
 mkdir /mnt/gluster/repo/docker/roles/base/elk-setup/agent/installables/
 cp /vshare/repo/elk/GPG-KEY-elasticsearch /mnt/gluster/repo/docker/roles/base/elk-setup/agent/installables/
