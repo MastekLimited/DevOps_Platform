@@ -31,7 +31,9 @@ mkdir /var/lib/pgsql/9.4/data
 cp /mnt/gluster/repo/database-setup/postgres/config/pg_hba.conf /var/lib/pgsql/9.4/data
 cp /mnt/gluster/repo/database-setup/postgres/config/postgresql.conf /var/lib/pgsql/9.4/data
 
-service postgresql-9.4 start
+systemctl enable postgresql-9.4.service
+systemctl start postgresql-9.4.service
+
 sleep 10
 
 echo -e "Password1\nPassword1" | (passwd --stdin postgres)

@@ -52,6 +52,7 @@ else
 fi
 
 echo ...........................Starting Elasticsearch...........................
+sudo systemctl enable elasticsearch
 sudo systemctl start elasticsearch
 
 echo '================================================================================'
