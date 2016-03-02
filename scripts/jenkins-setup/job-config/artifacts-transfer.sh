@@ -13,7 +13,7 @@ scp  -o StrictHostKeyChecking=no /var/lib/jenkins/jobs/DevOps_Development/worksp
 echo '================================================================================'
 echo '			Restart the docker containers: START'
 echo '================================================================================'
-ssh -o StrictHostKeyChecking=no vagrant@&&DOCKER_HOST_IP&& 'cd /vshare/docker/ && ./runAllScripts.sh'
+ssh -o StrictHostKeyChecking=no vagrant@&&DOCKER_HOST_IP&& 'cd /mnt/gluster/repo/docker/ && ./runAllScripts.sh'
 echo '================================================================================'
 echo '			Restart the docker containers: END'
 echo '================================================================================'
