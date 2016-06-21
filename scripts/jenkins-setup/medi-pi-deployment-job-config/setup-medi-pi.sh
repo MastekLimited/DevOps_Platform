@@ -10,7 +10,7 @@ echo '==========================================================================
 
 if [ -d "/mnt/gluster/repo/MediPi" ]; then
 	cd /mnt/gluster/repo/MediPi
-	#git reset --hard
+	git reset --hard
 	git pull
 else
 	git clone http://jenkins:jenkins@104.155.90.134:8085/git/MediPi.git
