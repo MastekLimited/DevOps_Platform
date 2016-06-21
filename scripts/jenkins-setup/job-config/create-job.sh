@@ -1,10 +1,11 @@
 #!/bin/bash
 jobname=$1
+jobConfigFile=$2
 cd /var/lib/jenkins/jobs/
 echo .............creating job............
 mkdir $jobname
 cd $jobname
-cp /mnt/gluster/repo/jenkins-setup/job-config/config.xml .
+cp $jobConfigFile .
 echo .............job is created ............
 cd /var/lib/jenkins/jobs/
 chown jenkins:jenkins $jobname

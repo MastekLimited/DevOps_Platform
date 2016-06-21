@@ -21,6 +21,12 @@ else
 	yum --enablerepo=epel -y install sshpass
 fi
 
+if [ -f "/vshare/repo/misc/expect-5.45-14.el7_1.x86_64.rpm" ]; then
+	yum --enablerepo=epel -y install /vshare/repo/misc/expect-5.45-14.el7_1.x86_64.rpm
+else
+	yum -y install expect
+fi
+
 echo '================================================================================'
 echo '			Installing git: START'
 echo '================================================================================'

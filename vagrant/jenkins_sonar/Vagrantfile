@@ -41,13 +41,22 @@ Vagrant.configure(2) do |config|
 	config.vm.provision "shell", inline: "chmod -R 777 /mnt/gluster/repo/jenkins-setup/", privileged: true
 	config.vm.provision "shell", inline: "cp -R /vshare/scripts/jenkins-setup/* /mnt/gluster/repo/jenkins-setup/", privileged: true
 	config.vm.provision :"shell", inline: "/mnt/gluster/repo/jenkins-setup/setup-centos.sh", privileged: true
-	config.vm.provision :"shell", inline: "/mnt/gluster/repo/jenkins-setup/job-config/create-job.sh DevOps_Development", privileged: true
+	config.vm.provision :"shell", inline: "/mnt/gluster/repo/jenkins-setup/job-config/create-job.sh DevOps_Development /mnt/gluster/repo/jenkins-setup/job-config/config.xml", privileged: true
+	config.vm.provision :"shell", inline: "/mnt/gluster/repo/jenkins-setup/job-config/create-job.sh MediPi /mnt/gluster/repo/jenkins-setup/medi-pi-job-config/config.xml", privileged: true
 	config.vm.provision :"shell", inline: "/mnt/gluster/repo/jenkins-setup/ssh-key-generate.sh", privileged: true
+
+#Copy raspberry pi installables
+
+	config.vm.provision "shell", inline: "mkdir /mnt/gluster/repo/installables", privileged: true
+	config.vm.provision "shell", inline: "cp /vshare/repo/java/openjfx-8u60-sdk-overlay-linux-armv6hf.zip /mnt/gluster/repo/installables", privileged: true
+	config.vm.provision "shell", inline: "cp /vshare/repo/misc/librxtx-java_2.2pre2-13_armhf.deb /mnt/gluster/repo/installables", privileged: true
+	config.vm.provision "shell", inline: "chmod -R 777 /mnt/gluster/repo/installables", privileged: true
 
 #Copy ssh private of mastek_build to jenkins
 
 	config.vm.provision "shell", inline: "mkdir /var/lib/jenkins/.ssh/", privileged: true
 	config.vm.provision :"shell", inline: "cp /vshare/certificates/git-mastek-build/mastek_build /var/lib/jenkins/.ssh", privileged: true
+	config.vm.provision :"shell", inline: "cp /vshare/certificates/git-medi-pi-build/kuntalakrishna /var/lib/jenkins/.ssh", privileged: true
 
 #Setup Sonar
 
