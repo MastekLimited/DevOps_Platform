@@ -54,7 +54,7 @@ sshpass -p "raspberry" scp -r /var/lib/jenkins/jobs/MediPi/workspace/config pi@$
 sshpass -p "raspberry" scp /var/lib/jenkins/jobs/MediPi/workspace/MediPi/target/MediPi.jar pi@$host:/home/pi/MediPi/
 
 echo '================================================================================'
-echo '			Reshuffling the file structure for the execution'
+echo '			Changing the file structure for the execution'
 echo '================================================================================'
 /mnt/gluster/repo/jenkins-setup/medi-pi-deployment-job-config/scp-command-execution.sh $host "mv /home/pi/MediPi/raspberry-pi-setup/README.txt /home/pi/MediPi/"
 /mnt/gluster/repo/jenkins-setup/medi-pi-deployment-job-config/scp-command-execution.sh $host "mv /home/pi/MediPi/raspberry-pi-setup/run-medi-pi.sh /home/pi/MediPi/"
