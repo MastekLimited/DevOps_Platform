@@ -48,11 +48,11 @@ Vagrant.configure(2) do |config|
 #Copy raspberry pi installables
 
 	config.vm.provision "shell", inline: "mkdir /mnt/gluster/repo/installables", privileged: true
-	config.vm.provision "shell", inline: "if [ -f "/vshare/repo/java/openjfx-8u60-sdk-overlay-linux-armv6hf.zip" ]; then", privileged: true
+	config.vm.provision "shell", inline: "if [ -f /vshare/repo/java/openjfx-8u60-sdk-overlay-linux-armv6hf.zip ]; then", privileged: true
 	config.vm.provision "shell", inline: "cp /vshare/repo/java/openjfx-8u60-sdk-overlay-linux-armv6hf.zip /mnt/gluster/repo/installables", privileged: true
 	config.vm.provision "shell", inline: "fi", privileged: true
 
-	config.vm.provision "shell", inline: "if [ -f "/vshare/repo/misc/librxtx-java_2.2pre2-13_armhf.deb" ]; then", privileged: true
+	config.vm.provision "shell", inline: "if [ -f /vshare/repo/misc/librxtx-java_2.2pre2-13_armhf.deb ]; then", privileged: true
 	config.vm.provision "shell", inline: "cp /vshare/repo/misc/librxtx-java_2.2pre2-13_armhf.deb /mnt/gluster/repo/installables", privileged: true
 	config.vm.provision "shell", inline: "fi", privileged: true
 	config.vm.provision "shell", inline: "chmod -R 777 /mnt/gluster/repo/installables", privileged: true
