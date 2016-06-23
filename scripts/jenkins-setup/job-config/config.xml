@@ -39,7 +39,7 @@
 		<groupId>Release-0.1</groupId>
 		<artifactId>Release-0.1</artifactId>
 	</rootModule>
-	<goals>clean install</goals>
+	<goals>install</goals>
 	<aggregatorStyleBuild>true</aggregatorStyleBuild>
 	<incrementalBuild>false</incrementalBuild>
 	<ignoreUpstremChanges>true</ignoreUpstremChanges>
