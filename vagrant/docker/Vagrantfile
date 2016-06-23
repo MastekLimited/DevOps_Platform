@@ -18,9 +18,9 @@ Vagrant.configure(2) do |config|
 	end
 
 	config.vm.provider "virtualbox" do |vb|
-		vb.memory = "1600"
+		vb.memory = "4000"
 	vb.gui = true
-		vb.cpus = "1"
+		vb.cpus = "2"
 	end
 
 	config.vm.synced_folder "../../", "/vshare/", create: true
