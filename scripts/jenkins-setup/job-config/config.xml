@@ -82,9 +82,9 @@
 		</hudson.tasks.Shell>
 	</postbuilders>
 	<runPostStepsIfResult>
-		<name>FAILURE</name>
-		<ordinal>2</ordinal>
-		<color>RED</color>
+		<name>SUCCESS</name>
+		<ordinal>0</ordinal>
+		<color>BLUE</color>
 		<completeBuild>true</completeBuild>
 	</runPostStepsIfResult>
 </maven2-moduleset>

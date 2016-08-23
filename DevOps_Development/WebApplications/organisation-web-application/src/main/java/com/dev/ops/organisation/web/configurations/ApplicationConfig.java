@@ -37,7 +37,7 @@ public class ApplicationConfig extends WebMvcAutoConfigurationAdapter {
 
 	@Override
 	public void addInterceptors(final InterceptorRegistry registry) {
-		registry.addInterceptor(this.sessionValidationInterceptor);
+		//registry.addInterceptor(this.sessionValidationInterceptor);
 		registry.addInterceptor(this.contextInfoInterceptor);
 	}
 
