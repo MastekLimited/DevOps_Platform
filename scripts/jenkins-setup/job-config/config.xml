@@ -8,7 +8,7 @@
 		<configVersion>2</configVersion>
 		<userRemoteConfigs>
 			<hudson.plugins.git.UserRemoteConfig>
-				<url>ssh://git@github.com/MastekLtd/DevOps_Development.git</url>
+				<url>ssh://git@github.com/MastekLtd//DevOps_Platform.git</url>
         		<credentialsId>3d072f2b-bdae-43c9-b6c9-103a357b8d69</credentialsId>
 			</hudson.plugins.git.UserRemoteConfig>
 		</userRemoteConfigs>
@@ -19,7 +19,7 @@
 		</branches>
 		<doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
 		<browser class="hudson.plugins.git.browser.GithubWeb">
-			<url>https://github.com/MastekLtd/DevOps_Development.git</url>
+			<url>https://github.com/MastekLtd//DevOps_Platform.git</url>
 		</browser>
 		<submoduleCfg class="list" />
 		<extensions />
@@ -39,6 +39,7 @@
 		<groupId>Release-0.1</groupId>
 		<artifactId>Release-0.1</artifactId>
 	</rootModule>
+	<rootPOM>DevOps_Development/pom.xml</rootPOM>
 	<goals>install</goals>
 	<aggregatorStyleBuild>true</aggregatorStyleBuild>
 	<incrementalBuild>false</incrementalBuild>
