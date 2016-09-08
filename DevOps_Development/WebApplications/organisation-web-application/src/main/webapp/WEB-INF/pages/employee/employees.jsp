@@ -4,7 +4,7 @@
 <script type="text/javascript" charset="utf8" src="/js/employee/employees.js"></script>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!-- <h1 class="span8 mB20">Employees</h1> -->
-<h1 class="span8 mB20">Employees build test</h1>
+<h1 class="span8 mB20">Employees</h1>
 <c:if test="${savedEmployee != null}">
 	<div class="alert alert-success" role="alert">Your employee ${savedEmployee.firstName} ${savedEmployee.lastName} has been saved with id:${savedEmployee.employeeId} and number: ${savedEmployee.employeeNumber}.</div>
 </c:if>
