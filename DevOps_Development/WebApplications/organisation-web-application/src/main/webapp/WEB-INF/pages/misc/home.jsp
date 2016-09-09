@@ -2,7 +2,7 @@
 
 <jsp:include page="/WEB-INF/pages/headers/header.jsp" />
 <script type="text/javascript" charset="utf8" src="/js/common/common.ui.util.js"></script>
-<h1>Home</h1>
+<h1>Home Test</h1>
 	<div class="form-group" id="oximeter_readings">
 		<div class="row">
 			<div class="col-sm-6">
