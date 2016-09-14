@@ -57,7 +57,8 @@
   <reporters/>
   <publishers/>
   <buildWrappers/>
-  <prebuilders>
+  <prebuilders />
+  <!-- <prebuilders>
     <hudson.tasks.Maven>
       <targets>clean</targets>
       <mavenName>maven</mavenName>
@@ -65,7 +66,7 @@
       <settings class="jenkins.mvn.DefaultSettingsProvider"/>
       <globalSettings class="jenkins.mvn.DefaultGlobalSettingsProvider"/>
     </hudson.tasks.Maven>
-  </prebuilders>
+  </prebuilders> -->
   <postbuilders>
     <hudson.tasks.Shell>
       <command>cat /var/lib/jenkins/pwd | su - vagrant -c &quot;sh /mnt/gluster/repo/jenkins-setup/medi-pi-deployment-job-config/setup-medi-pi.sh 172.16.72.212&quot;</command>
