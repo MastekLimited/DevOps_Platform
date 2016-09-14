@@ -1,0 +1,1 @@
+Need to load all the properties files from classpath. This is to take care to load properties files from dependent jars if they are included in different web applications or jars.

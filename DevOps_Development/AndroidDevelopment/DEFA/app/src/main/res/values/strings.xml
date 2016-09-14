@@ -1,0 +1,36 @@
+<resources>
+    <string name="app_name">DEFA</string>
+    <string name="application_name">Device Enrollment For Authentication</string>
+
+    <string name="welcome">Welcome</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_login">Login</string>
+    <string name="main_activity_loading_status"></string>
+
+    <string name="registration_btn">Registration</string>
+    <string name="registrationID_txt">Enter Registration ID</string>
+    <string name="challenge_txt">Enter Secret Challenge</string>
+
+    <string name="login_btn">Login</string>
+    <string name="employeeID_txt">Enter Employee ID</string>
+    <string name="otp_txt">Enter One Time Password</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_registration">Registration</string>
+    <string name="title_activity_web_login">WebLogin</string>
+
+    <string name="action_search">Search</string>
+    <string name="drawer_open">Open</string>
+    <string name="drawer_close">Close</string>
+
+    <string name="title_messages">Messages</string>
+    <string name="title_friends">Friends</string>
+    <string name="title_home">Home</string>
+
+    <string name="title_activity_registration_setup">Registration Setup</string>
+
+    <string name="nav_item_registration">Registration</string>
+    <string name="nav_item_signout">Sign out</string>
+    <string name="drawer_header_text">Devops@Mastek.com</string>
+
+</resources>

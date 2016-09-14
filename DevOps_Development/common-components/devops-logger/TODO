@@ -1,0 +1,6 @@
+Done - Rename this project.
+Done - Look out whether we can catch the thread and log the time between start and end performance log.
+Done - Remove unnecessary imports.
+Done - Decide on package, group name for the artifacts.
+See whether we can log line number.
+Done - Check whether you really need exception-messages.properties file.

@@ -25,7 +25,6 @@ Vagrant.configure(2) do |config|
 	config.vm.synced_folder "../../", "/vshare/", create: true
 
 #Basic installations
-
 	config.vm.provision :shell, inline: "/vshare/scripts/vm-initial-setup/basicInstallations.sh", privileged: true
 	config.vm.provision :shell, inline: "/vshare/scripts/vm-initial-setup/createSharedDirectories.sh", privileged: true
 	config.vm.provision "shell", inline: "cp /vshare/scripts/vm-initial-setup/disable-system-ctl-firewalld.sh /etc/init.d/", privileged: true
