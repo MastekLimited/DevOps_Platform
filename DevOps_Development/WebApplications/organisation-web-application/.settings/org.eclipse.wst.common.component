@@ -22,6 +22,9 @@
         <dependent-module archiveName="project-service-1.0.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/project-service/project-service">
             <dependency-type>uses</dependency-type>
         </dependent-module>
+        <dependent-module archiveName="project-assignment-service-1.0.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/project-assignment-service/project-assignment-service">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
         <dependent-module archiveName="device-registration-service-1.0.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/device-registration-service/device-registration-service">
             <dependency-type>uses</dependency-type>
         </dependent-module>
