@@ -1,0 +1,90 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<maven2-moduleset plugin="maven-plugin@2.7.1">
+	<actions />
+	<description></description>
+	<keepDependencies>false</keepDependencies>
+	<properties />
+	<scm class="hudson.plugins.git.GitSCM" plugin="git@2.4.0">
+		<configVersion>2</configVersion>
+		<userRemoteConfigs>
+			<hudson.plugins.git.UserRemoteConfig>
+				<url>ssh://git@github.com/MastekLtd/DevOps_Platform.git</url>
+        		<credentialsId>3d072f2b-bdae-43c9-b6c9-103a357b8d69</credentialsId>
+			</hudson.plugins.git.UserRemoteConfig>
+		</userRemoteConfigs>
+		<branches>
+			<hudson.plugins.git.BranchSpec>
+				<name>*/develop</name>
+			</hudson.plugins.git.BranchSpec>
+		</branches>
+		<doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+		<browser class="hudson.plugins.git.browser.GithubWeb">
+			<url>https://github.com/MastekLtd/DevOps_Platform.git</url>
+		</browser>
+		<submoduleCfg class="list" />
+		<extensions />
+	</scm>
+	<canRoam>true</canRoam>
+	<disabled>false</disabled>
+	<blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+	<blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+	<triggers>
+		<hudson.triggers.SCMTrigger>
+			<spec>*/1 * * * *</spec>
+			<ignorePostCommitHooks>false</ignorePostCommitHooks>
+		</hudson.triggers.SCMTrigger>
+	</triggers>
+	<concurrentBuild>false</concurrentBuild>
+	<rootModule>
+		<groupId>Release-0.1</groupId>
+		<artifactId>Release-0.1</artifactId>
+	</rootModule>
+	<rootPOM>DevOps_Development/pom.xml</rootPOM>
+	<goals>install</goals>
+	<aggregatorStyleBuild>true</aggregatorStyleBuild>
+	<incrementalBuild>false</incrementalBuild>
+	<ignoreUpstremChanges>true</ignoreUpstremChanges>
+	<archivingDisabled>false</archivingDisabled>
+	<siteArchivingDisabled>false</siteArchivingDisabled>
+	<fingerprintingDisabled>false</fingerprintingDisabled>
+	<resolveDependencies>false</resolveDependencies>
+	<processPlugins>false</processPlugins>
+	<mavenValidationLevel>-1</mavenValidationLevel>
+	<runHeadless>false</runHeadless>
+	<disableTriggerDownstreamProjects>false</disableTriggerDownstreamProjects>
+	<blockTriggerWhenBuilding>true</blockTriggerWhenBuilding>
+	<settings class="jenkins.mvn.DefaultSettingsProvider" />
+	<globalSettings class="jenkins.mvn.DefaultGlobalSettingsProvider" />
+	<reporters>
+		<hudson.maven.reporters.MavenMailer>
+			<recipients>govind.parashar@mastek.com, krishna.kuntala@mastek.com</recipients>
+			<dontNotifyEveryUnstableBuild>false</dontNotifyEveryUnstableBuild>
+			<sendToIndividuals>true</sendToIndividuals>
+			<perModuleEmail>true</perModuleEmail>
+		</hudson.maven.reporters.MavenMailer>
+	</reporters>
+	<publishers>
+		<hudson.plugins.sonar.SonarPublisher plugin="sonar@2.2.1">
+			<jdk>java</jdk>
+			<branch></branch>
+			<mavenOpts></mavenOpts>
+			<jobAdditionalProperties></jobAdditionalProperties>
+			<settings class="jenkins.mvn.DefaultSettingsProvider" />
+			<globalSettings class="jenkins.mvn.DefaultGlobalSettingsProvider" />
+			<usePrivateRepository>false</usePrivateRepository>
+		</hudson.plugins.sonar.SonarPublisher>
+	</publishers>
+	<buildWrappers />
+	<prebuilders />
+	<postbuilders>
+		<hudson.tasks.Shell>
+			<command>cat /var/lib/jenkins/pwd | su - vagrant -c &quot;sh /mnt/gluster/repo/jenkins-setup/job-config/artifacts-transfer.sh&quot;</command>
+		</hudson.tasks.Shell>
+	</postbuilders>
+	<runPostStepsIfResult>
+		<name>SUCCESS</name>
+		<ordinal>0</ordinal>
+		<color>BLUE</color>
+		<completeBuild>true</completeBuild>
+	</runPostStepsIfResult>
+</maven2-moduleset>

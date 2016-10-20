@@ -1,1 +1,1 @@
-docker run -p 10050:10050 -p 10051:6556 --name device-authentication -h device-authentication -v /vshare/docker/config/services:/home/devops/config/services -v /vshare/Build/device-authentication/:/usr/share/ device-authentication
+docker run -p 10050:10050 -p 10051:6556 --name device-authentication -h device-authentication -v /mnt/gluster/repo/docker/config/services:/home/devops/config/services -v /mnt/gluster/repo/Build/device-authentication/:/usr/share/ device-authentication

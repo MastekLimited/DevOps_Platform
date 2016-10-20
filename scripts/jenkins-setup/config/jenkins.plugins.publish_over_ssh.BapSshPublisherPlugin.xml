@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<jenkins.plugins.publish__over__ssh.BapSshPublisherPlugin_-Descriptor plugin="publish-over-ssh@1.13">
+  <hostConfigurations>
+    <jenkins.plugins.publish__over__ssh.BapSshHostConfiguration>
+      <name>Docker</name>
+      <hostname>&&DOCKER_HOST_IP&&</hostname>
+      <username>vagrant</username>
+      <secretPassword>IomeH1c8y0cFNzAI6dQcEQ==</secretPassword>
+      <remoteRootDir>/vshare/Build/</remoteRootDir>
+      <port>22</port>
+      <commonConfig class="jenkins.plugins.publish_over_ssh.BapSshCommonConfiguration">
+        <secretPassphrase>Fl2a7D8WcwyiKCo1gG3tg0XMQ4Ontjr7ucmhqNyvUY55wzi+9M+pw+ODjzgugFas</secretPassphrase>
+        <key></key>
+        <keyPath></keyPath>
+        <disableAllExec>false</disableAllExec>
+      </commonConfig>
+      <timeout>300000</timeout>
+      <overrideKey>true</overrideKey>
+      <disableExec>false</disableExec>
+      <keyInfo>
+        <secretPassphrase>HXIGeVCJCj9KYWjhfhzJbED5/XdDa6mEdFsvbuciACYQtP4SFdRp22pD3ocGYRjrYcwFez08zJbrR9zL7j2QqQ==</secretPassphrase>
+        <key></key>
+        <keyPath></keyPath>
+      </keyInfo>
+    </jenkins.plugins.publish__over__ssh.BapSshHostConfiguration>
+  </hostConfigurations>
+  <commonConfig reference="../hostConfigurations/jenkins.plugins.publish__over__ssh.BapSshHostConfiguration/commonConfig"/>
+  <defaults class="jenkins.plugins.publish_over_ssh.options.SshPluginDefaults"/>
+</jenkins.plugins.publish__over__ssh.BapSshPublisherPlugin_-Descriptor>

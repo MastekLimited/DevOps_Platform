@@ -3,47 +3,75 @@
 
 Vagrant.configure(2) do |config|
 
+	config.vm.hostname = "Jenkins-box"
+	config.vm.box_check_update = false
 
-  config.vm.box = "vStone/centos-7.x-puppet.3.x"
-  config.vm.hostname = "Jenkins-box"
-  config.vm.box_check_update = false
-if ENV['ENV_TYPE'] != "local"
-	config.vm.network  "public_network", bridge: ENV['NET_CONFIG_FILE'], ip: ENV['SYS_IP']
-else
-	config.vm.network "private_network", ip: ENV['SYS_IP']
-end
+	if ENV['IMAGE_FILE'] != "use-local-image"
+		config.vm.box = "vStone/centos-7.x-puppet.3.x"
+	else
+		config.vm.box = "../../repo/centos/centos-7.x-64bit-puppet.3.x-vbox.5.0.0.1.box"
+	end
 
-  config.vm.synced_folder "../../", "/vshare/", create: true
+	if ENV['ENV_TYPE'] != "local"
+		config.vm.network  "public_network", bridge: ENV['NET_CONFIG_FILE'], ip: ENV['SYS_IP']
+	else
+		config.vm.network "private_network", ip: ENV['SYS_IP']
+	end
 
-  config.vm.provider "virtualbox" do |vb|
-    vb.memory = "1500"
-	vb.gui = true
-  end
+	config.vm.synced_folder "../../", "/vshare/", create: true
 
-  config.vm.provision :"shell", inline: "/vshare/scripts/vm-initial-setup/basicInstallations.sh", privileged: true
+	config.vm.provider "virtualbox" do |vb|
+		vb.memory = "2500"
+		vb.gui = true
+	end
 
-  config.vm.provision :"shell", inline: "/vshare/scripts/vm-initial-setup/createSharedDirectories.sh", privileged: true
+#Basic installations
 
-  config.vm.provision "shell", inline: "cp -R /vshare/scripts/jenkins-setup/* /mnt/gluster/repo/", privileged: true
+	config.vm.provision :"shell", inline: "/vshare/scripts/vm-initial-setup/basicInstallations.sh", privileged: true
+	config.vm.provision :"shell", inline: "/vshare/scripts/vm-initial-setup/createSharedDirectories.sh", privileged: true
+	config.vm.provision "shell", inline: "cp /vshare/scripts/vm-initial-setup/disable-system-ctl-firewalld.sh /etc/init.d/", privileged: true
 
-  config.vm.provision :"shell", inline: "/vshare/scripts/jenkins-setup/jenkinssetup_centos.sh", privileged: true
+#Setup Jenkins
 
-  config.vm.provision "shell", inline: "cp /vshare/scripts/sonar-setup/* /mnt/gluster/repo/", privileged: true
+	config.vm.provision "shell", inline: "mkdir /var/log/organisation/", privileged: true
+	config.vm.provision "shell", inline: "chmod -R 777 /var/log/organisation/", privileged: true
+	config.vm.provision "shell", inline: "mkdir /var/log/dev-ops/", privileged: true
+	config.vm.provision "shell", inline: "chmod -R 777 /var/log/dev-ops/", privileged: true
+	config.vm.provision "shell", inline: "mkdir /mnt/gluster/repo/jenkins-setup/", privileged: true
+	config.vm.provision "shell", inline: "chmod -R 777 /mnt/gluster/repo/jenkins-setup/", privileged: true
+	config.vm.provision "shell", inline: "cp -R /vshare/scripts/jenkins-setup/* /mnt/gluster/repo/jenkins-setup/", privileged: true
+	config.vm.provision :"shell", inline: "/mnt/gluster/repo/jenkins-setup/setup-centos.sh", privileged: true
+	config.vm.provision :"shell", inline: "/mnt/gluster/repo/jenkins-setup/job-config/create-job.sh DevOps_Development", privileged: true
+	config.vm.provision :"shell", inline: "/mnt/gluster/repo/jenkins-setup/ssh-key-generate.sh", privileged: true
 
-  config.vm.provision :"shell", inline: "/vshare/scripts/sonar-setup/sonarsetup.sh", privileged: true
+#Copy ssh private of mastek_build to jenkins
 
-  config.vm.provision :"shell", inline: "/vshare/scripts/jenkins-setup/createjob.sh DevOps_Development", privileged: true
+	config.vm.provision "shell", inline: "mkdir /var/lib/jenkins/.ssh/", privileged: true
+	config.vm.provision :"shell", inline: "cp /vshare/certificates/git-mastek-build/mastek_build /var/lib/jenkins/.ssh", privileged: true
 
-  config.vm.provision "shell", inline: "cp /vshare/scripts/maven_setup/* /mnt/gluster/repo/", privileged: true
+#Setup Sonar
 
-  config.vm.provision "shell", inline: "cp /vshare/scripts/omd_seup/check_mk_forclient /mnt/gluster/repo/", privileged: true
+	config.vm.provision "shell", inline: "mkdir /mnt/gluster/repo/sonar-setup/", privileged: true
+	config.vm.provision "shell", inline: "chmod -R 777 /mnt/gluster/repo/sonar-setup/", privileged: true
+	config.vm.provision "shell", inline: "cp -R /vshare/scripts/sonar-setup/* /mnt/gluster/repo/sonar-setup/", privileged: true
+	config.vm.provision :"shell", inline: "/mnt/gluster/repo/sonar-setup/setup.sh", privileged: true
 
-  config.vm.provision :"shell", inline: "/vshare/scripts/omd_seup/omdagentsetuponcentos.sh", privileged: true
+#Setup Maven
 
-  config.vm.provision :"shell", inline: "/vshare/scripts/maven_setup/mavensetup.sh", privileged: true
+	config.vm.provision "shell", inline: "mkdir /mnt/gluster/repo/maven-setup/", privileged: true
+	config.vm.provision "shell", inline: "chmod -R 777 /mnt/gluster/repo/maven-setup/", privileged: true
+	config.vm.provision "shell", inline: "cp -R /vshare/scripts/maven-setup/* /mnt/gluster/repo/maven-setup/", privileged: true
+	config.vm.provision :"shell", inline: "/mnt/gluster/repo/maven-setup/setup.sh", privileged: true
 
-  config.vm.provision :"shell", inline: "/mnt/gluster/repo/sshkeygenwithoutprompt.sh", privileged: true
+#Setup OMD Agent
 
-  config.vm.provision "shell", inline: "systemctl stop firewalld", privileged: true
+	config.vm.provision "shell", inline: "mkdir /mnt/gluster/repo/omd-setup/", privileged: true
+	config.vm.provision "shell", inline: "chmod -R 777 /mnt/gluster/repo/omd-setup/", privileged: true
+	config.vm.provision "shell", inline: "cp -R /vshare/scripts/omd-setup/agent/ /mnt/gluster/repo/omd-setup/agent", privileged: true
+	#config.vm.provision :"shell", inline: "/mnt/gluster/repo/omd-setup/agent/setup-centos.sh /mnt/gluster/repo/omd-setup/agent/config/check_mk /vshare/repo/check_mk/agent", privileged: true
 
+#Change firewall settings
+
+	config.vm.provision "shell", inline: "systemctl stop firewalld", privileged: true
+	config.vm.provision "shell", inline: "systemctl disable firewalld", privileged: true
 end

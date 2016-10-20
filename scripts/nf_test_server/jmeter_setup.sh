@@ -5,6 +5,9 @@ JMETER_VERSION=2.13
 PLUGINS_VERSION=1.2.0
 JMETER_PATH=/opt/jmeter
 PLUGINS_PATH=$JMETER_PATH/plugins
+echo "Installing unzip"
+yum install -y unzip
+
 
 # Install Jmeter
 

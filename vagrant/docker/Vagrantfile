@@ -2,48 +2,81 @@
 # vi: set ft=ruby :
 Vagrant.configure(2) do |config|
 
-  config.vm.box = "vStone/centos-7.x-puppet.3.x"
-  config.vm.hostname = "DOCKER-box"
-  config.vm.box_check_update = false
+	config.vm.hostname = "DOCKER-box"
+	config.vm.box_check_update = false
 
-if ENV['ENV_TYPE'] != "local"
-	config.vm.network  "public_network", bridge: ENV['NET_CONFIG_FILE'], ip: ENV['SYS_IP']
-else
-	config.vm.network "private_network", ip: ENV['SYS_IP']
-end
+	if ENV['IMAGE_FILE'] != "use-local-image"
+		config.vm.box = "vStone/centos-7.x-puppet.3.x"
+	else
+		config.vm.box = "../../repo/centos/centos-7.x-64bit-puppet.3.x-vbox.5.0.0.1.box"
+	end
 
-  config.vm.provider "virtualbox" do |vb|
-    vb.memory = "1600"
+	if ENV['ENV_TYPE'] != "local"
+		config.vm.network	"public_network", bridge: ENV['NET_CONFIG_FILE'], ip: ENV['SYS_IP']
+	else
+		config.vm.network "private_network", ip: ENV['SYS_IP']
+	end
+
+	config.vm.provider "virtualbox" do |vb|
+		vb.memory = "4000"
 	vb.gui = true
-    vb.cpus = "1"
-  end
+		vb.cpus = "2"
+	end
 
-  config.vm.synced_folder "../../", "/vshare/", create: true
+	config.vm.synced_folder "../../", "/vshare/", create: true
 
-  config.vm.provision :shell, inline: "/vshare/scripts/vm-initial-setup/basicInstallations.sh", privileged: true
+#Copy docker directory
 
-  config.vm.provision :shell, inline: "/vshare/scripts/vm-initial-setup/createSharedDirectories.sh", privileged: true
+	config.vm.provision :shell, inline: "/vshare/scripts/vm-initial-setup/createSharedDirectories.sh", privileged: true
+	config.vm.provision "shell", inline: "cp -R /vshare/docker /mnt/gluster/repo/", privileged: true
+	#config.vm.provision "shell", inline: "mkdir /mnt/devops/", privileged: true
+	#config.vm.provision "shell", inline: "chmod -R 777 /mnt/devops/", privileged: true
 
-  config.vm.provision "shell", inline: "systemctl stop firewalld", privileged: true
-   #Docker Installation
-  config.vm.provision "shell", inline: "yum -y update", privileged: true
+#Copy built artifacts directory
+	config.vm.provision "shell", inline: "cp -R /vshare/Build /mnt/gluster/repo/", privileged: true
 
-  config.vm.provision "shell", inline: "curl -sSL https://get.docker.com/ | sh", privileged: true
+#Copy certificates directory
+	config.vm.provision "shell", inline: "cp -R /vshare/certificates /mnt/gluster/repo/", privileged: true
 
-  config.vm.provision "shell", inline: "systemctl enable docker", privileged: true
+#Copy public key generated on jenkins VM to docker VM for built artifacts transfer
+	config.vm.provision "shell", inline: "cp /mnt/gluster/repo/certificates/generated/jenkins/id_rsa.pub /home/vagrant/.ssh/authorized_keys", privileged: true
 
-  config.vm.provision "shell", inline: "service docker start", privileged: true
+#Basic installations
 
-  config.vm.provision "shell", inline: "usermod -aG docker vagrant", privileged: true
+	config.vm.provision :shell, inline: "/vshare/scripts/vm-initial-setup/basicInstallations.sh", privileged: true
+	config.vm.provision "shell", inline: "cp /vshare/scripts/vm-initial-setup/disable-system-ctl-firewalld.sh /etc/init.d/", privileged: true
 
-  config.vm.provision "shell", inline: "cd /vshare/docker/ && ./startupScripts.sh", privileged: true
+#Copy logstash forwarder files
+	config.vm.provision "shell", inline: "cp /vshare/scripts/elk-setup/agent/config/logstash-forwarder.repo /mnt/gluster/repo/docker/roles/base/elk-setup/agent/config/", privileged: true
+	config.vm.provision "shell", inline: "cp /vshare/scripts/elk-setup/agent/setup-centos.sh /mnt/gluster/repo/docker/roles/base/elk-setup/agent/", privileged: true
+	config.vm.provision "shell", inline: "cp /vshare/scripts/elk-setup/agent/setup-ubuntu.sh /mnt/gluster/repo/docker/roles/base/elk-setup/agent/", privileged: true
 
-  config.vm.provision "shell", inline: "chmod -R 777 /var/log", privileged: true
+#Copy omd files
 
-  config.vm.provision "shell", inline: "cd /vshare/docker/ && ./runAllScripts.sh", privileged: true
-  config.vm.provision "shell", inline: "systemctl stop firewalld", privileged: true
-  config.vm.provision "shell", inline: "docker stop $(docker ps -a -q)", privileged: true
-  config.vm.provision "shell", inline: "docker start $(docker ps -a -q)", privileged: true
+	config.vm.provision "shell", inline: "mkdir /mnt/gluster/repo/docker/roles/base/omd-setup/", privileged: true
+	config.vm.provision "shell", inline: "cp -R /vshare/scripts/omd-setup/agent /mnt/gluster/repo/docker/roles/base/omd-setup/", privileged: true
 
-  config.vm.provision "shell", inline: "cp /vshare/rsakey/jenkins/id_rsa.pub /home/vagrant/.ssh/authorized_keys", privileged: true
+	config.vm.provision "shell", inline: "chmod -R 777 /mnt/gluster/repo/*", privileged: true
+
+#Change firewall settings
+
+	config.vm.provision "shell", inline: "systemctl stop firewalld", privileged: true
+	config.vm.provision "shell", inline: "systemctl disable firewalld", privileged: true
+
+#Docker Installation
+	#config.vm.provision "shell", inline: "yum -y update", privileged: true
+	config.vm.provision "shell", inline: "curl -sSL https://get.docker.com/ | sh", privileged: true
+	config.vm.provision "shell", inline: "systemctl enable docker", privileged: true
+	config.vm.provision "shell", inline: "service docker start", privileged: true
+	config.vm.provision "shell", inline: "usermod -aG docker vagrant", privileged: true
+
+#Build and run docker
+	config.vm.provision "shell", inline: "cd /mnt/gluster/repo/docker/ && ./startupScripts.sh", privileged: true
+	config.vm.provision "shell", inline: "cd /mnt/gluster/repo/docker/ && ./runAllScripts.sh", privileged: true
+
+#Change firewall settings
+	config.vm.provision "shell", inline: "systemctl stop firewalld", privileged: true
+	config.vm.provision "shell", inline: "docker stop $(docker ps -a -q)", privileged: true
+	config.vm.provision "shell", inline: "docker start $(docker ps -a -q)", privileged: true
+
 end

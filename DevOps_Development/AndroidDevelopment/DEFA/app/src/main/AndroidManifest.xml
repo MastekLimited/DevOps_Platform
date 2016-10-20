@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.dev.ops" >
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+
+        <activity
+            android:name=".defa.activities.MainActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <service
+            android:name=".defa.services.DeviceRegistrationService"
+            android:exported="false" >
+        </service>
+        <service
+            android:name=".defa.services.DeviceAuthenticationService"
+            android:exported="false" >
+        </service>
+        <service
+            android:name=".defa.services.DeviceInitializationService"
+            android:exported="false" >
+        </service>
+
+        <activity
+            android:name=".defa.activities.LoginActivity"
+            android:label="@string/title_activity_login" >
+        </activity>
+        <activity
+            android:name=".defa.activities.RegistrationActivity"
+            android:label="@string/title_activity_registration" >
+        </activity>
+        <activity
+            android:name=".defa.activities.WebActivity"
+            android:label="@string/title_activity_web_login" >
+        </activity>
+        <activity
+            android:name=".defa.activities.RegistrationSetup"
+            android:label="@string/title_activity_registration_setup" >
+        </activity>
+    </application>
+
+</manifest>

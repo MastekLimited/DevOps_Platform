@@ -1,28 +1,47 @@
 #!/bin/sh
 buildAll () {
-echo "build base"
-./scripts/base/build.sh
 
-echo ">>>>>>>>>>>>>>>>>>>build uuid>>>>>>>>>>>>>>>>>>>"
-./scripts/uuid/build.sh
+	echo '================================================================================'
+	echo '			build base: START'
+	echo '================================================================================'
+	./scripts/base/build.sh
+	echo '================================================================================'
+	echo '			build base: END'
 
-echo ">>>>>>>>>>>>>>>>>>>build employee>>>>>>>>>>>>>>>>>>>"
-./scripts/employee/build.sh
+	echo '================================================================================'
+	echo '			build uuid service'
+	echo '================================================================================'
+	./scripts/uuid/build.sh
 
-echo ">>>>>>>>>>>>>>>>>>>build project>>>>>>>>>>>>>>>>>>>"
-./scripts/project/build.sh
+	echo '================================================================================'
+	echo '			build employee service'
+	echo '================================================================================'
+	./scripts/employee/build.sh
 
-echo ">>>>>>>>>>>>>>>>>>>build project assignment>>>>>>>>>>>>>>>>>>>"
-./scripts/project-assignment/build.sh
+	echo '================================================================================'
+	echo '			build project service'
+	echo '================================================================================'
+	./scripts/project/build.sh
 
-echo ">>>>>>>>>>>>>>>>>>>build device registration>>>>>>>>>>>>>>>>>>>"
-./scripts/device-registration/build.sh
+	echo '================================================================================'
+	echo '			build project assignment service'
+	echo '================================================================================'
+	./scripts/project-assignment/build.sh
 
-echo ">>>>>>>>>>>>>>>>>>>build device authentication>>>>>>>>>>>>>>>>>>>"
-./scripts/device-authentication/build.sh
+	echo '================================================================================'
+	echo '			build device registration service'
+	echo '================================================================================'
+	./scripts/device-registration/build.sh
 
-echo ">>>>>>>>>>>>>>>>>>>build organisation web>>>>>>>>>>>>>>>>>>>"
-./scripts/organisation-web/build.sh
+	echo '================================================================================'
+	echo '			build device authentication service'
+	echo '================================================================================'
+	./scripts/device-authentication/build.sh
+
+	echo '================================================================================'
+	echo '			build organisation web'
+	echo '================================================================================'
+	./scripts/organisation-web/build.sh
 }
 
 buildAll

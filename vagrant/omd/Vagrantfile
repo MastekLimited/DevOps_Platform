@@ -2,28 +2,43 @@
 # vi: set ft=ruby :
 
 Vagrant.configure(2) do |config|
+	config.vm.hostname = "omd-box"
+	config.vm.box_check_update = false
 
-  config.vm.box = "vStone/centos-7.x-puppet.3.x"
-  config.vm.hostname = "omd-box"
-  config.vm.box_check_update = false
+	if ENV['IMAGE_FILE'] != "use-local-image"
+		config.vm.box = "vStone/centos-7.x-puppet.3.x"
+	else
+		config.vm.box = "../../repo/centos/centos-7.x-64bit-puppet.3.x-vbox.5.0.0.1.box"
+	end
 
-if ENV['ENV_TYPE'] != "local"
-	config.vm.network  "public_network", bridge: ENV['NET_CONFIG_FILE'], ip: ENV['SYS_IP']
-else
-	config.vm.network "private_network", ip: ENV['SYS_IP']
-end
-  
-   config.vm.provider "virtualbox" do |vb|
-   	vb.gui = true
-   end
- 
-  config.vm.synced_folder "../../", "/vshare/", create: true
+	if ENV['ENV_TYPE'] != "local"
+		config.vm.network  "public_network", bridge: ENV['NET_CONFIG_FILE'], ip: ENV['SYS_IP']
+	else
+		config.vm.network "private_network", ip: ENV['SYS_IP']
+	end
 
-  config.vm.provision :shell, inline: "/vshare/scripts/vm-initial-setup/basicInstallations.sh", privileged: true
-  config.vm.provision :shell, inline: "/vshare/scripts/vm-initial-setup/createSharedDirectories.sh", privileged: true
-  config.vm.provision "shell", inline: "cp /vshare/scripts/omd_seup/* /mnt/gluster/repo/", privileged: true
- 
-  #OMD Files // execute
-  config.vm.provision :shell, inline: "/vshare/scripts/omd_seup/omdserversetuponcentos.sh", privileged: true
-  config.vm.provision "shell", inline: "systemctl stop firewalld", privileged: true
+	config.vm.provider "virtualbox" do |vb|
+		vb.gui = true
+	end
+
+	config.vm.synced_folder "../../", "/vshare/", create: true
+
+#Basic installations
+
+	config.vm.provision :shell, inline: "/vshare/scripts/vm-initial-setup/basicInstallations.sh", privileged: true
+	config.vm.provision :shell, inline: "/vshare/scripts/vm-initial-setup/createSharedDirectories.sh", privileged: true
+	config.vm.provision "shell", inline: "cp /vshare/scripts/vm-initial-setup/disable-system-ctl-firewalld.sh /etc/init.d/", privileged: true
+
+#Copy OMD directories
+	config.vm.provision "shell", inline: "mkdir /mnt/gluster/repo/omd-setup/", privileged: true
+	config.vm.provision "shell", inline: "chmod -R 777 /mnt/gluster/repo/omd-setup/", privileged: true
+	config.vm.provision "shell", inline: "cp -R /vshare/scripts/omd-setup/* /mnt/gluster/repo/omd-setup", privileged: true
+
+#Setup OMD
+	config.vm.provision :shell, inline: "/mnt/gluster/repo/omd-setup/server/setup-centos.sh", privileged: true
+
+#Change firewall settings
+
+	config.vm.provision "shell", inline: "systemctl stop firewalld", privileged: true
+	config.vm.provision "shell", inline: "systemctl disable firewalld", privileged: true
 end

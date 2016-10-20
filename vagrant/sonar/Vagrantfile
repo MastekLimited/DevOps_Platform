@@ -2,20 +2,26 @@
 # vi: set ft=ruby :
 
 Vagrant.configure(2) do |config|
-  
-  config.vm.box = "vStone/centos-7.x-puppet.3.x"
-  config.vm.hostname = "SONAR-box"
-  config.vm.box_check_update = false
-  config.vm.network "private_network", ip: "192.168.51.107"
-  config.vm.synced_folder "../../", "/vshare/", create: true
-  
-  config.vm.provision :shell, inline: "/vshare/scripts/vm-initial-setup/basicInstallations.sh", privileged: true
-  config.vm.provision :shell, inline: "/vshare/scripts/vm-initial-setup/createSharedDirectories.sh", privileged: true
-  
-  config.vm.provision "shell", inline: "cp /vshare/scripts/sonar-setup/* /mnt/gluster/repo/", privileged: true
-  
-  config.vm.provision :shell, inline: "/vshare/scripts/sonar-setup/sonarsetup.sh", privileged: false
 
-  config.vm.provision "shell", inline: "systemctl stop firewalld", privileged: true
-  
+	config.vm.box = "vStone/centos-7.x-puppet.3.x"
+	config.vm.hostname = "SONAR-box"
+	config.vm.box_check_update = false
+	config.vm.network "private_network", ip: "192.168.51.107"
+	config.vm.synced_folder "../../", "/vshare/", create: true
+
+#Basic installations
+
+	config.vm.provision :shell, inline: "/vshare/scripts/vm-initial-setup/basicInstallations.sh", privileged: true
+	config.vm.provision :shell, inline: "/vshare/scripts/vm-initial-setup/createSharedDirectories.sh", privileged: true
+	config.vm.provision "shell", inline: "cp /vshare/scripts/vm-initial-setup/disable-system-ctl-firewalld.sh /etc/init.d/", privileged: true
+
+#Setup sonar
+	config.vm.provision "shell", inline: "cp /vshare/scripts/sonar-setup/* /mnt/gluster/repo/", privileged: true
+	config.vm.provision :shell, inline: "/vshare/scripts/sonar-setup/sonarsetup.sh", privileged: false
+
+#Change firewall settings
+
+	config.vm.provision "shell", inline: "systemctl stop firewalld", privileged: true
+	config.vm.provision "shell", inline: "systemctl disable firewalld", privileged: true
+
 end

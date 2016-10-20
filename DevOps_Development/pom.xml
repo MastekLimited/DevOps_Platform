@@ -1,0 +1,119 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>Release-0.1</groupId>
+	<artifactId>Release-0.1</artifactId>
+	<version>0.1</version>
+	<packaging>pom</packaging>
+	<name>Release-0.1</name>
+	<description>Parent project for Release 2.0</description>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<java_one_six_version>1.6</java_one_six_version>
+		<java_one_seven_version>1.7</java_one_seven_version>
+		<junit.version>4.11</junit.version>
+		<mockito.version>1.9.5</mockito.version>
+		<mockito.legacy.version>1.8.4</mockito.legacy.version>
+		<surefire.failsafe.version>2.18</surefire.failsafe.version>
+		<maven-jar-plugin>2.4</maven-jar-plugin>
+		<maven.compiler.plugin.legacy.version>3.0</maven.compiler.plugin.legacy.version>
+		<maven.compiler.plugin.version>3.1</maven.compiler.plugin.version>
+		<micro.service.version>1.1</micro.service.version>
+	</properties>
+
+	<repositories>
+	</repositories>
+
+	<profiles>
+		<profile>
+			<id>allModulesProfile</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<modules>
+				<module>common-components/devops-logger</module>
+				<module>common-components/devops-exception-manager</module>
+				<module>common-components/devops-common</module>
+				<module>Microservices/uuid-service</module>
+				<module>Microservices/employee-service</module>
+				<module>Microservices/project-service</module>
+				<module>Microservices/project-assignment-service</module>
+				<module>Microservices/device-registration-service</module>
+				<module>Microservices/device-authentication-service</module>
+				<module>WebApplications/organisation-web-application</module>
+			</modules>
+		</profile>
+	</profiles>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>slf4j-log4j12</artifactId>
+				<version>1.6.4</version>
+			</dependency>
+			<dependency>
+				<groupId>junit</groupId>
+				<artifactId>junit</artifactId>
+				<version>${junit.version}</version>
+				<scope>test</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.mockito</groupId>
+				<artifactId>mockito-all</artifactId>
+				<version>${mockito.version}</version>
+				<scope>test</scope>
+			</dependency>
+			<!-- <dependency> <groupId>org.apache.maven.plugins</groupId> <artifactId>maven-failsafe-plugin</artifactId> <version>${surefire.failsafe.version}</version> <scope>test</scope> </dependency> <dependency> <groupId>org.apache.maven.plugins</groupId> <artifactId>maven-surefire-plugin</artifactId> <version>${surefire.failsafe.version}</version> <scope>test</scope> </dependency> <dependency> <groupId>org.apache.maven.surefire</groupId> <artifactId>surefire-junit47</artifactId> <version>${surefire.failsafe.version}</version> <scope>test</scope> </dependency> -->
+			<dependency>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>sonar-maven-plugin</artifactId>
+				<version>2.2</version>
+				<type>maven-plugin</type>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>${maven.compiler.plugin.legacy.version}</version>
+					<configuration>
+						<source>${java_one_six_version}</source>
+						<target>${java_one_six_version}</target>
+						<fork>true</fork>
+						<meminitial>128m</meminitial>
+						<maxmem>2048m</maxmem>
+						<argLine>-Xmx2048m -XX:MaxPermSize=2048m</argLine>
+					</configuration>
+				</plugin>
+
+				<plugin>
+					<artifactId>maven-resources-plugin</artifactId>
+					<version>2.6</version>
+				</plugin>
+
+				<plugin>
+					<artifactId>maven-deploy-plugin</artifactId>
+					<version>2.8.1</version>
+				</plugin>
+
+				<plugin>
+					<groupId>org.jacoco</groupId>
+					<artifactId>jacoco-maven-plugin</artifactId>
+					<version>0.7.5.201505241946</version>
+				</plugin>
+
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-jar-plugin</artifactId>
+					<version>2.4</version>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
+</project>

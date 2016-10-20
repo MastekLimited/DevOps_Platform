@@ -3,36 +3,55 @@
 
 Vagrant.configure(2) do |config|
 
- config.vm.box = "vStone/centos-7.x-puppet.3.x"
- config.vm.hostname = "POSTGRES-BOX"
- config.vm.box_check_update = false
+	config.vm.hostname = "POSTGRES-BOX"
+	config.vm.box_check_update = false
 
-if ENV['ENV_TYPE'] != "local"
-	config.vm.network  "public_network", bridge: ENV['NET_CONFIG_FILE'], ip: ENV['SYS_IP']
-else
-	config.vm.network "private_network", ip: ENV['SYS_IP']
-end 
+	if ENV['IMAGE_FILE'] != "use-local-image"
+		config.vm.box = "vStone/centos-7.x-puppet.3.x"
+	else
+		config.vm.box = "../../repo/centos/centos-7.x-64bit-puppet.3.x-vbox.5.0.0.1.box"
+	end
 
- config.vm.provider "virtualbox" do |vb|
-   	vb.gui = true
- end
- 
- config.vm.synced_folder "../../../", "/vshare/", create: true
+	if ENV['ENV_TYPE'] != "local"
+		config.vm.network  "public_network", bridge: ENV['NET_CONFIG_FILE'], ip: ENV['SYS_IP']
+	else
+		config.vm.network "private_network", ip: ENV['SYS_IP']
+	end
 
- config.vm.provision :shell, inline: "/vshare/DevOps_Platform/scripts/vm-initial-setup/basicInstallations.sh", privileged: true
- config.vm.provision :shell, inline: "/vshare/DevOps_Platform/scripts/vm-initial-setup/createSharedDirectories.sh", privileged: true
- 
- #Database Files // copy
- config.vm.provision "shell", inline: "cp /vshare/DevOps_Platform/scripts/database-setup/* /mnt/gluster/repo/", privileged: true
- 
- #Database Files // execute
- config.vm.provision "shell", inline: "/vshare/DevOps_Platform/scripts/database-setup/databaseInstallation.sh", privileged: true
- config.vm.provision "shell", inline: "systemctl stop firewalld", privileged: true
-  config.vm.provision "shell", inline: "echo Password1 | su postgres -c 'psql -d postgres -U postgres --file /vshare/DevOps_Development/Database_Scripts/setup-data/createDatabase.sql'", privileged: true
-  
- config.vm.provision "shell", inline: "echo Password1 | su postgres -c 'psql -d Organisation -U postgres --file /vshare/DevOps_Development/Database_Scripts/setup-data/createTables.sql'", privileged: true
- 
- config.vm.provision "shell", inline: "echo Password1 | su postgres -c 'psql -d Organisation -U postgres --file /vshare/DevOps_Development/Database_Scripts/setup-data/insertDummyRecords.sql'", privileged: true
-  
- 
+	config.vm.provider "virtualbox" do |vb|
+		vb.gui = true
+	end
+
+	config.vm.synced_folder "../../", "/vshare/", create: true
+	config.vm.synced_folder "../../../DevOps_Development/Database_Scripts", "/application-scripts/", create: true
+
+#Basic installations
+
+	config.vm.provision :shell, inline: "/vshare/scripts/vm-initial-setup/basicInstallations.sh", privileged: true
+	config.vm.provision :shell, inline: "/vshare/scripts/vm-initial-setup/createSharedDirectories.sh", privileged: true
+	config.vm.provision "shell", inline: "cp /vshare/scripts/vm-initial-setup/disable-system-ctl-firewalld.sh /etc/init.d/", privileged: true
+
+#Copy Database files
+	config.vm.provision "shell", inline: "mkdir /mnt/gluster/repo/database-setup/", privileged: true
+	config.vm.provision "shell", inline: "cp -R /vshare/scripts/database-setup/* /mnt/gluster/repo/database-setup/", privileged: true
+	config.vm.provision "shell", inline: "chmod -R 777 /mnt/gluster/repo/database-setup/", privileged: true
+
+#Setup Postgres
+	config.vm.provision "shell", inline: "/mnt/gluster/repo/database-setup/postgres/setup-centos.sh", privileged: true
+
+#Execute application scripts on database
+	config.vm.provision "shell", inline: "echo Password1 | su postgres -c 'psql -d postgres -U postgres --file /application-scripts/setup-data/createDatabase.sql'", privileged: true
+	config.vm.provision "shell", inline: "echo Password1 | su postgres -c 'psql -d Organisation -U postgres --file /application-scripts/setup-data/createTables.sql'", privileged: true
+	config.vm.provision "shell", inline: "echo Password1 | su postgres -c 'psql -d Organisation -U postgres --file /application-scripts/setup-data/insertDummyRecords.sql'", privileged: true
+
+#Setup collectd
+	#config.vm.provision "shell", inline: "cp -R /vshare/scripts/nf_test_server/collectd_client_setup /mnt/gluster/repo/", privileged: true
+	#config.vm.provision "shell", inline: "chmod -R 777 /mnt/gluster/repo/collectd_client_setup", privileged: true
+	#config.vm.provision "shell", inline: "chmod -R 777 /mnt/gluster/repo/collectd_client_setup/*", privileged: true
+	#config.vm.provision "shell", inline: "/mnt/gluster/repo/collectd_client_setup/collectd_client_setup.sh", privileged: true
+
+#Change firewall settings
+
+	config.vm.provision "shell", inline: "systemctl stop firewalld", privileged: true
+	config.vm.provision "shell", inline: "systemctl disable firewalld", privileged: true
 end

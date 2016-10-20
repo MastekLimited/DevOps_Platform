@@ -1,0 +1,3 @@
+ExceptionUtilTest -> Test case failure
+ExceptionUtilTest -> Compilation failure
+LoggingInterceptor -> Sonar Violation
