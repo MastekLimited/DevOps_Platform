@@ -35,7 +35,7 @@ public class ServiceExceptionControllerAdvice extends ResponseEntityExceptionHan
 			validationErrors.append("Field error in object '" + fieldError.getObjectName() + "' on field '" + fieldError.getField() + "': rejected value [" + fieldError.getRejectedValue() + "] with cause: [" + fieldError.getDefaultMessage() + " ]");
 		}
 		final Exception e = ExceptionUtil.createException(validationErrors.toString(), Severity.FATAL, ex, null, true, null);
-		return this.handleExceptionInternal(e, validationErrors.toString(), new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
+		return this.handleExceptionInternal(e, validationErrors.toString(), headers, status, request);
 	}
 
 	@ExceptionHandler({PersistenceException.class, CannotCreateTransactionException.class, TransactionSystemException.class})
