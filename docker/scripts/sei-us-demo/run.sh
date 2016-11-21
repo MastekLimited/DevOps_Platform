@@ -1,0 +1,1 @@
+docker run -d -p 49163:7001 -p 49164:7002 -p 49165:5556 --name sei-us-demo -h sei-us-demo  sei-us-demo
