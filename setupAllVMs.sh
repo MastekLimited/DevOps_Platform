@@ -3,7 +3,7 @@ networkScriptFileName="eth1"
 if [ -z "$1" ]
   then
 	echo "No argument supplied"
-    echo "Please provide the environment type i.e. local,dev,test etc."
+    echo "Please provide the environment type i.e. local and dev"
 	exit
 fi
 
@@ -91,7 +91,6 @@ echo "POSTGRES SERVER :- ${IPMAP["POSTGRES_HOST_IP"]}"
 echo "ELK SERVER :- ${IPMAP["ELK_HOST_IP"]}"
 echo "OMD SERVER :- ${IPMAP["OMD_HOST_IP"]}"
 echo "DOCKER SERVER :- ${IPMAP["DOCKER_HOST_IP"]}"
-# echo "NF SERVER :- ${IPMAP["NF_HOST_IP"]}"
 
 printf "Job Name : ${PARAM["JOBNAME"]} \nRepository : ${PARAM["REPOLINK"]} \nMail IDs : ${PARAM["MAIL-IDS"]}\n"
 
@@ -100,7 +99,6 @@ grep -r '&&ELK_HOST_IP&&' -l --null $PWD/*/ | xargs -0 sed -i 's#&&ELK_HOST_IP&&
 grep -r '&&OMD_HOST_IP&&' -l --null $PWD/*/ | xargs -0 sed -i 's#&&OMD_HOST_IP&&#'${IPMAP["OMD_HOST_IP"]}'#g'
 grep -r '&&POSTGRES_HOST_IP&&' -l --null $PWD/*/ | xargs -0 sed -i 's#&&POSTGRES_HOST_IP&&#'${IPMAP["POSTGRES_HOST_IP"]}'#g'
 grep -r '&&DOCKER_HOST_IP&&' -l --null $PWD/*/ | xargs -0 sed -i 's#&&DOCKER_HOST_IP&&#'${IPMAP["DOCKER_HOST_IP"]}'#g'
-# grep -r '&&NF_HOST_IP&&' -l --null $PWD/*/ | xargs -0 sed -i 's#&&NF_HOST_IP&&#'${IPMAP["NF_HOST_IP"]}'#g'
 
 #Replacing place holders with custom project related values in XML files.
 grep -r 'REPOLINK' -l --null $PWD/scripts/*jenkins* | xargs -0 sed -i 's#REPOLINK#'${PARAM["REPOLINK"]}'#g'
@@ -147,14 +145,6 @@ all_vms_start_time=`date +%s`
 
 find . -name "*.sh" -exec chmod +x {} \;
 
-#nf_vm_start_time=`date +%s`
-#startCleanVirtualBox vagrant/nf_test_server/ ${IPMAP["NF_HOST_IP"]}
-#nf_vm_end_time=`date +%s`
-
-#git reset --hard
-#git clean -f
-
-
 if [ "$dops" == "DEV" ]; then 
     printf "\n\n******************************************"
     printf "\nStarting to setup DEV Part of DevOps Suite\n"
@@ -176,51 +166,32 @@ if [ "$dops" == "DEV" ]; then
 
 
 elif [ "$dops" == "OPS" ]; then
-	printf "\n\n******************************************"
-    printf "\nStarting to setup OPS Part of DevOps Suite\n"
-    printf "******************************************\n"
-    #  printf "\n\n==========================================="
-    #  printf "Starting to create Postgres VM."
-    #  printf "===========================================\n\n"
-    # 	postgres_vm_start_time=`date +%s`
-	# startCleanVirtualBox vagrant/postgres/ ${IPMAP["POSTGRES_HOST_IP"]}
-	# postgres_vm_end_time=`date +%s`
-	# echo "==========================================="
+	printf "\n\n****************************************************"
+    printf "\nStarting the OPS Part setup from using DevOps Suite\n"
+    printf "********************************************************\n"
 
     printf "\n\n==========================================="
     printf "\nStarting to create ELK VM.\n"
     printf "===========================================\n\n"
-
 	elk_vm_start_time=`date +%s`
 	startCleanVirtualBox vagrant/elk/  ${IPMAP["ELK_HOST_IP"]}
 	elk_vm_end_time=`date +%s`
 
-
     printf "\n\n==========================================="
     printf "\nStarting to create OMD VM.\n"
     printf "===========================================\n\n"
-
     omd_vm_start_time=`date +%s`
 	startCleanVirtualBox vagrant/omd/  ${IPMAP["OMD_HOST_IP"]}
 	omd_vm_end_time=`date +%s`
-  
-    printf "\n\n==========================================="
-    printf "\nStarting to create Docker VM.\n"
-    printf "===========================================\n\n"
-    
-	docker_vm_start_time=`date +%s`
-	startCleanVirtualBox vagrant/docker/ ${IPMAP["DOCKER_HOST_IP"]}
-	docker_vm_end_time=`date +%s`
-
+ 
 	all_vms_end_time=`date +%s`
 
 	printf "\n\n----------------------------------------------------------------------------------------------"
 	printf "\n-----------------------------DevOps Suite Execution Summary-----------------------------------"
 	printf "\n----------------------------------------------------------------------------------------------\n"
-	# printExecutionTime `expr $postgres_vm_end_time - $postgres_vm_start_time` "==> Postgres setup time :: "
-	printExecutionTime `expr $elk_vm_end_time - $elk_vm_start_time` "==> ELK setup time :: "
-	printExecutionTime `expr $omd_vm_end_time - $omd_vm_start_time` "==> OMD setup time :: "
-	printExecutionTime `expr $docker_vm_end_time - $docker_vm_start_time` "==> Docker setup time"
+
+	printExecutionTime `expr $elk_vm_end_time - $elk_vm_start_time` "==> ELK setup time"
+	printExecutionTime `expr $omd_vm_end_time - $omd_vm_start_time` "==> OMD setup time"
 	printExecutionTime `expr $all_vms_end_time - $all_vms_start_time` "==> Total execution time <== :: "
 	printf "\n----------------------------------------------------------------------------------------------\n"
 
@@ -258,7 +229,6 @@ elif [ "$dops" == "DEVOPS" ]; then
 	printExecutionTime `expr $omd_vm_end_time - $omd_vm_start_time` "==> OMD setup time"
 	printExecutionTime `expr $jenkins_vm_end_time - $jenkins_vm_start_time` "==> Jenkins setup time"
 	printExecutionTime `expr $docker_vm_end_time - $docker_vm_start_time` "==> Docker setup time"
-	# printExecutionTime `expr $nf_vm_end_time - $nf_vm_start_time` "nf server setup time"
 	printExecutionTime `expr $all_vms_end_time - $all_vms_start_time` "==> Total execution time  :: "
 	printf "\n----------------------------------------------------------------------------------------------\n"
 fi

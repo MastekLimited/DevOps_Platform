@@ -18,20 +18,20 @@ fi
 echo '================================================================================'
 echo '			Installing Sonarqube: START'
 echo '================================================================================'
-if [ -f "/vshare/repo/sonarqube/sonarqube-5.1.zip" ]; then
-	cp /vshare/repo/sonarqube/sonarqube-5.1.zip .
+if [ -f "/vshare/repo/sonarqube/sonarqube-5.3.zip" ]; then
+	cp /vshare/repo/sonarqube/sonarqube-5.3.zip .
 else
-	wget http://dist.sonar.codehaus.org/sonarqube-5.1.zip
+	wget http://dist.sonar.codehaus.org/sonarqube-5.3.zip
 fi
 
 echo '================================================================================'
 echo '			Installing Sonarqube: END'
 echo '================================================================================'
 
-chmod 777 sonarqube-5.1.zip
-unzip sonarqube-5.1.zip
-chmod 777 sonarqube-5.1
-cd sonarqube-5.1
+chmod 777 sonarqube-5.3.zip
+unzip sonarqube-5.3.zip
+chmod 777 sonarqube-5.3
+cd sonarqube-5.3
 
 echo ...........................Changing Sonarqube configuration...........................
 cp /mnt/gluster/repo/sonar-setup/config/sonar.properties conf/
