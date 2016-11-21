@@ -1,0 +1,5 @@
+JOBNAME=DevOpsSuite_MastekJob
+REPOLINK=git://172.16.222.132/NewMavenRepository.git
+MASTEK_TEMPLATE=mastek_template
+MAIL-IDS=devopstest@ind-mhp1v13lnx011.mastek.com
+//END FILE
