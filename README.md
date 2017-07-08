@@ -35,7 +35,9 @@ Below are some of the tools integrated as part of DevOps Suite.
 
 # Architecture
 Vagrant installed on Windows/Linux machine is responsible for creating the Virtual Machines on Oracle Virtual Box. Checkout the “DevOps_Platform” code on to the local machine which contains vagrant files and shell scripts for setting up the VMs.
- 
+
+[[https://github.com/MastekLtd/DevOps_Platform/blob/master/images/architecture.jpg|alt=Architecture]]
+
 The “Application Runtime Environment” could be replicated to create different environments like Integration Test environment, CICB, UAT, PTLs and finally Production. Replication of environments has become very easy due to scripts and Docker virtualization.
 As shown it the above diagram, we have created a small application related to an organisation. The application is developed using Microservices architecture principles. Each service is responsible for handling a single entity such as Employee, Project and Project assignments for the employees. These services expose RESTful APIs for CRUD operations as well as listings. For performing operations on these entities we have created Organisation Web Application which consists of UI related files.
  
