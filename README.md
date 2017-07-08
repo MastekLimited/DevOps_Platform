@@ -58,7 +58,6 @@ OMD agent consolidates the information about the server and the services running
 
 Because of all these tools in place, from the day 1 of the project kick-off we will have the production like infrastructure available.
 
-
 ##### Docker
 Docker can be installed on any Linux machine. This provides virtualised containers for application deployments. A single Linux installation and hardware is shared across all the containers which minimises the footprint of the application deployment.
  
@@ -71,6 +70,8 @@ The built artifacts can be deployed on the docker containers. The containers cre
 ##### Microservices Architecture
 The organisation application built using Microservices architecture in which each service is responsible for handling only one type of entity. It has Employee Service, Project Service, Project Assignment Service and Organisation Web application. All the services are built using spring boot feature. Hence all the dependencies needed for application deployment has been embedded into the archive file. There is no need to ship tomcat, jboss, etc. onto the containers because jar/war files are self-capable to take the application server up on the specified port.
 All the services have uniform RESTful APIs which exposes CRUD operations for Employee, Project and Project Assignment.
+![alt text](https://github.com/MastekLtd/DevOps_Platform/blob/master/images/organisation_web_app.png)
+
 Additionally we have developed below artifacts which are included in the Microservices so that there is less code duplication as well as less maintenance.
 ##### devops-commons
 This artifact has many features which could be used across all the Microservices.
@@ -78,7 +79,6 @@ This artifact has many features which could be used across all the Microservices
 2.	LoggingInterceptor which is implemented using AOP for performance and method start & end logging.
 3.	Orika mapper configuration for object conversions.
 4.	Exception controller advice handling the exceptions at controller levels across all the Microservices. Hence no need to handle the exceptions at the controller levels.
-5.	Utility classes for JSON, Timestamp, Date and Properties files.
 
 ##### devops-exception-manager
 The application exceptions can be wrapped into DefaultWrappedException or SystemWrappedException (Runtime Exception). The messages associated with Exception codes can be configured in exception-message-store.properties which would be resolved while creating the exception object. The exception messages resolved using these properties file can be logged as well as could be shown on the UI to end users directly.
