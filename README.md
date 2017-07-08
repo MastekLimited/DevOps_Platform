@@ -36,6 +36,10 @@ Below are some of the tools integrated as part of DevOps Suite.
 # Architecture
 Vagrant installed on Windows/Linux machine is responsible for creating the Virtual Machines on Oracle Virtual Box. Checkout the “DevOps_Platform” code on to the local machine which contains vagrant files and shell scripts for setting up the VMs.
 
+### Process & Environment Integration
+![alt text](https://github.com/MastekLtd/DevOps_Platform/blob/master/images/process_flow.jpg)
+
+### Environment
 ![alt text](https://github.com/MastekLtd/DevOps_Platform/blob/master/images/architecture.jpg)
 
 The “Application Runtime Environment” could be replicated to create different environments like Integration Test environment, CICB, UAT, PTLs and finally Production. Replication of environments has become very easy due to scripts and Docker virtualization.
@@ -45,16 +49,20 @@ Deployed these services in docker containers to minimize the footprint of applic
 ##### Execution Process
 Once a developer implements code change and commits his code to Git, Jenkins will trigger a job. This job will build the artifacts and generates a sonar report which would be published on SonarQube server. Also, deploys the created artifacts on docker containers which are ready for testing. Database incremental scripts execution can also be automated on the specified environment (which is not in place yet).
 On each of the containers in docker we have ELK and OMD agents installed. ELK agent consolidates the log files which are configured on respective containers and sends them to ELK server. ELK server indexes these files and publishes them on Kibana Web. These logs are available to developers, testers and product owners for further analysis. We can filter the logs on the basis of services, timestamps, a string in the logs, hosts, etc.
+
+![alt text](https://github.com/MastekLtd/DevOps_Platform/blob/master/images/dashboard_ELK.png)
  
 OMD agent consolidates the information about the server and the services running on the containers. This consolidated information is forwarded to OMD server which analyses this data and raises alerts if there are any problems with the services or containers.
- 
+
+![alt text](https://github.com/MastekLtd/DevOps_Platform/blob/master/images/dashboard_check_mk.png)
+
 Because of all these tools in place, from the day 1 of the project kick-off we will have the production like infrastructure available.
 
 
 ##### Docker
 Docker can be installed on any Linux machine. This provides virtualised containers for application deployments. A single Linux installation and hardware is shared across all the containers which minimises the footprint of the application deployment.
  
-Below image shows the comparison of VM vs Docker.
+![alt text](https://github.com/MastekLtd/DevOps_Platform/blob/master/images/docker_deployment.png)
  
 Each container is as good as a different VM in its world. Hence the service running on this container can map to any port without worrying about other containers port. Docker port forwarding is responsible for resolving these ports on the container level and assigning different ports which are exposed to outside world or other containers.
  
