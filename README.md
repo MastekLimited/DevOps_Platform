@@ -71,6 +71,9 @@ The built artifacts can be deployed on the docker containers. The containers cre
 ##### Microservices Architecture
 The organisation application built using Microservices architecture in which each service is responsible for handling only one type of entity. It has Employee Service, Project Service, Project Assignment Service and Organisation Web application. All the services are built using spring boot feature. Hence all the dependencies needed for application deployment has been embedded into the archive file. There is no need to ship tomcat, jboss, etc. onto the containers because jar/war files are self-capable to take the application server up on the specified port.
 All the services have uniform RESTful APIs which exposes CRUD operations for Employee, Project and Project Assignment.
+
+![alt text](https://github.com/MastekLtd/DevOps_Platform/blob/master/images/organisation_web_app.png)
+
 Additionally we have developed below artifacts which are included in the Microservices so that there is less code duplication as well as less maintenance.
 ##### devops-commons
 This artifact has many features which could be used across all the Microservices.
