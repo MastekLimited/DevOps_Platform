@@ -2,7 +2,7 @@
 <footer class="footer">
 	<div class="container">
 		<ul>
-			<li>2016&nbsp;GMK Group.&nbsp;All rights reserved.&nbsp;</li>
+			<li>Copyright 2017&nbsp;-&nbsp;All rights reserved.&nbsp;</li>
 			<li><a href="#">Sitemap</a>&nbsp; | &nbsp;</li>
 			<li><a href="#">Tech Support</a>&nbsp; | &nbsp;</li>
 			<li><a href="#">Community</a>&nbsp; | &nbsp;</li>
