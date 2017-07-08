@@ -37,9 +37,11 @@ Below are some of the tools integrated as part of DevOps Suite.
 Vagrant installed on Windows/Linux machine is responsible for creating the Virtual Machines on Oracle Virtual Box. Checkout the “DevOps_Platform” code on to the local machine which contains vagrant files and shell scripts for setting up the VMs.
 
 ### Process & Environment Integration
+
 ![alt text](https://github.com/MastekLtd/DevOps_Platform/blob/master/images/process_flow.jpg)
 
 ### Environment
+
 ![alt text](https://github.com/MastekLtd/DevOps_Platform/blob/master/images/architecture.jpg)
 
 The “Application Runtime Environment” could be replicated to create different environments like Integration Test environment, CICB, UAT, PTLs and finally Production. Replication of environments has become very easy due to scripts and Docker virtualization.
@@ -70,6 +72,7 @@ The built artifacts can be deployed on the docker containers. The containers cre
 ##### Microservices Architecture
 The organisation application built using Microservices architecture in which each service is responsible for handling only one type of entity. It has Employee Service, Project Service, Project Assignment Service and Organisation Web application. All the services are built using spring boot feature. Hence all the dependencies needed for application deployment has been embedded into the archive file. There is no need to ship tomcat, jboss, etc. onto the containers because jar/war files are self-capable to take the application server up on the specified port.
 All the services have uniform RESTful APIs which exposes CRUD operations for Employee, Project and Project Assignment.
+
 ![alt text](https://github.com/MastekLtd/DevOps_Platform/blob/master/images/organisation_web_app.png)
 
 Additionally we have developed below artifacts which are included in the Microservices so that there is less code duplication as well as less maintenance.
