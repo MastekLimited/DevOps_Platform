@@ -29,7 +29,6 @@ Below are some of the tools integrated as part of DevOps Suite.
 3.	Vagrant: Tool to setup VMs required for the services and other servers like Jenkins, Sonar, etc.
 4.	Jenkins: Jenkins is a cross-platform, continuous integration and continuous delivery application that increases your productivity. Use Jenkins to build and test your software projects continuously making it easier for developers to integrate changes to the project, and making it easier for users to obtain a fresh build. It also allows you to continuously deliver your software by providing powerful ways to define your build pipelines and integrating with a large number of testing and deployment technologies.
 5.	SonarQube: SonarQube is an open platform to manage code quality. As such, it covers the 7 axes of code quality:
-
 6.	Postgresql: Database server
 7.	Docker: Docker offers a container-based virtualization platform to power your applications.
 
