@@ -119,9 +119,13 @@ Clone the repository ```https://github.com/MastekLtd/ DevOps_Platform.git``` usi
 7. Open Red Hat Cygwin Terminal and go to location ```<Drive:>\<Directory>\git \DevOps_Platform```
 
 8. Execute ***setupAllVMs.sh*** to setup DevOps Suite
+
 ```./setupAllVMs.sh local use-cloud-image```
+
 ***Note: If the above command gives any error then please execute below commands which will replace windows line endings with linux line endings:***
+
 ```find . -name \*.sh -exec dos2unix {} \```
+
 and then execute the command ```./setupAllVMs.sh local use-cloud-image``` again to setup DevOps Suite
  
 
