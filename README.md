@@ -134,17 +134,22 @@ and then execute the command ```./setupAllVMs.sh local use-cloud-image``` again 
 ![alt text](https://github.com/MastekLtd/DevOps_Platform/blob/master/images/vagrant-status.jpg)
  
 10. Open following links for the services running on your virtual machines
+
 ***Organisation application:***
 ```http://192.168.29.110:11990/employee/employees```
+
 ***Open Monitoring Distribution with Check_MK:***
 ```http://192.168.51.105/monitoring```
+
 ***Jenkin & Sonar server:***
     ```
     http://192.168.51.104:8080/
     http://192.168.51.104:9080/sonar/
     ```
+    
     ***Postgres Database:***
     ```Host: 192.168.51.106 and Port 5432```
+    
     ***ELK:***
     ```
     http://192.168.51.102:9200/_plugin/bigdesk
