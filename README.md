@@ -100,12 +100,9 @@ OR
 ***Note: Install with package dos2unix, SSH.***
 2. Download Vagrant and install with default options
 ```https://releases.hashicorp.com/vagrant/1.7.4/vagrant_1.7.4.msi```
-
 3. Download latest Docker Tool Box and install with the default option 
 ```https://github.com/docker/toolbox/releases```
-
 4. Create directory ```<Drive:>\<Directory>\git``` e.g. ```C:\DevOps-Suite\git```
-
 5. Open git bash and go to location ```<Drive:>\<Directory>\git```
 Clone the repository ```https://github.com/MastekLtd/ DevOps_Platform.git``` using below commands
 6. Run the following commands
@@ -115,9 +112,7 @@ Clone the repository ```https://github.com/MastekLtd/ DevOps_Platform.git``` usi
     git checkout develop
     git pull
     ```
-
 7. Open Red Hat Cygwin Terminal and go to location ```<Drive:>\<Directory>\git \DevOps_Platform```
-
 8. Execute ***setupAllVMs.sh*** to setup DevOps Suite
 
 ```./setupAllVMs.sh local use-cloud-image```
@@ -127,12 +122,9 @@ Clone the repository ```https://github.com/MastekLtd/ DevOps_Platform.git``` usi
 ```find . -name \*.sh -exec dos2unix {} \```
 
 and then execute the command ```./setupAllVMs.sh local use-cloud-image``` again to setup DevOps Suite
- 
-
 9. Above script takes some time for execution. Once above execution completes, you can see below result on Redhat Cygwin console by executing the below command:
 ```vagrant global-status```
 ![alt text](https://github.com/MastekLtd/DevOps_Platform/blob/master/images/vagrant-status.jpg)
- 
 10. Open following links for the services running on your virtual machines
 
 ***Organisation application:***
