@@ -142,22 +142,22 @@ and then execute the command ```./setupAllVMs.sh local use-cloud-image``` again 
 ```http://192.168.51.105/monitoring```
 
 ***Jenkin & Sonar server:***
-    ```
-    http://192.168.51.104:8080/
-    http://192.168.51.104:9080/sonar/
-    ```
+```
+http://192.168.51.104:8080/
+http://192.168.51.104:9080/sonar/
+```
     
-    ***Postgres Database:***
-    ```Host: 192.168.51.106 and Port 5432```
-    
-    ***ELK:***
-    ```
-    http://192.168.51.102:9200/_plugin/bigdesk
-    http://192.168.51.102:9200/_plugin/head/
-    http://192.168.51.102:5601
-    ```
+***Postgres Database:***
+```Host: 192.168.51.106 and Port 5432```
+
+***ELK:***
+```
+http://192.168.51.102:9200/_plugin/bigdesk
+http://192.168.51.102:9200/_plugin/head/
+http://192.168.51.102:5601
+```
     
 ![alt text](https://github.com/MastekLtd/DevOps_Platform/blob/master/images/elk.jpg)
  
 Please select @timestamp from the highlighted dropdown menu and then click the Create button for first index creation on the basis of timestamp.
-Once the index is created, click the Discover link in the top navigation bar. By default, this will show you the entire log data which is pulled from different Microservices deployed on Docker containers.
+Once the index is created, click the ***Discover*** link in the top navigation bar. By default, this will show you the entire log data which is pulled from different Microservices deployed on Docker containers.
