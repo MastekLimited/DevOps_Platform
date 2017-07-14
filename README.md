@@ -89,3 +89,66 @@ The application exceptions can be wrapped into DefaultWrappedException or System
 This is a wrapper component developed around log4j implementation. The implementation consists of a LoggerFactory which produces DiagnosticLogger, PerformanceLogger and ErrorLogger objects. Instead of collating all the logs in a single log file, these log files will create diagnostic, performance and error log files respectively. This component can be plugged across all the Microservices. The log messages are resolved from the configuration file log-message-store.properties.
 
 The services and UI components are designed & developed in such a way that the replication for other entity types is very easy. Because of Microservices architecture each service would have @100-200 lines of code. Due to this, each service could be maintainable and would be less dependent on other entities.
+
+# Installation
+1. Download Cygwin
+32-bit Cygwin:
+```http://www.redhat.com/services/custom/cygwin/rhsetup-x86.exe```
+OR
+64-bit Cygwin:
+```http://www.redhat.com/services/custom/cygwin/rhsetup-x86_64.exe```
+***Note: Install with package dos2unix, SSH.***
+2. Download Vagrant and install with default options
+```https://releases.hashicorp.com/vagrant/1.7.4/vagrant_1.7.4.msi```
+
+3. Download latest Docker Tool Box and install with the default option 
+```https://github.com/docker/toolbox/releases```
+
+4. Create directory ```<Drive:>\<Directory>\git``` e.g. ```C:\DevOps-Suite\git```
+
+5. Open git bash and go to location ```<Drive:>\<Directory>\git```
+Clone the repository ```https://github.com/MastekLtd/ DevOps_Platform.git``` using below commands
+6. Run the following commands
+    ```
+    git clone https://github.com/MastekLtd/ DevOps_Platform.git
+    cd DevOps_Platform
+    git checkout develop
+    git pull
+    ```
+
+7. Open Red Hat Cygwin Terminal and go to location ```<Drive:>\<Directory>\git \DevOps_Platform```
+
+8. Execute ***setupAllVMs.sh*** to setup DevOps Suite
+```./setupAllVMs.sh local use-cloud-image```
+***Note: If the above command gives any error then please execute below commands which will replace windows line endings with linux line endings:***
+```find . -name \*.sh -exec dos2unix {} \```
+and then execute the command ```./setupAllVMs.sh local use-cloud-image``` again to setup DevOps Suite
+ 
+
+9. Above script takes some time for execution. Once above execution completes, you can see below result on Redhat Cygwin console by executing the below command:
+```vagrant global-status```
+![alt text](https://github.com/MastekLtd/DevOps_Platform/blob/master/images/vagrant-status.jpg)
+ 
+10. Open following links for the services running on your virtual machines
+***Organisation application:***
+```http://192.168.29.110:11990/employee/employees```
+***Open Monitoring Distribution with Check_MK:***
+```http://192.168.51.105/monitoring```
+***Jenkin & Sonar server:***
+    ```
+    http://192.168.51.104:8080/
+    http://192.168.51.104:9080/sonar/
+    ```
+    ***Postgres Database:***
+    ```Host: 192.168.51.106 and Port 5432```
+    ***ELK:***
+    ```
+    http://192.168.51.102:9200/_plugin/bigdesk
+    http://192.168.51.102:9200/_plugin/head/
+    http://192.168.51.102:5601
+    ```
+    
+![alt text](https://github.com/MastekLtd/DevOps_Platform/blob/master/images/elk.jpg)
+ 
+Please select @timestamp from the highlighted dropdown menu and then click the Create button for first index creation on the basis of timestamp.
+Once the index is created, click the Discover link in the top navigation bar. By default, this will show you the entire log data which is pulled from different Microservices deployed on Docker containers.
