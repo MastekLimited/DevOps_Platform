@@ -13,7 +13,7 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java_one_six_version>1.6</java_one_six_version>
 		<java_one_seven_version>1.7</java_one_seven_version>
-		<junit.version>4.11</junit.version>
+		<junit.version>4.13.1</junit.version>
 		<mockito.version>1.9.5</mockito.version>
 		<mockito.legacy.version>1.8.4</mockito.legacy.version>
 		<surefire.failsafe.version>2.18</surefire.failsafe.version>
